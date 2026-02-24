@@ -29,15 +29,30 @@ interface Props {
   username: string
 }
 
+const platform = import.meta.env.DEPLOYMENT_PLATFORM || 'vercel'
+const isGithubPages = platform === 'github'
+
 async function fetchData(username: string): Promise<GitHubActivityApiResponse> {
   const apiUrl = 'https://github-contributions-api.jogruber.de/v4/'
-  const response = await fetch(`${apiUrl}${username}?y=last`)
-  const data = (await response.json()) as GitHubActivityApiResponse
-  if (!response.ok) {
-    const message = (data as any).error || 'Unknown error'
-    throw Error(`Fetching GitHub contribution data for "${username}" failed: ${message}`)
+  try {
+    const response = await fetch(`${apiUrl}${username}?y=last`)
+    const data = (await response.json()) as GitHubActivityApiResponse
+    if (!response.ok) {
+      const message = (data as any).error || 'Unknown error'
+      throw Error(`Fetching GitHub contribution data for "${username}" failed: ${message}`)
+    }
+    return data
+  } catch (err) {
+    // GitHub Pages static builds (and some CI environments) can have flaky outbound network.
+    // Falling back to an empty calendar prevents the entire build from failing.
+    if (isGithubPages) {
+      return {
+        contributions: [],
+        total: { lastYear: 0 }
+      }
+    }
+    throw err
   }
-  return data
 }
 
 function fillHoles(activities: Array<GitHubActivityDay>): Array<GitHubActivityDay> {
@@ -99,7 +114,7 @@ const data = await fetchData(username)
 
 const activities = data.contributions
 const totalCount = data.total.lastYear
-const activityYear = getYear(parseISO(activities[0].date))
+const activityYear = activities.length ? getYear(parseISO(activities[0].date)) : getYear(new Date())
 
 const blockSize = 12
 const blockMargin = 4
@@ -107,10 +122,10 @@ const blockRadius = 2
 const fontSize = 14
 const labelMargin = 8
 const labelHeight = fontSize + labelMargin
-const weeks = groupByWeeks(activities)
-const width = weeks.length * (blockSize + blockMargin) - blockMargin
+const weeks = activities.length ? groupByWeeks(activities) : ([] as Array<Array<GitHubActivityDay>>)
+const width = Math.max(0, weeks.length * (blockSize + blockMargin) - blockMargin)
 const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin
-const monthLabels = getMonthLabels(weeks)
+const monthLabels = weeks.length ? getMonthLabels(weeks) : []
 ---
 
 <div class="overflow-x-auto w-full" style="max-width: 90vw;">
