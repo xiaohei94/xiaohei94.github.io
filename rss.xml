@@ -1,4 +1,116 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="/scripts/pretty-feed-v3.xsl" type="text/xsl"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:h="http://www.w3.org/TR/html4/"><channel><title>Xiaohei&apos;s Blog</title><description>红鼻子小黑</description><link>https://xiaohei94.github.io</link><item><title>博客上手指南</title><link>https://xiaohei94.github.io/blog/blog-deploy</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/blog-deploy</guid><description>一个比较详细的博客部署指南，写给我自己，也写给你。</description><pubDate>Wed, 11 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="/scripts/pretty-feed-v3.xsl" type="text/xsl"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:h="http://www.w3.org/TR/html4/"><channel><title>Xiaohei&apos;s Blog</title><description>红鼻子小黑</description><link>https://xiaohei94.github.io</link><item><title>GitHub Pages + Vercel 双仓部署指南</title><link>https://xiaohei94.github.io/blog/deploy-gitpage</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-gitpage</guid><description>GitHub Pages与Vercel双仓发布教程：源码私有、站点公开、Actions 自动推送</description><pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;如果说用 Vercel 部署个人博客是一种“随手即得”的快乐，那么使用 GitHub Pages 部署博客，更像是一种“更接近底层逻辑”的练习。它没有那么多平台帮你兜底的自动推断，也正因为如此，你会更清楚地理解：构建产物是什么、发布仓库是什么、为什么要区分源码和站点、为什么有些东西该提交、有些东西不该提交。&lt;/p&gt;
+&lt;p&gt;这篇文章记录的，就是我把博客做成“源码私有仓库 + 公开 Pages 发布仓库”的全过程。与上一篇一样这既是一个给我自己的记录，又是一个写给大家的操作教程。但这一切都有一些前提条件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;已经有一个本地能跑起来的博客项目；&lt;/li&gt;
+&lt;li&gt;希望源码仓库保持私有，但站点必须公开访问；&lt;/li&gt;
+&lt;li&gt;想把 GitHub Pages 和 Actions 这套流程真正打通；&lt;/li&gt;
+&lt;li&gt;不想每次手动复制 &lt;code&gt;dist/&lt;/code&gt;，而是希望 push 代码后自动发布。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Part 1：先理解这套方案到底在做什么&lt;/h2&gt;
+&lt;p&gt;如果你是第一次接触 GitHub Pages，很容易把“源码仓库”和“发布仓库”混在一起。实际上，在双仓部署方案里，它们扮演的是完全不同的角色。&lt;/p&gt;
+&lt;h3&gt;为什么要拆成两个仓库？&lt;/h3&gt;
+&lt;p&gt;简单来说，我们希望同时满足两个目标：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;源码尽量私有：因为博客源码里会包含主题配置、工作流、一些尚未发布的内容，甚至有时会带上实验中的功能。&lt;/li&gt;
+&lt;li&gt;站点必须公开：因为 GitHub Pages 最终是给别人访问的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果把所有东西都堆在一个仓库里，当然也不是不行，但你会在“源码是否公开”“发布产物是否提交”“Pages 从哪一个目录读取文件”这些问题上不断纠结。双仓方案的好处就是职责清晰：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;[用户名]/[仓库1]&lt;/code&gt;：私有源码仓库&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;[用户名]/[用户名].github.io&lt;/code&gt;：公开发布仓库&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;前者负责写代码、写文章、执行构建；后者只负责承载已经构建好的静态网页。&lt;/p&gt;
+&lt;h3&gt;这套流程的本质是什么？&lt;/h3&gt;
+&lt;p&gt;本质上，我们做的事情只有三步：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在私有的源码仓库里执行静态构建，得到 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;通过 GitHub Actions 把 &lt;code&gt;dist/&lt;/code&gt; 推送到公开仓库根目录&lt;/li&gt;
+&lt;li&gt;让 GitHub Pages 从公开仓库的 &lt;code&gt;main / (root)&lt;/code&gt; 发布网站&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Part 2：开始之前，我们应该已经有什么&lt;/h2&gt;
+&lt;p&gt;在往下操作之前，最好先确认下面这些前提已经满足。&lt;/p&gt;
+&lt;h3&gt;准备好仓库&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;私有源码仓库：&lt;code&gt;[用户名]/[仓库1]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;公共发布仓库：&lt;code&gt;[用户名]/[用户名].github.io&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中第二个仓库必须是 public。这点很重要，因为用户站点型的 GitHub Pages 最终要稳定公开访问，而公开仓库在这方面是最省心的。&lt;/p&gt;
+&lt;h3&gt;准备好本地项目&lt;/h3&gt;
+&lt;p&gt;你的博客项目至少要满足：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;本地 &lt;code&gt;pnpm build&lt;/code&gt; 能成功；&lt;/li&gt;
+&lt;li&gt;项目已经支持 GitHub Pages 模式构建；&lt;/li&gt;
+&lt;li&gt;构建产物输出到 &lt;code&gt;dist/&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;你知道源码仓库和发布仓库分别是谁。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果这些还没完成，那建议先根据我的&lt;a href=&quot;https://xiaohei94.github.io/blog/blog-deploy/&quot;&gt;博客上手指南&lt;/a&gt;将本地构建打通，然后再继续下面的自动发布。因为 Actions 本质上也只是把本地的那套流程搬到了云端执行一遍。&lt;/p&gt;
+&lt;h2&gt;Part 3：生成 Deploy Key&lt;/h2&gt;
+&lt;p&gt;这一步十分的关键，也是整个双仓发布里最容易让人卡住的点，但原理其实并不复杂。&lt;/p&gt;
+&lt;p&gt;我们需要一把“钥匙”，让私有源码仓库里的 CI 可以合法地向公开发布仓库 push 内容。这把钥匙就是 SSH Deploy Key。听起来很复杂，但是不要怕，让我step by step的教你。&lt;/p&gt;
+&lt;h3&gt;在本地生成密钥对&lt;/h3&gt;
+&lt;p&gt;在你本地任意目录执行：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;ssh-keygen -t ed25519 -C &quot;pages-deploy&quot; -f pages_deploy_key -N &quot;&quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;执行完成后会生成两个文件：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;pages_deploy_key&lt;/code&gt;：私钥，绝对不能泄露&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pages_deploy_key.pub&lt;/code&gt;：公钥，可以交给 GitHub 仓库配置&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;把公钥和私钥分别放到正确的位置&lt;/h3&gt;
+&lt;p&gt;这一步最容易搞错的，不是操作本身，而是“到底哪个钥匙要放在哪个仓库里”。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;公钥放到公开发布仓库（允许写入）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;打开：&lt;code&gt;Settings&lt;/code&gt; to &lt;code&gt;Deploy keys&lt;/code&gt; to &lt;code&gt;Add deploy key&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;然后填写：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Title&lt;/code&gt;：随意，例如 &lt;code&gt;deploy-from-Others&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Key&lt;/code&gt;：粘贴 &lt;code&gt;pages_deploy_key.pub&lt;/code&gt; 的全部内容&lt;/li&gt;
+&lt;li&gt;勾选 &lt;code&gt;Allow write access&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这一步的意义非常明确：允许 CI 用这把 key 向公开仓库推送构建产物。
+&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;私钥放到私有源码仓库的 Actions Secret&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;打开：&lt;code&gt;Settings&lt;/code&gt; to &lt;code&gt;Secrets and variables&lt;/code&gt; to &lt;code&gt;Actions&lt;/code&gt; to &lt;code&gt;New repository secret&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;填写：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Name&lt;/code&gt;：&lt;code&gt;PAGES_DEPLOY_KEY&lt;/code&gt;（名称必须是这个）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Value&lt;/code&gt;：粘贴 &lt;code&gt;pages_deploy_key&lt;/code&gt; 私钥全文（包含 BEGIN / END）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Part 4：启用 GitHub Pages&lt;/h2&gt;
+&lt;p&gt;到了这一步，发布仓库其实已经具备“被推送内容”的能力了。接下来要做的是告诉 GitHub Pages：你应该从哪里读取这些静态文件。&lt;/p&gt;
+&lt;p&gt;进入仓库：&lt;code&gt;[用户名]/[用户名].github.io&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;打开：&lt;code&gt;Settings&lt;/code&gt; to &lt;code&gt;Pages&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;然后设置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;Source&lt;/code&gt;：&lt;code&gt;Deploy from a branch&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Branch&lt;/code&gt;：&lt;code&gt;main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Folder&lt;/code&gt;：&lt;code&gt;/ (root)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;保存之后，正常情况下 Pages 的地址会是：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;https://[用户名].github.io/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Part 5：源码仓库里的自动发布&lt;/h2&gt;
+&lt;p&gt;你当前的源码仓库里，实际上已经具备这套自动发布流程了。也就是说 workflow 不是从零开始设计的，而是已经被改造成下面这条链路：&lt;/p&gt;
+&lt;h3&gt;自动发布链路&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;你在私有源码仓库提交并 push&lt;/li&gt;
+&lt;li&gt;GitHub Actions 被触发&lt;/li&gt;
+&lt;li&gt;Actions 以 &lt;code&gt;DEPLOYMENT_PLATFORM=github&lt;/code&gt; 进行静态构建&lt;/li&gt;
+&lt;li&gt;构建产物输出到 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;workflow 使用 Deploy Key 把 &lt;code&gt;dist/&lt;/code&gt; 推送到 &lt;code&gt;[用户名]/[用户名].github.io&lt;/code&gt; 的 &lt;code&gt;main&lt;/code&gt; 分支根目录&lt;/li&gt;
+&lt;li&gt;GitHub Pages 从根目录读取静态文件并刷新站点&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;至此，就实现了 GitHub Pages + Vercel 双平台的个人博客部署，你可以根据他们的网站分别尝试进行打开，就好好欣赏你的劳动成果吧，我相信它会让你感到有趣并有成就感的！当然，接下来对博客的内容的构建与界面的搭建就要靠你自己辛勤耕耘了，坚持把它打造成有你自己风格的一块天地吧！&lt;/p&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;当你真的把这套流程走通之后，会发现 GitHub Pages 并没有想象中那样复杂。它真正复杂的地方，不在于某一条命令，而在于第一次建立完整心智模型的时候：谁负责构建、谁负责发布、谁负责公开访问、谁握着写权限。&lt;/p&gt;
+&lt;p&gt;一旦这个模型搭起来，后面的事情反而会变得非常顺手，你只需要像平常一样写文章、改配置、提交代码，剩下的构建与发布都交给 Actions 自动完成。&lt;/p&gt;
+&lt;p&gt;更重要的是，这套双仓方案并不只适用于博客。任何走静态构建路线的网站——产品主页、作品集、文档站、个人简历——其实都可以复用这一套思路。&lt;/p&gt;
+&lt;p&gt;把源码留给自己，把成果交给世界。这就是这套发布方式最让我喜欢的地方。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CCDHr-wM.jpg"/><enclosure url="/_astro/heroimage.CCDHr-wM.jpg"/></item><item><title>博客上手指南</title><link>https://xiaohei94.github.io/blog/blog-deploy</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/blog-deploy</guid><description>一个比较详细的博客部署指南，写给我自己，也写给你。</description><pubDate>Wed, 11 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;在这个数字时代，我们习惯于在社交媒体上分享生活，在简历上罗列技能。但这些平台终究是别人的空间，充满了格式化的限制和信息的喧嚣。你是否想过，拥有一个完全由你掌控的、独特的线上空间？&lt;/p&gt;
@@ -139,57 +251,7 @@ git push -u origin main
 &lt;p&gt;同时，你会发现，这个流程的核心是“关注内容，而非工具”。你未来的大部分时间，都将花在写文章、更新作品这些创造性的工作上，而不是和服务器配置作斗争。&lt;/p&gt;
 &lt;p&gt;更重要的是，今天你所学的这套流程是高度可扩展的。它不仅仅适用于个人博客，任何拥有类似构建方式的静态网站模板——无论是产品展示页、在线简历还是文档网站——都可以用完全相同的方法进行部署。&lt;/p&gt;
 &lt;p&gt;从这里开始。尽情创造吧！&lt;/p&gt;
-&lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.Blg0txlR.jpg"/><enclosure url="/_astro/heroimage.Blg0txlR.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
-&lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
-pnpm dev
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 目录结构（最常用）&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt;：主题配置入口（站点信息、导航、集成配置等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;：中文文章&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index-en.mdx&lt;/code&gt;：英文文章（可选，没有则英文列表会回退到中文）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;public/&lt;/code&gt;：静态资源（&lt;code&gt;/images/*&lt;/code&gt;、&lt;code&gt;/avatar/*&lt;/code&gt; 等）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;3. 配置站点信息（&lt;code&gt;src/site.config.ts&lt;/code&gt;）&lt;/h2&gt;
-&lt;p&gt;常改字段：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.title&lt;/code&gt; / &lt;code&gt;theme.description&lt;/code&gt;：站点标题/描述&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.main&lt;/code&gt;：主域名（用于生成绝对链接、RSS 等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.header.menu&lt;/code&gt;：导航菜单&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.pagefind&lt;/code&gt;：站内搜索（Pagefind）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline&lt;/code&gt;：评论系统（见 Waline 文档）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;4. 写一篇文章（中英双语）&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;新建文件夹：&lt;code&gt;src/content/blogs/my-first-post/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写中文：&lt;code&gt;src/content/blogs/my-first-post/index.mdx&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写英文：&lt;code&gt;src/content/blogs/my-first-post/index-en.mdx&lt;/code&gt;（可选）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;最小 Frontmatter（两种语言都要有）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;---
-title: My Title
-publishDate: 2026-01-11
-description: Short summary.
-tags: [&apos;docs&apos;]
----
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;5. 构建与产物&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm build
-pnpm preview
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;构建产物默认在 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;astro.config.mjs&lt;/code&gt; 会根据 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 选择适配器与输出模式（详见部署文档）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;6. 部署推荐（GitHub + Vercel）&lt;/h2&gt;
-&lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;部署思路与注意事项：&lt;a href=&quot;https://axi404.top/blog/website-vercel&quot;&gt;Website on Vercel&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/deploy-gitpage</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-gitpage</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CvRCrjxw.jpg"/><enclosure url="/_astro/heroimage.CvRCrjxw.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
 &lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
@@ -273,7 +335,23 @@ pnpm build
 &lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
+import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
+&lt;h2&gt;2. User 组件示例&lt;/h2&gt;
+&lt;h2&gt;3. Advanced 组件示例&lt;/h2&gt;
+&lt;h3&gt;GitHub 卡片&lt;/h3&gt;
+&lt;h3&gt;链接预览&lt;/h3&gt;
+&lt;h3&gt;二维码&lt;/h3&gt;
+&lt;h3&gt;图片组（等高拼图）&lt;/h3&gt;
+&lt;p&gt;&amp;#x3C;ImageGroup
+images={[
+{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image A&apos;, aspectRatio: 16 / 9 },
+{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
+]}
+/&gt;&lt;/p&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
 &lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
 &lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
 &lt;ul&gt;
@@ -297,23 +375,7 @@ pnpm build
 &lt;/ul&gt;
 &lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
 &lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
-import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
-&lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
-&lt;h2&gt;2. User 组件示例&lt;/h2&gt;
-&lt;h2&gt;3. Advanced 组件示例&lt;/h2&gt;
-&lt;h3&gt;GitHub 卡片&lt;/h3&gt;
-&lt;h3&gt;链接预览&lt;/h3&gt;
-&lt;h3&gt;二维码&lt;/h3&gt;
-&lt;h3&gt;图片组（等高拼图）&lt;/h3&gt;
-&lt;p&gt;&amp;#x3C;ImageGroup
-images={[
-{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image A&apos;, aspectRatio: 16 / 9 },
-{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
-]}
-/&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
 &lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;https://axi404.top/blog/waline-install&quot;&gt;Waline Comments: Deploy &amp;#x26; Integrate&lt;/a&gt;&lt;/li&gt;
