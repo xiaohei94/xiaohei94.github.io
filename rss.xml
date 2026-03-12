@@ -7,7 +7,7 @@
 &lt;p&gt;就像上学时学习新课程一样，在实际动手解题之前，我们都需要了解一下其中的概念和其背后的逻辑，正所谓基础不牢，地动山摇。那么在动手之前，我们先花几分钟了解一些核心概念，这会让你在后续操作中更加得心应手。&lt;/p&gt;
 &lt;h3&gt;什么是静态网站？&lt;/h3&gt;
 &lt;p&gt;你可能听过前端、后端、数据库这些词。简单来说，后端和数据库负责处理动态的、需要实时交互的数据（比如用户登录、评论提交）。而很多个人主页和博客的核心内容——文章、图片、个人介绍——并不会频繁变动。&lt;/p&gt;
-&lt;p&gt;**静态网站（Static Website）&lt;strong&gt;的核心思想就是，把这些内容提前生成为标准的 ** HTML、CSS 和 JavaScript&lt;/strong&gt; 文件。当用户访问时，服务器直接把这些现成的文件发送给用户的浏览器，无需任何服务器端的动态计算。&lt;/p&gt;
+&lt;p&gt;静态网站（Static Website）的核心思想就是，把这些内容提前生成为标准的 HTML、CSS 和 JavaScript 文件。当用户访问时，服务器直接把这些现成的文件发送给用户的浏览器，无需任何服务器端的动态计算。&lt;/p&gt;
 &lt;h3&gt;为什么选择静态网站搭建个人主页？&lt;/h3&gt;
 &lt;p&gt;又一个新的问题，当然答案我也不太懂，就听听AI大人怎么说吧。对于个人项目，静态网站是近乎完美的选择，因为它：&lt;/p&gt;
 &lt;ul&gt;
@@ -25,7 +25,7 @@
 &lt;p&gt;跟上脚步，顺着这些步骤，你可以搭建一个自己的网页，在本地进行编辑并且可以上传到云上，自动部署，同时绑定自己的域名（或者使用服务商提供的免费的域名）。&lt;/p&gt;
 &lt;p&gt;对于完全的萌新来说，下面的步骤可能因为涉及了你没有接触的知识而显得有些晦涩。不用担心，先不要理解，而是跟着步骤走，先搭建起来，等到步骤三之后，你已经可以获得一个可以访问的网站了，收获一些正反馈，再沉下心继续走。&lt;/p&gt;
 &lt;h3&gt;步骤一：准备本地开发环境 (Node.js)&lt;/h3&gt;
-&lt;p&gt;要运行现代前端模板，在的电脑需要一个叫做&lt;strong&gt;Node.js&lt;/strong&gt;的环境，它是整个JavaScript工具链的基础。虽然其实在本地直接写文本并且上传也不失为一种办法，但是假如想要实时获得你修改后的内容的反馈，还是需要一个本地环境。&lt;/p&gt;
+&lt;p&gt;要运行现代前端模板，在的电脑需要一个叫做 &lt;strong&gt;Node.js&lt;/strong&gt; 的环境，它是整个 JavaScript 工具链的基础。虽然其实在本地直接写文本并且上传也不失为一种办法，但是假如想要实时获得你修改后的内容的反馈，还是需要一个本地环境。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;安装 Node.js&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -33,25 +33,20 @@
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;Ubuntu&lt;/strong&gt;：&lt;/li&gt;
 &lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;    sudo apt update
-    sudo apt install -y nodejs npm
-    # 推荐使用 n 来管理 Node.js 版本，可以轻松切换到最新稳定版
-    sudo npm install -g n
-    sudo n stable
-    hash -r # 刷新 shell 缓存，让新版本生效
-    ```
-&amp;#x3C;/StepIndent&gt;
-
-2. **验证安装并安装pnpm**
-
-&amp;#x3C;StepIndent&gt;
-打开你的终端（Windows 用户可以使用 PowerShell 或 CMD），输入以下命令检查是否安装成功：
-
-```shell
-node -v
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt update
+sudo apt install -y nodejs npm
+# 推荐使用 n 来管理 Node.js 版本，可以轻松切换到最新稳定版
+sudo npm install -g n
+sudo n stable
+hash -r # 刷新 shell 缓存，让新版本生效
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;&lt;strong&gt;验证安装并安装pnpm&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;node -v
 npm -v
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;如果能看到版本号，说明 Node.js 和它的包管理器&lt;code&gt;npm&lt;/code&gt;已经就绪。我们推荐使用一个更现代、更快速的包管理器&lt;code&gt;pnpm&lt;/code&gt;。同时，对于一些框架，也推荐使用&lt;code&gt;bun&lt;/code&gt;来安装依赖。&lt;/p&gt;
+&lt;p&gt;如果能看到版本号，说明 Node.js 和它的包管理器 &lt;code&gt;npm&lt;/code&gt; 已经就绪。我们推荐使用一个更现代、更快速的包管理器 &lt;code&gt;pnpm&lt;/code&gt; 。同时，对于一些框架，也推荐使用 &lt;code&gt;bun&lt;/code&gt; 来安装依赖。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;npm install -g pnpm
 npm install -g bun
 &lt;/code&gt;&lt;/pre&gt;
@@ -64,19 +59,15 @@ npm install -g bun
 &lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;进入项目目录&lt;/strong&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;    cd path/to/your/project
-    ```
-&amp;#x3C;/StepIndent&gt;
-
-2. **安装依赖（`install`）**
-
-&amp;#x3C;StepIndent&gt;
-每个项目都依赖一些第三方库来工作。项目根目录下的`package.json`文件定义了所有必需的依赖。这个过程和Python用户熟悉的`pip install -r requirements.txt`完全一样。
-
-- 如果项目推荐使用`pnpm`(根目录有`pnpm-lock.yaml`文件)，执行：
-
-```bash
-pnpm install
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd path/to/your/project
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;&lt;strong&gt;安装依赖（&lt;code&gt;install&lt;/code&gt;）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;如果项目推荐使用&lt;code&gt;pnpm&lt;/code&gt;(根目录有&lt;code&gt;pnpm-lock.yaml&lt;/code&gt;文件)，执行：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ul&gt;
 &lt;li&gt;如果项目推荐使用&lt;code&gt;bun&lt;/code&gt;(根目录有&lt;code&gt;bun.lockb&lt;/code&gt;文件)，执行：&lt;/li&gt;
@@ -99,8 +90,8 @@ pnpm install
 &lt;h3&gt;步骤四：个性化你的内容&lt;/h3&gt;
 &lt;p&gt;本地网站跑起来了，现在是把它变成你自己的东西的时候了。作为模板使用者，你的工作非常简单，主要集中在两点：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;修改配置文件&lt;/strong&gt;：在项目根目录找到&lt;code&gt;astro.config.mjs&lt;/code&gt;,&lt;code&gt;_config.yml&lt;/code&gt;或类似名字的配置文件。打开它，把里面的网站标题、作者名、社交链接等改成你自己的信息。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;管理内容文件&lt;/strong&gt;：对于博客，通常会有一个&lt;code&gt;src/content/blog/&lt;/code&gt;或&lt;code&gt;posts/&lt;/code&gt;目录。你只需要在这个目录里添加、修改或删除 Markdown (&lt;code&gt;.md&lt;/code&gt;或&lt;code&gt;.mdx&lt;/code&gt;) 文件，网站的文章列表和页面就会自动更新。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;修改配置文件&lt;/strong&gt;：在项目根目录找到 &lt;code&gt;astro.config.mjs&lt;/code&gt; , &lt;code&gt;_config.yml&lt;/code&gt; 或类似名字的配置文件。打开它，把里面的网站标题、作者名、社交链接等改成你自己的信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;管理内容文件&lt;/strong&gt;：对于博客，通常会有一个 &lt;code&gt;src/content/blog/&lt;/code&gt; 或 &lt;code&gt;posts/&lt;/code&gt; 目录。你只需要在这个目录里添加、修改或删除 Markdown (&lt;code&gt;.md&lt;/code&gt;或&lt;code&gt;.mdx&lt;/code&gt;) 文件，网站的文章列表和页面就会自动更新。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3&gt;步骤五：将你的成果推送到 GitHub&lt;/h3&gt;
 &lt;p&gt;在本地进行个性化修改满意后，我们需要把代码上传到 GitHub。这不仅是备份的好习惯，更是我们实现自动化部署的关键一步。&lt;/p&gt;
@@ -136,16 +127,16 @@ git push -u origin main
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/vercel3.-pqDdZqj_17TAQ4.webp&quot; alt=&quot;vercel导入2&quot;&gt;
 &lt;/p&gt;
 &lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;**部署！**Vercel 会自动识别你的项目是什么框架（Astro, Next.js, etc.），并帮你填好所有构建设置。你什么都不用改，直接点击&lt;code&gt;Deploy&lt;/code&gt;按钮。&lt;/li&gt;
+&lt;li&gt;部署！ Vercel 会自动识别你的项目是什么框架（Astro, Next.js, etc.），并帮你填好所有构建设置。你什么都不用改，直接点击&lt;code&gt;Deploy&lt;/code&gt;按钮。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/vercel4.DEE20cd5_Z2drbk.webp&quot; alt=&quot;vercel部署&quot;&gt;&lt;/p&gt;
-&lt;p&gt;稍等片刻，Vercel 就会完成构建和部署。当看到庆祝的动画时，你的网站就已经上线了！Vercel 会提供一个&lt;code&gt;.vercel.app&lt;/code&gt;结尾的免费域名供你访问。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/vercel5.d8LT06hq_2sYl71.webp&quot; alt=&quot;vercel展示&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这个时候你已经可以把这个链接分享给你的朋友了。当然，你也可以选择绑定自己的域名，之后在 Vercel 的设置中进行配置。&lt;/p&gt;
+&lt;p&gt;这个时候你已经可以把这个链接分享给你的朋友了。当然，你也可以选择绑定自己的域名，之后在 Vercel 的设置中进行配置。
+&lt;/p&gt;
 &lt;p&gt;从此以后，你只需要在本地修改代码，然后&lt;code&gt;git push&lt;/code&gt;到 GitHub，Vercel 就会自动拉取最新代码，重新构建和部署你的网站。完全自动化！&lt;/p&gt;
 &lt;h2&gt;小结&lt;/h2&gt;
 &lt;p&gt;恭喜你！从一个想法开始，到现在拥有一个简单部署的个人网站，你已经走完了现代 Web 开发最主流、最高效的一条路径。当然，你使用体验之后就会感觉到，这里并不是终点，如果想让我们的个人站功能更加的全面我们还有一些路要走，如果你想继续深入的进行探索，跟上我的脚步，我们继续！&lt;/p&gt;
-&lt;p&gt;同时，你会发现，这个流程的核心是**“关注内容，而非工具”**。你未来的大部分时间，都将花在写文章、更新作品这些创造性的工作上，而不是和服务器配置作斗争。&lt;/p&gt;
+&lt;p&gt;同时，你会发现，这个流程的核心是“关注内容，而非工具”。你未来的大部分时间，都将花在写文章、更新作品这些创造性的工作上，而不是和服务器配置作斗争。&lt;/p&gt;
 &lt;p&gt;更重要的是，今天你所学的这套流程是高度可扩展的。它不仅仅适用于个人博客，任何拥有类似构建方式的静态网站模板——无论是产品展示页、在线简历还是文档网站——都可以用完全相同的方法进行部署。&lt;/p&gt;
 &lt;p&gt;从这里开始。尽情创造吧！&lt;/p&gt;
 &lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.Blg0txlR.jpg"/><enclosure url="/_astro/heroimage.Blg0txlR.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
