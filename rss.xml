@@ -6,22 +6,14 @@
 &lt;p&gt;就像上学时学习新课程一样，在实际动手解题之前，我们都需要了解一下其中的概念和其背后的逻辑，正所谓基础不牢，地动山摇。那么在动手之前，我们先花几分钟了解一些核心概念，这会让你在后续操作中更加得心应手。&lt;/p&gt;
 &lt;h3&gt;什么是静态网站？&lt;/h3&gt;
 &lt;p&gt;你可能听过前端、后端、数据库这些词。简单来说，后端和数据库负责处理动态的、需要实时交互的数据（比如用户登录、评论提交）。而很多个人主页和博客的核心内容——文章、图片、个人介绍——并不会频繁变动。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;静态网站（Static Website）&lt;strong&gt;的核心思想就是，把这些内容提前生成为标准的&lt;/strong&gt; HTML、CSS 和 JavaScript&lt;/strong&gt; 文件。当用户访问时，服务器直接把这些现成的文件发送给用户的浏览器，无需任何服务器端的动态计算。&lt;/p&gt;
+&lt;p&gt;**静态网站（Static Website）&lt;strong&gt;的核心思想就是，把这些内容提前生成为标准的 ** HTML、CSS 和 JavaScript&lt;/strong&gt; 文件。当用户访问时，服务器直接把这些现成的文件发送给用户的浏览器，无需任何服务器端的动态计算。&lt;/p&gt;
 &lt;h3&gt;为什么选择静态网站搭建个人主页？&lt;/h3&gt;
 &lt;p&gt;又一个新的问题，当然答案我也不太懂，就听听AI大人怎么说吧。对于个人项目，静态网站是近乎完美的选择，因为它：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;极致的速度&lt;/strong&gt;：用户直接下载成品文件，没有服务器处理和数据库查询的等待，加载速度飞快。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;更高的安全性&lt;/strong&gt;：没有后端和数据库，大大减少了被攻击的风险。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;极低的成本&lt;/strong&gt;：静态文件托管的费用非常低，甚至有大量优秀的平台提供免费托管服务（比如我们后面要用的 Vercel）。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;简单的部署&lt;/strong&gt;：你只需要把生成好的文件上传到任何一个能放文件的地方，网站就能访问了。&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;极致的速度&lt;/strong&gt;：用户直接下载成品文件，没有服务器处理和数据库查询的等待，加载速度飞快。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更高的安全性&lt;/strong&gt;：没有后端和数据库，大大减少了被攻击的风险。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;极低的成本&lt;/strong&gt;：静态文件托管的费用非常低，甚至有大量优秀的平台提供免费托管服务（比如我们后面要用的 Vercel）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;简单的部署&lt;/strong&gt;：你只需要把生成好的文件上传到任何一个能放文件的地方，网站就能访问了。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;常见的诸如 Github Pages 或者 Vercel 等平台，都是支持部署静态网页的，因此我们只需要将网页的构建产物上传到这些平台，就可以实现网页的部署。&lt;/p&gt;
 &lt;h3&gt;拥抱现代前端框架&lt;/h3&gt;
@@ -34,8 +26,8 @@
 &lt;h3&gt;步骤一：准备本地开发环境 (Node.js)&lt;/h3&gt;
 &lt;p&gt;要运行现代前端模板，在的电脑需要一个叫做&lt;strong&gt;Node.js&lt;/strong&gt;的环境，它是整个JavaScript工具链的基础。虽然其实在本地直接写文本并且上传也不失为一种办法，但是假如想要实时获得你修改后的内容的反馈，还是需要一个本地环境。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;安装 Node.js&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装 Node.js&lt;/strong&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;windows&lt;/strong&gt;：前往&lt;a href=&quot;https://nodejs.org/zh-cn/download&quot;&gt;Node.js官网&lt;/a&gt;，下载预构建的&lt;code&gt;.msi&lt;/code&gt;安装程序，像安装普通软件一样双击运行并完成安装即可。&lt;/li&gt;
 &lt;/ul&gt;
@@ -50,9 +42,9 @@ sudo npm install -g n
 sudo n stable
 hash -r # 刷新 shell 缓存，让新版本生效
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;&lt;strong&gt;验证安装并安装pnpm&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;验证安装并安装pnpm&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;打开你的终端（Windows 用户可以使用 PowerShell 或 CMD），输入以下命令检查是否安装成功：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;node -v
 npm -v
@@ -61,6 +53,8 @@ npm -v
 &lt;pre&gt;&lt;code class=&quot;language-shell&quot;&gt;npm install -g pnpm
 npm install -g bun
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h3&gt;步骤二：选择并下载一个模板&lt;/h3&gt;
 &lt;p&gt;我们不需要从零开始设计。网上有海量的优秀开源模板。你可以从这些博客&lt;a href=&quot;https://astro.js.cn/themes/&quot;&gt;主题网站&lt;/a&gt;中挑选一个你喜欢的，或者在 GitHub 上搜索“astro theme”, “vue portfolio”等关键词。&lt;/p&gt;
 &lt;p&gt;找到喜欢的模板之后可以直接 Fork 到你的 Github 账号中，之后在本地克隆到你的电脑上并且进行编辑。（关于 Git 的教程以及 Github 的教程将来会单独写 Blog，暂时本博客面向有 Git 以及 Github 基础的读者）。&lt;/p&gt;
@@ -68,14 +62,14 @@ npm install -g bun
 &lt;h3&gt;步骤三：在本地运行你的网站&lt;/h3&gt;
 &lt;p&gt;在上一步，将blog的源程序clone到我们自己的电脑之后，你的网站代码就已经在你的电脑里了。接下来我们就用几个简单的命令让它动起来。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;进入项目目录&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;进入项目目录&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;我们最好使用VScode编译器来打开整个项目文件（这个软件起码要会用哦～）。首先在终端里，我们进入刚刚下载的模板文件夹，若不在模板的文件夹，我们先&lt;code&gt;cd&lt;/code&gt;进入。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd path/to/your/project
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;&lt;strong&gt;安装依赖（&lt;code&gt;install&lt;/code&gt;）&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;安装依赖（&lt;code&gt;install&lt;/code&gt;）&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;每个项目都依赖一些第三方库来工作。项目根目录下的&lt;code&gt;package.json&lt;/code&gt;文件定义了所有必需的依赖。这个过程和Python用户熟悉的&lt;code&gt;pip install -r requirements.txt&lt;/code&gt;完全一样。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;如果项目推荐使用&lt;code&gt;pnpm&lt;/code&gt;(根目录有&lt;code&gt;pnpm-lock.yaml&lt;/code&gt;文件)，执行：&lt;/li&gt;
@@ -93,23 +87,21 @@ npm install -g bun
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;npm install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;这个命令会自动下载所有依赖项到&lt;code&gt;node_modules&lt;/code&gt;文件夹中,如果clone下来的项目中已有&lt;code&gt;node_modules&lt;/code&gt;文件夹，那么最好先删除了这个文件夹,再执行上面的命令。&lt;/p&gt;
-&lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;&lt;strong&gt;启动开发服务器（&lt;code&gt;dev&lt;/code&gt;）&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;启动开发服务器（&lt;code&gt;dev&lt;/code&gt;）&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;依赖安装好后，执行以下命令：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm dev  # 或者 npm run dev, bun dev（取决于上面你执行的install命令是哪一个）
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;执行命令之后，终端会显示一个本地网址，通常是 http://localhost:4321 或类似的地址。可以将他复制下来并在浏览器中打开它，恭喜你，你的网站已经在本地成功运行了！&lt;/p&gt;
-&lt;p&gt;更棒的是，它支持&lt;code&gt;热更新（HMR）&lt;/code&gt;。现在你修改任何源文件（比如一篇文章），浏览器里的页面都会自动刷新，并实时展示你的改动。&lt;/p&gt;
+&lt;p&gt;执行命令之后，终端会显示一个本地网址，通常是&lt;code&gt;http://localhost:4321&lt;/code&gt;或类似的地址。可以将他复制下来并在浏览器中打开它，恭喜你，你的网站已经在本地成功运行了！&lt;/p&gt;
+&lt;p&gt;更棒的是，它支持&lt;strong&gt;热更新（HMR）&lt;/strong&gt;。现在你修改任何源文件（比如一篇文章），浏览器里的页面都会自动刷新，并实时展示你的改动。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
 &lt;h3&gt;步骤四：个性化你的内容&lt;/h3&gt;
 &lt;p&gt;本地网站跑起来了，现在是把它变成你自己的东西的时候了。作为模板使用者，你的工作非常简单，主要集中在两点：&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;修改配置文件&lt;/strong&gt;：在项目根目录找到&lt;code&gt;astro.config.mjs&lt;/code&gt;,&lt;code&gt;_config.yml&lt;/code&gt;或类似名字的配置文件。打开它，把里面的网站标题、作者名、社交链接等改成你自己的信息。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;管理内容文件&lt;/strong&gt;：对于博客，通常会有一个&lt;code&gt;src/content/blog/&lt;/code&gt;或&lt;code&gt;posts/&lt;/code&gt;目录。你只需要在这个目录里添加、修改或删除 Markdown (&lt;code&gt;.md&lt;/code&gt;或&lt;code&gt;.mdx&lt;/code&gt;) 文件，网站的文章列表和页面就会自动更新。&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;修改配置文件&lt;/strong&gt;：在项目根目录找到&lt;code&gt;astro.config.mjs&lt;/code&gt;,&lt;code&gt;_config.yml&lt;/code&gt;或类似名字的配置文件。打开它，把里面的网站标题、作者名、社交链接等改成你自己的信息。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;管理内容文件&lt;/strong&gt;：对于博客，通常会有一个&lt;code&gt;src/content/blog/&lt;/code&gt;或&lt;code&gt;posts/&lt;/code&gt;目录。你只需要在这个目录里添加、修改或删除 Markdown (&lt;code&gt;.md&lt;/code&gt;或&lt;code&gt;.mdx&lt;/code&gt;) 文件，网站的文章列表和页面就会自动更新。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3&gt;步骤五：将你的成果推送到 GitHub&lt;/h3&gt;
 &lt;p&gt;在本地进行个性化修改满意后，我们需要把代码上传到 GitHub。这不仅是备份的好习惯，更是我们实现自动化部署的关键一步。&lt;/p&gt;
@@ -119,39 +111,49 @@ npm install -g bun
 &lt;/ol&gt;
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/githubku.Cuzf-sDW_ZOOKbR.webp&quot; alt=&quot;github建库&quot;&gt;&lt;/p&gt;
 &lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;根据 GitHub 页面的提示，在你本地的项目文件夹中，通过终端执行以下命令，将代码推送到你的新仓库：&lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;
+&lt;p&gt;根据 GitHub 页面的提示，在你本地的项目文件夹中，通过终端执行以下命令，将代码推送到你的新仓库：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git init -b main
 git add .
 git commit -m &quot;Initial commit: My personal website setup&quot;
 git remote add origin [你的仓库HTTPS或SSH地址]
 git push -u origin main
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;假如说本来就是从自己的仓库中克隆的，则可以直接执行&lt;code&gt;git push&lt;/code&gt;将代码推送到远程仓库。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;假如说本来就是从自己的仓库中克隆的，则可以直接执行 &lt;code&gt;git push&lt;/code&gt; 将代码推送到远程仓库。&lt;/p&gt;
 &lt;h3&gt;步骤六：使用 Vercel 一键部署&lt;/h3&gt;
 &lt;p&gt;代码已上传到 GitHub上了，接下来是最激动人心的一步：让全世界都能访问你的网站。我们将使用 Vercel 这个强大的免费平台。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;我们暂时先不介绍GitHub Pages的配置方法&lt;/strong&gt;，我们先讲Vercel的配置方法，让我们的体系更完整呢。还有一个原因是GitHub Pages虽然免费，但它需要你手动配置构建流程（GitHub Actions），且自定义域名等操作较为繁琐。而Vercel 真正做到了“零配置”自动化部署。（不过后续我也会介绍到的，实现GitHub Pages与Vercel的双平台部署）&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;用 GitHub 登录 Vercel&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;用 GitHub 登录 Vercel&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;前往&lt;a href=&quot;https://vercel.com&quot;&gt;Vercel&lt;/a&gt;，点击右上角的“Login”，选择使用 GitHub 账号授权登录。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/vercel1.webp&quot; alt=&quot;vercel登陆&quot;&gt;&lt;/p&gt;
-&lt;ol start=&quot;2&quot;&gt;
-&lt;li&gt;&lt;strong&gt;导入我们的项目&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;导入我们的项目&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;登录后，在主面板点击&lt;code&gt;Add New…&lt;/code&gt; → &lt;code&gt;Project&lt;/code&gt;。之后选择你自己的账号，直接 instal vercel。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/vercel2.kZSu_cdW_Z1Pzxxk.webp&quot; alt=&quot;vercel导入&quot;&gt;&lt;/p&gt;
-&lt;p&gt;Vercel 会列出你的 GitHub 仓库，找到你刚刚创建的网站仓库，点击旁边的 Import 按钮。&lt;/p&gt;
+&lt;p&gt;Vercel 会列出你的 GitHub 仓库，找到你刚刚创建的网站仓库，点击旁边的 &lt;code&gt;Import&lt;/code&gt; 按钮。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/vercel3.-pqDdZqj_17TAQ4.webp&quot; alt=&quot;vercel导入2&quot;&gt;&lt;/p&gt;
-&lt;ol start=&quot;3&quot;&gt;
-&lt;li&gt;&lt;strong&gt;部署！&lt;/strong&gt;&lt;/li&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;**部署！**Vercel 会自动识别你的项目是什么框架（Astro, Next.js, etc.），并帮你填好所有构建设置。你什么都不用改，直接点击&lt;code&gt;Deploy&lt;/code&gt;按钮。&lt;/p&gt;
+&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Vercel 会自动识别你的项目是什么框架（Astro, Next.js, etc.），并帮你填好所有构建设置。你什么都不用改，直接点击&lt;code&gt;Deploy&lt;/code&gt;按钮。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/vercel4.DEE20cd5_Z2drbk.webp&quot; alt=&quot;vercel部署&quot;&gt;&lt;/p&gt;
 &lt;p&gt;稍等片刻，Vercel 就会完成构建和部署。当看到庆祝的动画时，你的网站就已经上线了！Vercel 会提供一个&lt;code&gt;.vercel.app&lt;/code&gt;结尾的免费域名供你访问。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;https://xiaohei94.github.io/_astro/vercel5.d8LT06hq_2sYl71.webp&quot; alt=&quot;vercel展示&quot;&gt;&lt;/p&gt;
-&lt;p&gt;这个时候你已经可以把这个链接分享给你的朋友了。当然，你也可以选择绑定自己的域名，之后在 Vercel 的设置中进行配置。&lt;/p&gt;
-&lt;p&gt;从此以后，你只需要在本地修改代码，然后&lt;code&gt;git push&lt;/code&gt;到 GitHub，Vercel 就会自动拉取最新代码，重新构建和部署你的网站。完全自动化！&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.Blg0txlR.jpg"/><enclosure url="/_astro/heroimage.Blg0txlR.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;这个时候你已经可以把这个链接分享给你的朋友了。当然，你也可以选择绑定自己的域名，之后在 Vercel 的设置中进行配置。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;从此以后，你只需要在本地修改代码，然后&lt;code&gt;git push&lt;/code&gt;到 GitHub，Vercel 就会自动拉取最新代码，重新构建和部署你的网站。完全自动化！&lt;/p&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;恭喜你！从一个想法开始，到现在拥有一个简单部署的个人网站，你已经走完了现代 Web 开发最主流、最高效的一条路径。当然，你使用体验之后就会感觉到，这里并不是终点，如果想让我们的个人站功能更加的全面我们还有一些路要走，如果你想继续深入的进行探索，跟上我的脚步，我们继续！&lt;/p&gt;
+&lt;p&gt;同时，你会发现，这个流程的核心是**“关注内容，而非工具”**。你未来的大部分时间，都将花在写文章、更新作品这些创造性的工作上，而不是和服务器配置作斗争。&lt;/p&gt;
+&lt;p&gt;更重要的是，今天你所学的这套流程是高度可扩展的。它不仅仅适用于个人博客，任何拥有类似构建方式的静态网站模板——无论是产品展示页、在线简历还是文档网站——都可以用完全相同的方法进行部署。&lt;/p&gt;
+&lt;p&gt;从这里开始。尽情创造吧！&lt;/p&gt;
+&lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.Blg0txlR.jpg"/><enclosure url="/_astro/heroimage.Blg0txlR.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
 &lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
@@ -201,7 +203,41 @@ pnpm preview
 &lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;部署思路与注意事项：&lt;a href=&quot;https://axi404.top/blog/website-vercel&quot;&gt;Website on Vercel&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
+&lt;li&gt;自动构建：push 即部署&lt;/li&gt;
+&lt;li&gt;HTTPS / CDN：默认就有&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;详细流程与说明：&lt;a href=&quot;https://axi404.top/blog/website-vercel&quot;&gt;Website on Vercel&lt;/a&gt;&lt;/p&gt;
+&lt;h2&gt;2. 部署前检查&lt;/h2&gt;
+&lt;p&gt;本地先跑通：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
+pnpm build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;配置域名（建议至少填主域名）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt; → &lt;code&gt;theme.personal.domains.main&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. Vercel 部署要点&lt;/h2&gt;
+&lt;p&gt;主题会读取 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 来选择适配器与输出：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;vercel&lt;/code&gt;（默认）：Vercel adapter，输出通常为 &lt;code&gt;server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;github&lt;/code&gt;：用于 GitHub Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cloudflare&lt;/code&gt;：用于 Cloudflare Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在 Vercel 项目里设置环境变量：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=vercel
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;构建命令建议使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;pnpm build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输出目录（Output Directory）保持默认即可（Astro 会由适配器处理）。&lt;/p&gt;
+&lt;h2&gt;4. 静态站点（可选）&lt;/h2&gt;
+&lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
 &lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
 &lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
 &lt;ul&gt;
@@ -241,7 +277,32 @@ images={[
 { src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
 ]}
 /&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://axi404.top/blog/waline-install&quot;&gt;Waline Comments: Deploy &amp;#x26; Integrate&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
+  enable: true,
+  server: &apos;https://waline.example.com/&apos;,
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 常见说明&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
 &lt;p&gt;主题默认启用了常用扩展：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GFM：表格、删除线、任务列表等&lt;/li&gt;
@@ -267,63 +328,4 @@ const a = 2 // [!code ++]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
 &lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
-&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
-&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://axi404.top/blog/waline-install&quot;&gt;Waline Comments: Deploy &amp;#x26; Integrate&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;示例：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
-  enable: true,
-  server: &apos;https://waline.example.com/&apos;,
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 常见说明&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
-&lt;li&gt;自动构建：push 即部署&lt;/li&gt;
-&lt;li&gt;HTTPS / CDN：默认就有&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;详细流程与说明：&lt;a href=&quot;https://axi404.top/blog/website-vercel&quot;&gt;Website on Vercel&lt;/a&gt;&lt;/p&gt;
-&lt;h2&gt;2. 部署前检查&lt;/h2&gt;
-&lt;p&gt;本地先跑通：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
-pnpm build
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;配置域名（建议至少填主域名）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt; → &lt;code&gt;theme.personal.domains.main&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;3. Vercel 部署要点&lt;/h2&gt;
-&lt;p&gt;主题会读取 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 来选择适配器与输出：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;vercel&lt;/code&gt;（默认）：Vercel adapter，输出通常为 &lt;code&gt;server&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;github&lt;/code&gt;：用于 GitHub Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cloudflare&lt;/code&gt;：用于 Cloudflare Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在 Vercel 项目里设置环境变量：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=vercel
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;构建命令建议使用：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;pnpm build
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;输出目录（Output Directory）保持默认即可（Astro 会由适配器处理）。&lt;/p&gt;
-&lt;h2&gt;4. 静态站点（可选）&lt;/h2&gt;
-&lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item></channel></rss>
+&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item></channel></rss>
