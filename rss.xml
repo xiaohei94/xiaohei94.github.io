@@ -301,14 +301,14 @@ pnpm preview
 &lt;h2&gt;6. 部署推荐（GitHub + Vercel）&lt;/h2&gt;
 &lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;部署思路与注意事项：&lt;a href=&quot;https://axi404.top/blog/website-vercel&quot;&gt;Website on Vercel&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;部署思路与注意事项：&lt;/li&gt;
 &lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
 &lt;li&gt;自动构建：push 即部署&lt;/li&gt;
 &lt;li&gt;HTTPS / CDN：默认就有&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;详细流程与说明：&lt;a href=&quot;https://axi404.top/blog/website-vercel&quot;&gt;Website on Vercel&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;详细流程与说明：&lt;/p&gt;
 &lt;h2&gt;2. 部署前检查&lt;/h2&gt;
 &lt;p&gt;本地先跑通：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
@@ -354,9 +354,6 @@ images={[
 /&gt;&lt;/p&gt;
 &lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
 &lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://axi404.top/blog/waline-install&quot;&gt;Waline Comments: Deploy &amp;#x26; Integrate&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
 &lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
 &lt;/code&gt;&lt;/pre&gt;
