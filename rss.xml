@@ -252,107 +252,7 @@ git push -u origin main   # 或 git push --set-upstream origin main
 &lt;p&gt;同时，你会发现，这个流程的核心是“关注内容，而非工具”。你未来的大部分时间，都将花在写文章、更新作品这些创造性的工作上，而不是和服务器配置作斗争。&lt;/p&gt;
 &lt;p&gt;更重要的是，今天你所学的这套流程是高度可扩展的。它不仅仅适用于个人博客，任何拥有类似构建方式的静态网站模板——无论是产品展示页、在线简历还是文档网站——都可以用完全相同的方法进行部署。&lt;/p&gt;
 &lt;p&gt;从这里开始。尽情创造吧！&lt;/p&gt;
-&lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CvRCrjxw.jpg"/><enclosure url="/_astro/heroimage.CvRCrjxw.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/esp32-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/esp32-uav</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
-&lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
-pnpm dev
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 目录结构（最常用）&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt;：主题配置入口（站点信息、导航、集成配置等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;：中文文章&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index-en.mdx&lt;/code&gt;：英文文章（可选，没有则英文列表会回退到中文）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;public/&lt;/code&gt;：静态资源（&lt;code&gt;/images/*&lt;/code&gt;、&lt;code&gt;/avatar/*&lt;/code&gt; 等）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;3. 配置站点信息（&lt;code&gt;src/site.config.ts&lt;/code&gt;）&lt;/h2&gt;
-&lt;p&gt;常改字段：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.title&lt;/code&gt; / &lt;code&gt;theme.description&lt;/code&gt;：站点标题/描述&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.main&lt;/code&gt;：主域名（用于生成绝对链接、RSS 等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.header.menu&lt;/code&gt;：导航菜单&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.pagefind&lt;/code&gt;：站内搜索（Pagefind）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline&lt;/code&gt;：评论系统（见 Waline 文档）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;4. 写一篇文章（中英双语）&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;新建文件夹：&lt;code&gt;src/content/blogs/my-first-post/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写中文：&lt;code&gt;src/content/blogs/my-first-post/index.mdx&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写英文：&lt;code&gt;src/content/blogs/my-first-post/index-en.mdx&lt;/code&gt;（可选）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;最小 Frontmatter（两种语言都要有）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;---
-title: My Title
-publishDate: 2026-01-11
-description: Short summary.
-tags: [&apos;docs&apos;]
----
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;5. 构建与产物&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm build
-pnpm preview
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;构建产物默认在 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;astro.config.mjs&lt;/code&gt; 会根据 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 选择适配器与输出模式（详见部署文档）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;6. 部署推荐（GitHub + Vercel）&lt;/h2&gt;
-&lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
-&lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
-pnpm dev
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 目录结构（最常用）&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt;：主题配置入口（站点信息、导航、集成配置等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;：中文文章&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index-en.mdx&lt;/code&gt;：英文文章（可选，没有则英文列表会回退到中文）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;public/&lt;/code&gt;：静态资源（&lt;code&gt;/images/*&lt;/code&gt;、&lt;code&gt;/avatar/*&lt;/code&gt; 等）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;3. 配置站点信息（&lt;code&gt;src/site.config.ts&lt;/code&gt;）&lt;/h2&gt;
-&lt;p&gt;常改字段：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.title&lt;/code&gt; / &lt;code&gt;theme.description&lt;/code&gt;：站点标题/描述&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.main&lt;/code&gt;：主域名（用于生成绝对链接、RSS 等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.header.menu&lt;/code&gt;：导航菜单&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.pagefind&lt;/code&gt;：站内搜索（Pagefind）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline&lt;/code&gt;：评论系统（见 Waline 文档）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;4. 写一篇文章（中英双语）&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;新建文件夹：&lt;code&gt;src/content/blogs/my-first-post/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写中文：&lt;code&gt;src/content/blogs/my-first-post/index.mdx&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写英文：&lt;code&gt;src/content/blogs/my-first-post/index-en.mdx&lt;/code&gt;（可选）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;最小 Frontmatter（两种语言都要有）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;---
-title: My Title
-publishDate: 2026-01-11
-description: Short summary.
-tags: [&apos;docs&apos;]
----
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;5. 构建与产物&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm build
-pnpm preview
-&lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;构建产物默认在 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;astro.config.mjs&lt;/code&gt; 会根据 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 选择适配器与输出模式（详见部署文档）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;6. 部署推荐（GitHub + Vercel）&lt;/h2&gt;
-&lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CvRCrjxw.jpg"/><enclosure url="/_astro/heroimage.CvRCrjxw.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
 &lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
@@ -476,7 +376,57 @@ images={[
 { src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
 ]}
 /&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/esp32-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/esp32-uav</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
+&lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
+pnpm dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2. 目录结构（最常用）&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt;：主题配置入口（站点信息、导航、集成配置等）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;：中文文章&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index-en.mdx&lt;/code&gt;：英文文章（可选，没有则英文列表会回退到中文）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;public/&lt;/code&gt;：静态资源（&lt;code&gt;/images/*&lt;/code&gt;、&lt;code&gt;/avatar/*&lt;/code&gt; 等）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. 配置站点信息（&lt;code&gt;src/site.config.ts&lt;/code&gt;）&lt;/h2&gt;
+&lt;p&gt;常改字段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;theme.title&lt;/code&gt; / &lt;code&gt;theme.description&lt;/code&gt;：站点标题/描述&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;theme.personal.domains.main&lt;/code&gt;：主域名（用于生成绝对链接、RSS 等）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;theme.header.menu&lt;/code&gt;：导航菜单&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.pagefind&lt;/code&gt;：站内搜索（Pagefind）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.waline&lt;/code&gt;：评论系统（见 Waline 文档）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;4. 写一篇文章（中英双语）&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;新建文件夹：&lt;code&gt;src/content/blogs/my-first-post/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;写中文：&lt;code&gt;src/content/blogs/my-first-post/index.mdx&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;写英文：&lt;code&gt;src/content/blogs/my-first-post/index-en.mdx&lt;/code&gt;（可选）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;最小 Frontmatter（两种语言都要有）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;---
+title: My Title
+publishDate: 2026-01-11
+description: Short summary.
+tags: [&apos;docs&apos;]
+---
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;5. 构建与产物&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm build
+pnpm preview
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ul&gt;
+&lt;li&gt;构建产物默认在 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;astro.config.mjs&lt;/code&gt; 会根据 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 选择适配器与输出模式（详见部署文档）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;6. 部署推荐（GitHub + Vercel）&lt;/h2&gt;
+&lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;部署思路与注意事项：&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
 &lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
 &lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
@@ -524,4 +474,217 @@ const a = 2 // [!code ++]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
 &lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
-&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item></channel></rss>
+&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>自主无人机的感知模块配置教程</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>开源无人机硬件项目中关于感知模块的连接配置。</description><pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;
+import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;感知模块的配置，往往是无人机开发中最考验人心性的环节。它不像飞控算法那样有确定的数学推导，也不像机械结构那样所见即所得，它更像是一场与软硬件兼容性、通信协议以及物理连接的漫长博弈。通俗的讲这个过程其实并不涉及什么很深奥的原理和推导，更多的其实就是有人手把手的带你走过一遍就可以，然后你就什么都懂了。&lt;/p&gt;
+&lt;p&gt;在对自主无人机感知模块的搭建过程中，你可能会在“线没插好”和“驱动没装对”之间反复横跳。三小时前，你可能还对着散落在桌面的航空插头、稳压模块和杂乱的线束感到迷茫；三小时后，当 RViz 里终于跳动起第一帧清晰的点云时，那种心跳与帧率共振的喜悦又会让你觉得一切都值得。&lt;/p&gt;
+&lt;p&gt;这篇文章并不是一份枯燥的参数说明书，而是一份**“心法”与“招式”并重**的实战复盘。我将从最基础的物理连接讲起，贯穿 NUC 环境配置、ROS 驱动安装，直到 Mid-360 跑通 FAST-LIO 建图与 Octomap 栅格化。希望这份记录能成为你我未来的备忘录：在面对纷繁复杂的报错时，不要慌张，按图索骥。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2&gt;Part 1：硬件组装&lt;/h2&gt;
+&lt;p&gt;我们先来学习一下各个传感器与主要的算力设备之间是怎样实现通信连接的，让我们先明白每个部分的位置和数据流过程。&lt;/p&gt;
+&lt;h3&gt;NUC 与飞控模块连接&lt;/h3&gt;
+&lt;p&gt;用飞控连接线（双左弯 0.15m）USB一端接 NUC ，另一端接飞控 Type-C 接口。这样就能实现飞控和机载电脑的通信。接线的话就先不放图了，选对线插上去就行。&lt;/p&gt;
+&lt;h3&gt;双目深度相机（Realsense D435i）与 NUC 连接&lt;/h3&gt;
+&lt;p&gt;直接使用 USB 转 Type-C 线，把深度相机连到 NUC 上就行，但注意做 VINS 类型的算法的话最好选一根支持 USB 3.0 的线，因为其他协议类型的线在运行 VINS 时可能会出现数据量传输不够的情况，导致定位丢失。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/camera.png&quot; alt=&quot;相机到NUC&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;Mid-360 雷达供电与机载电脑连接&lt;/h3&gt;
+&lt;p&gt;雷达接口时一个12P的航空接头，其中8路为信号线，其中4路为网口线接到机载电脑NUC上，另外预留的4个功能线可接GPS等其他设备（也可不接任何东西），还有2路为电源线，可以根据所选电池电压来选择直接接到电池上还是接到稳压模块上。当然，如果比较有条件的情况下，还是推荐把雷达的航空接头给改一下，这样对机器人的轻量化和供电的方便性上会很有优势，相关的教程在B站上有很多，你可以搜索一下。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/lidar.png&quot; alt=&quot;MID360&quot;&gt;
+&lt;img src=&quot;./image/lidar1.png&quot; alt=&quot;MID360_1&quot;&gt;
+&lt;img src=&quot;./image/lidar2.png&quot; alt=&quot;MID360_2&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;Part 2：机载电脑（NUC）配置&lt;/h2&gt;
+&lt;h3&gt;Ubuntu 20.04 系统安装&lt;/h3&gt;
+&lt;p&gt;拿到一个新的空系统的 NUC，我们首先要解决的就是装系统的问题，这对小白来说听起来好像很复杂，但实际上按照操作来还是很有逻辑的，只要不乱动一些东西步奏还是比较清晰的。没啥好怕的，跟着教程来试试吧。&lt;/p&gt;
+&lt;h4&gt;1. 下载 Ubuntu 20.04 镜像&lt;/h4&gt;
+&lt;p&gt;可以从&lt;a href=&quot;https://mirrors.aliyun.com/ubuntu-releases/20.04/&quot;&gt;阿里云镜像站&lt;/a&gt;下载 ubuntu-20.04.6-desktop-amd64.iso的.iso镜像文件。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/ubuntu20.png&quot; alt=&quot;ubuntu20.04&quot;&gt;&lt;/p&gt;
+&lt;h4&gt;2. 烧录镜像到 U 盘&lt;/h4&gt;
+&lt;p&gt;先准备一个空 U 盘，容量尽量在8G以上，在电脑中右键格式化 U 盘（卷标写不写都行），目的其实就是清空 U 盘，如果是一个全新的 U 盘也可以不格式化。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/u1.png&quot; alt=&quot;u盘&quot;&gt;
+&lt;img src=&quot;./image/u2.png&quot; alt=&quot;u盘1&quot;&gt;&lt;/p&gt;
+&lt;p&gt;下载 &lt;a href=&quot;https://www.ultraiso.com/download.html&quot;&gt;UltraISO&lt;/a&gt;软件，用它来将下载好的镜像烧写到U盘中（一定要选中你插入的U盘）：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/iso.png&quot; alt=&quot;iso&quot;&gt;
+&lt;img src=&quot;./image/iso_d.png&quot; alt=&quot;iso1&quot;&gt;
+&lt;img src=&quot;./image/iso_s.png&quot; alt=&quot;iso2&quot;&gt;&lt;/p&gt;
+&lt;h4&gt;3. 安装 Ubuntu&lt;/h4&gt;
+&lt;p&gt;NUC 插上电源、U 盘、鼠标键盘，按电源键开机。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/show.png&quot; alt=&quot;安装接线&quot;&gt;&lt;/p&gt;
+&lt;p&gt;看到安装界面后选择 &lt;strong&gt;Install Ubuntu&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/install.png&quot; alt=&quot;install&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在安装过程中，语言建议选择中文，初期为了加快安装速度可以暂时不联网，选择正常安装即可。对于新设备来说，最关键的一步是&lt;strong&gt;创建分区&lt;/strong&gt;，如果你之前没有经验，可以参考 B 站上相关的 Ubuntu 安装教程或者我下面这张图中展示的分区建议来操作。之后按提示选择时区、设置用户名和密码，这里强烈建议勾选&lt;strong&gt;自动登录&lt;/strong&gt;，这样可以省去每次开机输密码的繁琐，对后续跑自动启动脚本也更友好。全部设置完成后等待安装结束，重启进入桌面，你就拥有了一台崭新的 Ubuntu 机器了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/swap.png&quot; alt=&quot;分区建议&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;WiFi的连接问题&lt;/h3&gt;
+&lt;p&gt;因为 Ubuntu 20.04已经出来挺长时间了，并且可能也马上就不在维护了，所以他对Intel AX211的网卡可能会出现不识别的问题，所以刚装好系统后会出现WiFi无法连接的问题。但是不要慌，总是会有办法的，下面我们再来解决这个问题吧。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;用另一台能上网的电脑从&lt;a href=&quot;https://www.asus.com.cn/displays-desktops/nucs/nuc-mini-pcs/asus-nuc-13-pro/helpdesk_bios?model2Name=ASUS-NUC-13-Pro-Mini-PC-NUC13ANK&quot;&gt;ASUS NUC&lt;/a&gt;下载 NUC13 最新的 BIOS 0033，解压缩放在 U 盘后取下 U 盘，然后将 U 盘插到 NUC 上。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;./image/bios.png&quot; alt=&quot;bios&quot;&gt;&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;NUC 开机按 &lt;strong&gt;F7&lt;/strong&gt; 选定 U 盘上 bios 文件 0033 中 &amp;#x3C; Capsue File forCFlash through F7&gt; 后回车。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;重启按 &lt;strong&gt;F2&lt;/strong&gt; 进 BIOS，把 &lt;code&gt;Boot → Secure Boot&lt;/code&gt; 设为 &lt;strong&gt;Disable&lt;/strong&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;用一根USB连接线连接手机和NUC，在手机设置中找到通过USB连接线进行网络共享，使用手机为NUC提供网络才可以进行后续操作（没有网络的话NUC无法与国内服务器进行通信，无法完成任何命令）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;之后在这个&lt;a href=&quot;https://launchpad.net/ubuntu/+source/backport-iwlwifi-dkms&quot;&gt;网址&lt;/a&gt;下载驱动 backport-iwlwifi-dkms package : Ubuntu。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;./image/wifi.png&quot; alt=&quot;wifi驱动&quot;&gt;&lt;/p&gt;
+&lt;p&gt;下载之后，在文件的同级目录安装该驱动。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo dpkg -i backport-iwlwifi-dkms_9858-0ubuntu3_all.deb
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;安装的时候如果报以下错误：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/fix.png&quot; alt=&quot;wifi驱动fix&quot;&gt;&lt;/p&gt;
+&lt;p&gt;运行下方的命令。之后再次重复上方步奏，再次安装驱动即可。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt --fix-broken install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&quot;6&quot;&gt;
+&lt;li&gt;最后跑一次：&lt;code&gt;sudo apt update&lt;/code&gt; 和 &lt;code&gt;sudo apt upgrade&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Part 3：机载电脑 NUC 环境配置&lt;/h2&gt;
+&lt;p&gt;搞定了硬件连接和系统安装，接下来就是安装一些必不可少的组件，让我们的后续开发更顺利。这一部分可能会涉及到很多终端命令，建议细心拷贝，避免出错。&lt;/p&gt;
+&lt;h3&gt;ROS 安装与测试&lt;/h3&gt;
+&lt;p&gt;对于 Ubuntu 20.04 系统，我们需要安装的是 ROS Noetic 版本。安装过程其实就是添加源、添加密钥、更新列表然后安装桌面完整版。建议没有 ROS 基础的同学可以根据我的项目[ROS机器人开发学习库]（https://my.feishu.cn/wiki/Bj2qwldHtiVJEEkovbpc3mGmnQb?from=from_copylink）的 ROS 教程，跟着每一个小demo边做边学，磨刀不误砍柴工。&lt;/p&gt;
+&lt;p&gt;依次在终端执行以下命令：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 添加源
+sudo sh -c &apos;echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list&apos;
+
+# 添加密钥
+sudo apt-key adv --keyserver &apos;hkp://keyserver.ubuntu.com:80&apos; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+
+# 安装
+sudo apt update
+sudo apt install ros-noetic-desktop-full
+
+# 设置环境变量
+echo &quot;source /opt/ros/noetic/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;安装完成后，我们通过经典的小乌龟案例来测试一下。打开三个终端窗口，分别输入 &lt;code&gt;roscore&lt;/code&gt;（启动 ROS 主节点）、&lt;code&gt;rosrun turtlesim turtlesim_node&lt;/code&gt;（启动乌龟仿真节点）和 &lt;code&gt;rosrun turtlesim turtle_teleop_key&lt;/code&gt;（启动键盘控制节点）。如果能用键盘方向键控制小乌龟移动，恭喜你，ROS 安装成功！&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/turtle.png&quot; alt=&quot;小乌龟&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;Realsense 驱动与 Mavros 安装&lt;/h3&gt;
+&lt;p&gt;ROS 装好后，我们要让 NUC 能驱动双目相机，并能与飞控通信。这里我们需要安装 Realsense 的 SDK 以及 Mavros 包。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;1. Realsense 驱动安装&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;同样是添加密钥和源，然后安装必要的依赖包：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 添加密钥（如果有报错可以用 || 后面的备选命令）
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+
+# 添加源
+sudo add-apt-repository &quot;deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main&quot; -u
+
+# 安装库和工具
+sudo apt-get install librealsense2-dkms
+sudo apt-get install librealsense2-utils
+sudo apt-get install librealsense2-dev
+sudo apt-get install librealsense2-dbg
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;安装完成后，输入 &lt;code&gt;realsense-viewer&lt;/code&gt; 启动测试工具。&lt;strong&gt;特别注意&lt;/strong&gt;：查看软件左上角显示的连接状态，必须显示为 &lt;strong&gt;USB 3.x&lt;/strong&gt;。如果是 2.x，请检查你的线材是否支持 3.0，或者是否插在了 NUC 的蓝色 USB 口上（3.0 的线和口都是蓝色的）。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/realsense.png&quot; alt=&quot;realsense&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2. Mavros 安装&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Mavros 是 ROS 与 MAVLink 协议之间的桥梁,将来要通过 Mavros 来连接机载电脑与飞控的通信。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 执行这些命令可能会要等的时间比较长，请耐心等待
+sudo apt-get install ros-noetic-mavros
+cd /opt/ros/noetic/lib/mavros
+sudo ./install_geographiclib_datasets.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Part 4：Mid-360 雷达配置 &amp;#x26; FAST-LIO 建图（点云在飞）&lt;/h2&gt;
+&lt;h3&gt;Mid-360 雷达驱动配置&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;安装 &lt;a href=&quot;https://github.com/Livox-SDK/Livox-SDK2&quot;&gt;Livox-SDK2&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这是驱动雷达所必要的 SDK，是必须安装的。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git clone https://github.com/Livox-SDK/Livox-SDK2.git
+cd ./Livox-SDK2/
+mkdir build
+cd build
+cmake .. &amp;#x26;&amp;#x26; make -j
+sudo make install
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;安装 &lt;a href=&quot;https://github.com/Livox-SDK/livox_ros_driver2&quot;&gt;livox_ros_driver2&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这个驱动包需要 &lt;code&gt;clone&lt;/code&gt; 到你的工作空间 &lt;code&gt;[work_space]/src/&lt;/code&gt;，你可以新建一个新的工作空间来专门存放雷达相关的运行程序。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git clone https://github.com/Livox-SDK/livox_ros_driver2.git ws_livox/src/livox_ros_driver2
+cd livox_ros_driver2
+source /opt/ros/noetic/setup.sh
+./build.sh ROS1 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;连接 Mid-360 与 NUC&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;先将雷达的连接线分别插到对应的接口上，然后打开系统设置，跟着我下面的图片步奏一步一步做就可以。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/set1.png&quot; alt=&quot;lidar_set&quot;&gt;
+&lt;img src=&quot;./image/set2.png&quot; alt=&quot;lidar_set2&quot;&gt;&lt;/p&gt;
+&lt;p&gt;之后修改 &lt;code&gt;/src/livox_ros_driver2/config/MID360_config.json&lt;/code&gt; 文件中对应的 IP 地址。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/config.png&quot; alt=&quot;lidar_config&quot;&gt;&lt;/p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;运行 launch 文件检查是否安装成功&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;在 &lt;code&gt;[work_space]&lt;/code&gt; 的工作空间下，运行下面的 &lt;code&gt;roslaunch&lt;/code&gt; 程序，检查是否有点云图生成，则雷达配置成功。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/point.png&quot; alt=&quot;lidar_point&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;实现 FAST-LIO&lt;/h3&gt;
+&lt;p&gt;上面的步奏只是让雷达驱动起来，但是他并没有什么很强的实用价值。要想让雷达真正作为机器人的感知设备，那就不得不用大名鼎鼎的 &lt;code&gt;FAST-LIO&lt;/code&gt; 算法了，SLAM领域毋庸置疑的皇冠之星。&lt;/p&gt;
+&lt;p&gt;实现 FAST-LIO 最好不要新建工作空间，为了减少麻烦，建议直接装在雷达配置时使用的工作空间里。首先在 &lt;code&gt;[work_space]/src/&lt;/code&gt; 文件夹中下载 FAST_LIO 源码。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git clone https://github.com/hku-mars/FAST_LIO.git
+cd FAST_LIO
+git submodule update --init
+cd ../..
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;现在你就遇到了第一个比较坑的点了，现在 FAST_LIO 源码里使用的还是 &lt;code&gt;livox_ros_driver&lt;/code&gt;，但你实际用的是 &lt;code&gt;livox_ros_driver2&lt;/code&gt;。所以在 CMake 编译时需要按教程把对应引用改掉。具体修改的点如下几张图所示。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/fix1.png&quot; alt=&quot;lio_fix1&quot;&gt;
+&lt;img src=&quot;./image/fix2.png&quot; alt=&quot;lio_fix2&quot;&gt;
+&lt;img src=&quot;./image/fix3.png&quot; alt=&quot;lio_fix3&quot;&gt;
+&lt;img src=&quot;./image/fix4.png&quot; alt=&quot;lio_fix4&quot;&gt;&lt;/p&gt;
+&lt;p&gt;修改完成之后就可以开始编译了。fast_lio的编译依赖于livox_ros_driver2包，因此需要确保livox_ros_driver2在编译fast_lio之前编译，然后再编译整个工程。如果livox_ros_driver2还未编译，需要先将FAST_LIO移出src文件夹，编译livox_ros_driver2后再将FAST_LIO移回来。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;catkin_make
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;编译成功之后，进行运行测试，要打开两个终端，先在终端 1 中运行如下命令。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;source devel/setup.bash
+roslaunch livox_ros_driver2 msg_MID360.launch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;不要关闭这个正在运行的终端，在终端 2 中运行下面的命令。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;source devel/setup.bash
+roslaunch fast_lio mapping_mid360.launch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;运行成功之后，就会显示出如下的点云效果。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/sucess.png&quot; alt=&quot;fastlio&quot;&gt;&lt;/p&gt;
+&lt;p&gt;至此对雷达的开发就基本完成，你可以在上面的这些优秀的开源算法上实现许多有意思的工作，真正能让你的机器人动起来。&lt;/p&gt;
+&lt;h2&gt;Part 5：赋予无人机“空间感”——Octomap 栅格建图&lt;/h2&gt;
+&lt;p&gt;FAST-LIO 跑通后的点云图虽然在视觉上非常酷炫，但在路径规划算法（如 A* 或 JPS）的眼里，那只是一堆离散的、没有明确边界的坐标点。为了让无人机能够进行自主避障和导航，我们需要将这些稀疏的点云转换成机器能理解的语言——&lt;strong&gt;占据栅格地图（Occupancy Grid Map）&lt;/strong&gt;。Octomap 就像是《我的世界》（Minecraft）一样，它通过概率更新的方式，将空间划分成一个个状态明确（占用/空闲/未知）的小方块，这是后续所有规划算法的基础。&lt;/p&gt;
+&lt;h3&gt;为什么要源码安装？&lt;/h3&gt;
+&lt;p&gt;虽然通过 &lt;code&gt;apt&lt;/code&gt; 安装预编译包非常省事，但在 Octomap 的配置上，我建议采用源码安装。实际开发中，我们经常需要调整地图的分辨率（Resolution）、传感器最大量程甚至是由于坐标系定义不同而修改源码中的投影逻辑。预编译的黑盒无法提供这种灵活性。此外，在源码编译时，最好手动检查并修改头文件的引用名称，这虽然繁琐，但能有效避免与系统自带旧版本库发生冲突。&lt;/p&gt;
+&lt;h3&gt;启动与数据流的协奏&lt;/h3&gt;
+&lt;p&gt;以下是整理好的“起飞”指令序列，建议按照此顺序分终端执行：&lt;/p&gt;
+&lt;h4&gt;1. 启动传感器&lt;/h4&gt;
+&lt;p&gt;首先确保雷达正常工作，能在 RViz 中看到原始数据流。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd catkin_livox_ros_driver2
+source devel/setup.sh
+roslaunch livox_ros_driver2 rviz_MID360.launch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;2. 启动定位算法（位姿解算）&lt;/h4&gt;
+&lt;p&gt;这是系统的核心，FAST-LIO 将为我们提供高频率的里程计信息。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd catkin_livox_ros_driver2
+source devel/setup.bash
+roslaunch livox_ros_driver2 msg_MID360.launch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;保持上一个终端运行，开启新终端启动核心算法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd catkin_livox_ros_driver2
+source devel/setup.bash
+roslaunch fast_lio mapping_mid360.launch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;3. 生成栅格地图&lt;/h4&gt;
+&lt;p&gt;当定位稳定后，Octomap 节点开始接收点云和位姿，实时构建环境模型。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd octomap_mapping_ws
+source devel/setup.bash
+roslaunch octomap_server octomap_mapping.launch
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&quot;./image/octmap.png&quot; alt=&quot;octmap&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;结语&lt;/h2&gt;
+&lt;p&gt;至此，我们完成了从物理世界的接线、系统底层的驱动安装，到数字世界中点云与栅格地图构建的全部流程。&lt;/p&gt;
+&lt;p&gt;与科研理论的学习相比，这种偏工程实践的魅力在于，它永远不会像教程里写得那样一帆风顺。在未来的调试中，你可能会遇到 USB 供电不足导致的设备掉线，可能会遇到 WiFi 驱动莫名消失的焦虑，也可能会在 TF 坐标系变换中迷失方向。但请记住，每一个红色的 Error 报错，都是系统在试图告诉你它的真实状态。每一次解决问题的过程，都是你对机器人底层逻辑理解的一次升华。&lt;/p&gt;
+&lt;p&gt;经常有人会这么说，你多看几个报错日志、多查几次文档、多做积累，做一个长期主义的人，总有一天会做到融会贯通的。希望这篇实战记录能成为你起飞前的最后一次检查清单。祝你的无人机，感知精准，飞行稳健。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DN-SvCbu.jpg"/><enclosure url="/_astro/heroimage.DN-SvCbu.jpg"/></item></channel></rss>
