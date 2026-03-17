@@ -352,7 +352,41 @@ pnpm preview
 &lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
+&lt;li&gt;自动构建：push 即部署&lt;/li&gt;
+&lt;li&gt;HTTPS / CDN：默认就有&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;详细流程与说明：&lt;/p&gt;
+&lt;h2&gt;2. 部署前检查&lt;/h2&gt;
+&lt;p&gt;本地先跑通：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
+pnpm build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;配置域名（建议至少填主域名）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt; → &lt;code&gt;theme.personal.domains.main&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;3. Vercel 部署要点&lt;/h2&gt;
+&lt;p&gt;主题会读取 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 来选择适配器与输出：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;vercel&lt;/code&gt;（默认）：Vercel adapter，输出通常为 &lt;code&gt;server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;github&lt;/code&gt;：用于 GitHub Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cloudflare&lt;/code&gt;：用于 Cloudflare Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在 Vercel 项目里设置环境变量：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=vercel
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;构建命令建议使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;pnpm build
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;输出目录（Output Directory）保持默认即可（Astro 会由适配器处理）。&lt;/p&gt;
+&lt;h2&gt;4. 静态站点（可选）&lt;/h2&gt;
+&lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
 &lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
 &lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
 &lt;ul&gt;
@@ -392,63 +426,7 @@ images={[
 { src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
 ]}
 /&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
-&lt;li&gt;自动构建：push 即部署&lt;/li&gt;
-&lt;li&gt;HTTPS / CDN：默认就有&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;详细流程与说明：&lt;/p&gt;
-&lt;h2&gt;2. 部署前检查&lt;/h2&gt;
-&lt;p&gt;本地先跑通：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
-pnpm build
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;配置域名（建议至少填主域名）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt; → &lt;code&gt;theme.personal.domains.main&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;3. Vercel 部署要点&lt;/h2&gt;
-&lt;p&gt;主题会读取 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 来选择适配器与输出：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;vercel&lt;/code&gt;（默认）：Vercel adapter，输出通常为 &lt;code&gt;server&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;github&lt;/code&gt;：用于 GitHub Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cloudflare&lt;/code&gt;：用于 Cloudflare Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;在 Vercel 项目里设置环境变量：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=vercel
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;构建命令建议使用：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;pnpm build
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;输出目录（Output Directory）保持默认即可（Astro 会由适配器处理）。&lt;/p&gt;
-&lt;h2&gt;4. 静态站点（可选）&lt;/h2&gt;
-&lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
-&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
-&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;示例：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
-  enable: true,
-  server: &apos;https://waline.example.com/&apos;,
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 常见说明&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
 &lt;p&gt;主题默认启用了常用扩展：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GFM：表格、删除线、任务列表等&lt;/li&gt;
@@ -474,13 +452,34 @@ const a = 2 // [!code ++]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
 &lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
-&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>自主无人机的感知模块配置教程</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>开源无人机硬件项目中关于感知模块的连接配置。</description><pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;
+&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
+&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
+  enable: true,
+  server: &apos;https://waline.example.com/&apos;,
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 常见说明&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>自主无人机的感知模块配置教程</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>开源无人机硬件项目中关于感知模块的连接配置。</description><pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;
 import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;感知模块的配置，往往是无人机开发中最考验人心性的环节。它不像飞控算法那样有确定的数学推导，也不像机械结构那样所见即所得，它更像是一场与软硬件兼容性、通信协议以及物理连接的漫长博弈。通俗的讲这个过程其实并不涉及什么很深奥的原理和推导，更多的其实就是有人手把手的带你走过一遍就可以，然后你就什么都懂了。&lt;/p&gt;
 &lt;p&gt;在对自主无人机感知模块的搭建过程中，你可能会在“线没插好”和“驱动没装对”之间反复横跳。三小时前，你可能还对着散落在桌面的航空插头、稳压模块和杂乱的线束感到迷茫；三小时后，当 RViz 里终于跳动起第一帧清晰的点云时，那种心跳与帧率共振的喜悦又会让你觉得一切都值得。&lt;/p&gt;
 &lt;p&gt;这篇文章并不是一份枯燥的参数说明书，而是一份**“心法”与“招式”并重**的实战复盘。我将从最基础的物理连接讲起，贯穿 NUC 环境配置、ROS 驱动安装，直到 Mid-360 跑通 FAST-LIO 建图与 Octomap 栅格化。希望这份记录能成为你我未来的备忘录：在面对纷繁复杂的报错时，不要慌张，按图索骥。&lt;/p&gt;
-&lt;hr&gt;
 &lt;h2&gt;Part 1：硬件组装&lt;/h2&gt;
 &lt;p&gt;我们先来学习一下各个传感器与主要的算力设备之间是怎样实现通信连接的，让我们先明白每个部分的位置和数据流过程。&lt;/p&gt;
 &lt;h3&gt;NUC 与飞控模块连接&lt;/h3&gt;
@@ -496,10 +495,14 @@ import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;Part 2：机载电脑（NUC）配置&lt;/h2&gt;
 &lt;h3&gt;Ubuntu 20.04 系统安装&lt;/h3&gt;
 &lt;p&gt;拿到一个新的空系统的 NUC，我们首先要解决的就是装系统的问题，这对小白来说听起来好像很复杂，但实际上按照操作来还是很有逻辑的，只要不乱动一些东西步奏还是比较清晰的。没啥好怕的，跟着教程来试试吧。&lt;/p&gt;
-&lt;h4&gt;1. 下载 Ubuntu 20.04 镜像&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;下载 Ubuntu 20.04 镜像&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;可以从&lt;a href=&quot;https://mirrors.aliyun.com/ubuntu-releases/20.04/&quot;&gt;阿里云镜像站&lt;/a&gt;下载 ubuntu-20.04.6-desktop-amd64.iso的.iso镜像文件。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/ubuntu20.png&quot; alt=&quot;ubuntu20.04&quot;&gt;&lt;/p&gt;
-&lt;h4&gt;2. 烧录镜像到 U 盘&lt;/h4&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;烧录镜像到 U 盘&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;先准备一个空 U 盘，容量尽量在8G以上，在电脑中右键格式化 U 盘（卷标写不写都行），目的其实就是清空 U 盘，如果是一个全新的 U 盘也可以不格式化。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/u1.png&quot; alt=&quot;u盘&quot;&gt;
 &lt;img src=&quot;./image/u2.png&quot; alt=&quot;u盘1&quot;&gt;&lt;/p&gt;
@@ -507,7 +510,9 @@ import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/iso.png&quot; alt=&quot;iso&quot;&gt;
 &lt;img src=&quot;./image/iso_d.png&quot; alt=&quot;iso1&quot;&gt;
 &lt;img src=&quot;./image/iso_s.png&quot; alt=&quot;iso2&quot;&gt;&lt;/p&gt;
-&lt;h4&gt;3. 安装 Ubuntu&lt;/h4&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;安装 Ubuntu&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;NUC 插上电源、U 盘、鼠标键盘，按电源键开机。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/show.png&quot; alt=&quot;安装接线&quot;&gt;&lt;/p&gt;
 &lt;p&gt;看到安装界面后选择 &lt;strong&gt;Install Ubuntu&lt;/strong&gt;。&lt;/p&gt;
@@ -544,7 +549,7 @@ import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt --fix-broken install
 &lt;/code&gt;&lt;/pre&gt;
 &lt;ol start=&quot;6&quot;&gt;
-&lt;li&gt;最后跑一次：&lt;code&gt;sudo apt update&lt;/code&gt; 和 &lt;code&gt;sudo apt upgrade&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;最后跑一次：&lt;code&gt;sudo apt update&lt;/code&gt; 和 &lt;code&gt;sudo apt upgrade&lt;/code&gt;即可。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2&gt;Part 3：机载电脑 NUC 环境配置&lt;/h2&gt;
 &lt;p&gt;搞定了硬件连接和系统安装，接下来就是安装一些必不可少的组件，让我们的后续开发更顺利。这一部分可能会涉及到很多终端命令，建议细心拷贝，避免出错。&lt;/p&gt;
@@ -569,7 +574,9 @@ source ~/.bashrc
 &lt;p&gt;&lt;img src=&quot;./image/turtle.png&quot; alt=&quot;小乌龟&quot;&gt;&lt;/p&gt;
 &lt;h3&gt;Realsense 驱动与 Mavros 安装&lt;/h3&gt;
 &lt;p&gt;ROS 装好后，我们要让 NUC 能驱动双目相机，并能与飞控通信。这里我们需要安装 Realsense 的 SDK 以及 Mavros 包。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;1. Realsense 驱动安装&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Realsense 驱动安装&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;同样是添加密钥和源，然后安装必要的依赖包：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 添加密钥（如果有报错可以用 || 后面的备选命令）
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE || sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
@@ -585,7 +592,9 @@ sudo apt-get install librealsense2-dbg
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;安装完成后，输入 &lt;code&gt;realsense-viewer&lt;/code&gt; 启动测试工具。&lt;strong&gt;特别注意&lt;/strong&gt;：查看软件左上角显示的连接状态，必须显示为 &lt;strong&gt;USB 3.x&lt;/strong&gt;。如果是 2.x，请检查你的线材是否支持 3.0，或者是否插在了 NUC 的蓝色 USB 口上（3.0 的线和口都是蓝色的）。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/realsense.png&quot; alt=&quot;realsense&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;2. Mavros 安装&lt;/strong&gt;&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;Mavros 安装&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;Mavros 是 ROS 与 MAVLink 协议之间的桥梁,将来要通过 Mavros 来连接机载电脑与飞控的通信。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 执行这些命令可能会要等的时间比较长，请耐心等待
 sudo apt-get install ros-noetic-mavros
@@ -597,7 +606,6 @@ sudo ./install_geographiclib_datasets.sh
 &lt;ol&gt;
 &lt;li&gt;安装 &lt;a href=&quot;https://github.com/Livox-SDK/Livox-SDK2&quot;&gt;Livox-SDK2&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;这是驱动雷达所必要的 SDK，是必须安装的。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git clone https://github.com/Livox-SDK/Livox-SDK2.git
 cd ./Livox-SDK2/
 mkdir build
@@ -608,7 +616,6 @@ sudo make install
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;安装 &lt;a href=&quot;https://github.com/Livox-SDK/livox_ros_driver2&quot;&gt;livox_ros_driver2&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;这个驱动包需要 &lt;code&gt;clone&lt;/code&gt; 到你的工作空间 &lt;code&gt;[work_space]/src/&lt;/code&gt;，你可以新建一个新的工作空间来专门存放雷达相关的运行程序。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;git clone https://github.com/Livox-SDK/livox_ros_driver2.git ws_livox/src/livox_ros_driver2
 cd livox_ros_driver2
 source /opt/ros/noetic/setup.sh
@@ -640,7 +647,7 @@ cd ../..
 &lt;img src=&quot;./image/fix2.png&quot; alt=&quot;lio_fix2&quot;&gt;
 &lt;img src=&quot;./image/fix3.png&quot; alt=&quot;lio_fix3&quot;&gt;
 &lt;img src=&quot;./image/fix4.png&quot; alt=&quot;lio_fix4&quot;&gt;&lt;/p&gt;
-&lt;p&gt;修改完成之后就可以开始编译了。fast_lio的编译依赖于livox_ros_driver2包，因此需要确保livox_ros_driver2在编译fast_lio之前编译，然后再编译整个工程。如果livox_ros_driver2还未编译，需要先将FAST_LIO移出src文件夹，编译livox_ros_driver2后再将FAST_LIO移回来。&lt;/p&gt;
+&lt;p&gt;修改完成之后就可以开始编译了。 FAST_LIO 的编译依赖于 livox_ros_driver2 包，因此需要确保 livox_ros_driver2 在编译 FAST_LIO 之前编译，然后再编译整个工程。如果 livox_ros_driver2 还未编译，需要先将 FAST_LIO 移出 src 文件夹，编译 livox_ros_driver2 后再将 FAST_LIO 移回来。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;catkin_make
 &lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;编译成功之后，进行运行测试，要打开两个终端，先在终端 1 中运行如下命令。&lt;/p&gt;
