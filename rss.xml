@@ -252,7 +252,7 @@ git push -u origin main   # 或 git push --set-upstream origin main
 &lt;p&gt;同时，你会发现，这个流程的核心是“关注内容，而非工具”。你未来的大部分时间，都将花在写文章、更新作品这些创造性的工作上，而不是和服务器配置作斗争。&lt;/p&gt;
 &lt;p&gt;更重要的是，今天你所学的这套流程是高度可扩展的。它不仅仅适用于个人博客，任何拥有类似构建方式的静态网站模板——无论是产品展示页、在线简历还是文档网站——都可以用完全相同的方法进行部署。&lt;/p&gt;
 &lt;p&gt;从这里开始。尽情创造吧！&lt;/p&gt;
-&lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CvRCrjxw.jpg"/><enclosure url="/_astro/heroimage.CvRCrjxw.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;p&gt;以及，假如教程帮到了你，你也成功搭建了自己的网站，非常欢迎和我交换友链（link）。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CvRCrjxw.jpg"/><enclosure url="/_astro/heroimage.CvRCrjxw.jpg"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/esp32-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/esp32-uav</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
 &lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
@@ -302,41 +302,57 @@ pnpm preview
 &lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/axi-theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/axi-theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
-&lt;li&gt;自动构建：push 即部署&lt;/li&gt;
-&lt;li&gt;HTTPS / CDN：默认就有&lt;/li&gt;
+&lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
+&lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;详细流程与说明：&lt;/p&gt;
-&lt;h2&gt;2. 部署前检查&lt;/h2&gt;
-&lt;p&gt;本地先跑通：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
-pnpm build
+pnpm dev
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;配置域名（建议至少填主域名）：&lt;/p&gt;
+&lt;h2&gt;2. 目录结构（最常用）&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt; → &lt;code&gt;theme.personal.domains.main&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt;：主题配置入口（站点信息、导航、集成配置等）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;：中文文章&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index-en.mdx&lt;/code&gt;：英文文章（可选，没有则英文列表会回退到中文）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;public/&lt;/code&gt;：静态资源（&lt;code&gt;/images/*&lt;/code&gt;、&lt;code&gt;/avatar/*&lt;/code&gt; 等）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;3. Vercel 部署要点&lt;/h2&gt;
-&lt;p&gt;主题会读取 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 来选择适配器与输出：&lt;/p&gt;
+&lt;h2&gt;3. 配置站点信息（&lt;code&gt;src/site.config.ts&lt;/code&gt;）&lt;/h2&gt;
+&lt;p&gt;常改字段：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;vercel&lt;/code&gt;（默认）：Vercel adapter，输出通常为 &lt;code&gt;server&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;github&lt;/code&gt;：用于 GitHub Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;cloudflare&lt;/code&gt;：用于 Cloudflare Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;theme.title&lt;/code&gt; / &lt;code&gt;theme.description&lt;/code&gt;：站点标题/描述&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;theme.personal.domains.main&lt;/code&gt;：主域名（用于生成绝对链接、RSS 等）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;theme.header.menu&lt;/code&gt;：导航菜单&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.pagefind&lt;/code&gt;：站内搜索（Pagefind）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.waline&lt;/code&gt;：评论系统（见 Waline 文档）&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;在 Vercel 项目里设置环境变量：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=vercel
+&lt;h2&gt;4. 写一篇文章（中英双语）&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;新建文件夹：&lt;code&gt;src/content/blogs/my-first-post/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;写中文：&lt;code&gt;src/content/blogs/my-first-post/index.mdx&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;写英文：&lt;code&gt;src/content/blogs/my-first-post/index-en.mdx&lt;/code&gt;（可选）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;最小 Frontmatter（两种语言都要有）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;---
+title: My Title
+publishDate: 2026-01-11
+description: Short summary.
+tags: [&apos;docs&apos;]
+---
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;构建命令建议使用：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;pnpm build
+&lt;h2&gt;5. 构建与产物&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm build
+pnpm preview
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;输出目录（Output Directory）保持默认即可（Astro 会由适配器处理）。&lt;/p&gt;
-&lt;h2&gt;4. 静态站点（可选）&lt;/h2&gt;
-&lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;构建产物默认在 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;astro.config.mjs&lt;/code&gt; 会根据 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 选择适配器与输出模式（详见部署文档）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;6. 部署推荐（GitHub + Vercel）&lt;/h2&gt;
+&lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;部署思路与注意事项：&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
 &lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
 &lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
 &lt;ul&gt;
@@ -376,57 +392,41 @@ images={[
 { src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
 ]}
 /&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Axi Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/esp32-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/esp32-uav</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
 &lt;ul&gt;
-&lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
-&lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
+&lt;li&gt;自动构建：push 即部署&lt;/li&gt;
+&lt;li&gt;HTTPS / CDN：默认就有&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;详细流程与说明：&lt;/p&gt;
+&lt;h2&gt;2. 部署前检查&lt;/h2&gt;
+&lt;p&gt;本地先跑通：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm install
-pnpm dev
+pnpm build
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 目录结构（最常用）&lt;/h2&gt;
+&lt;p&gt;配置域名（建议至少填主域名）：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt;：主题配置入口（站点信息、导航、集成配置等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;：中文文章&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index-en.mdx&lt;/code&gt;：英文文章（可选，没有则英文列表会回退到中文）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;public/&lt;/code&gt;：静态资源（&lt;code&gt;/images/*&lt;/code&gt;、&lt;code&gt;/avatar/*&lt;/code&gt; 等）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;src/site.config.ts&lt;/code&gt; → &lt;code&gt;theme.personal.domains.main&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;3. 配置站点信息（&lt;code&gt;src/site.config.ts&lt;/code&gt;）&lt;/h2&gt;
-&lt;p&gt;常改字段：&lt;/p&gt;
+&lt;h2&gt;3. Vercel 部署要点&lt;/h2&gt;
+&lt;p&gt;主题会读取 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 来选择适配器与输出：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.title&lt;/code&gt; / &lt;code&gt;theme.description&lt;/code&gt;：站点标题/描述&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.main&lt;/code&gt;：主域名（用于生成绝对链接、RSS 等）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;theme.header.menu&lt;/code&gt;：导航菜单&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.pagefind&lt;/code&gt;：站内搜索（Pagefind）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline&lt;/code&gt;：评论系统（见 Waline 文档）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;vercel&lt;/code&gt;（默认）：Vercel adapter，输出通常为 &lt;code&gt;server&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;github&lt;/code&gt;：用于 GitHub Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;cloudflare&lt;/code&gt;：用于 Cloudflare Pages，输出为 &lt;code&gt;static&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2&gt;4. 写一篇文章（中英双语）&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;新建文件夹：&lt;code&gt;src/content/blogs/my-first-post/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写中文：&lt;code&gt;src/content/blogs/my-first-post/index.mdx&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;写英文：&lt;code&gt;src/content/blogs/my-first-post/index-en.mdx&lt;/code&gt;（可选）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;最小 Frontmatter（两种语言都要有）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;---
-title: My Title
-publishDate: 2026-01-11
-description: Short summary.
-tags: [&apos;docs&apos;]
----
+&lt;p&gt;在 Vercel 项目里设置环境变量：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=vercel
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;5. 构建与产物&lt;/h2&gt;
-&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;pnpm build
-pnpm preview
+&lt;p&gt;构建命令建议使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;pnpm build
 &lt;/code&gt;&lt;/pre&gt;
-&lt;ul&gt;
-&lt;li&gt;构建产物默认在 &lt;code&gt;dist/&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;astro.config.mjs&lt;/code&gt; 会根据 &lt;code&gt;DEPLOYMENT_PLATFORM&lt;/code&gt; 选择适配器与输出模式（详见部署文档）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;6. 部署推荐（GitHub + Vercel）&lt;/h2&gt;
-&lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;p&gt;输出目录（Output Directory）保持默认即可（Astro 会由适配器处理）。&lt;/p&gt;
+&lt;h2&gt;4. 静态站点（可选）&lt;/h2&gt;
+&lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
 &lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
 &lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
@@ -549,7 +549,7 @@ import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;Part 3：机载电脑 NUC 环境配置&lt;/h2&gt;
 &lt;p&gt;搞定了硬件连接和系统安装，接下来就是安装一些必不可少的组件，让我们的后续开发更顺利。这一部分可能会涉及到很多终端命令，建议细心拷贝，避免出错。&lt;/p&gt;
 &lt;h3&gt;ROS 安装与测试&lt;/h3&gt;
-&lt;p&gt;对于 Ubuntu 20.04 系统，我们需要安装的是 ROS Noetic 版本。安装过程其实就是添加源、添加密钥、更新列表然后安装桌面完整版。建议没有 ROS 基础的同学可以根据我的项目[ROS机器人开发学习库]（https://my.feishu.cn/wiki/Bj2qwldHtiVJEEkovbpc3mGmnQb?from=from_copylink）的 ROS 教程，跟着每一个小demo边做边学，磨刀不误砍柴工。&lt;/p&gt;
+&lt;p&gt;对于 Ubuntu 20.04 系统，我们需要安装的是 ROS Noetic 版本。安装过程其实就是添加源、添加密钥、更新列表然后安装桌面完整版。建议没有 ROS 基础的同学可以根据我的项目&lt;a href=&quot;https://my.feishu.cn/wiki/Bj2qwldHtiVJEEkovbpc3mGmnQb?from=from_copylink&quot;&gt;ROS机器人开发学习库&lt;/a&gt;的 ROS 教程，跟着每一个小demo边做边学，磨刀不误砍柴工。&lt;/p&gt;
 &lt;p&gt;依次在终端执行以下命令：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 添加源
 sudo sh -c &apos;echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list&apos;
@@ -592,7 +592,7 @@ sudo apt-get install ros-noetic-mavros
 cd /opt/ros/noetic/lib/mavros
 sudo ./install_geographiclib_datasets.sh
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;Part 4：Mid-360 雷达配置 &amp;#x26; FAST-LIO 建图（点云在飞）&lt;/h2&gt;
+&lt;h2&gt;Part 4：Mid-360 雷达配置 &amp;#x26; FAST-LIO 建图&lt;/h2&gt;
 &lt;h3&gt;Mid-360 雷达驱动配置&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;安装 &lt;a href=&quot;https://github.com/Livox-SDK/Livox-SDK2&quot;&gt;Livox-SDK2&lt;/a&gt;&lt;/li&gt;
@@ -654,19 +654,23 @@ roslaunch fast_lio mapping_mid360.launch
 &lt;p&gt;运行成功之后，就会显示出如下的点云效果。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/sucess.png&quot; alt=&quot;fastlio&quot;&gt;&lt;/p&gt;
 &lt;p&gt;至此对雷达的开发就基本完成，你可以在上面的这些优秀的开源算法上实现许多有意思的工作，真正能让你的机器人动起来。&lt;/p&gt;
-&lt;h2&gt;Part 5：赋予无人机“空间感”——Octomap 栅格建图&lt;/h2&gt;
+&lt;h2&gt;Part 5：Octomap 栅格建图&lt;/h2&gt;
 &lt;p&gt;FAST-LIO 跑通后的点云图虽然在视觉上非常酷炫，但在路径规划算法（如 A* 或 JPS）的眼里，那只是一堆离散的、没有明确边界的坐标点。为了让无人机能够进行自主避障和导航，我们需要将这些稀疏的点云转换成机器能理解的语言——&lt;strong&gt;占据栅格地图（Occupancy Grid Map）&lt;/strong&gt;。Octomap 就像是《我的世界》（Minecraft）一样，它通过概率更新的方式，将空间划分成一个个状态明确（占用/空闲/未知）的小方块，这是后续所有规划算法的基础。&lt;/p&gt;
 &lt;h3&gt;为什么要源码安装？&lt;/h3&gt;
 &lt;p&gt;虽然通过 &lt;code&gt;apt&lt;/code&gt; 安装预编译包非常省事，但在 Octomap 的配置上，我建议采用源码安装。实际开发中，我们经常需要调整地图的分辨率（Resolution）、传感器最大量程甚至是由于坐标系定义不同而修改源码中的投影逻辑。预编译的黑盒无法提供这种灵活性。此外，在源码编译时，最好手动检查并修改头文件的引用名称，这虽然繁琐，但能有效避免与系统自带旧版本库发生冲突。&lt;/p&gt;
 &lt;h3&gt;启动与数据流的协奏&lt;/h3&gt;
 &lt;p&gt;以下是整理好的“起飞”指令序列，建议按照此顺序分终端执行：&lt;/p&gt;
-&lt;h4&gt;1. 启动传感器&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;启动传感器&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;首先确保雷达正常工作，能在 RViz 中看到原始数据流。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd catkin_livox_ros_driver2
 source devel/setup.sh
 roslaunch livox_ros_driver2 rviz_MID360.launch
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4&gt;2. 启动定位算法（位姿解算）&lt;/h4&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;启动定位算法（位姿解算）&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;这是系统的核心，FAST-LIO 将为我们提供高频率的里程计信息。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd catkin_livox_ros_driver2
 source devel/setup.bash
@@ -677,7 +681,9 @@ roslaunch livox_ros_driver2 msg_MID360.launch
 source devel/setup.bash
 roslaunch fast_lio mapping_mid360.launch
 &lt;/code&gt;&lt;/pre&gt;
-&lt;h4&gt;3. 生成栅格地图&lt;/h4&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;生成栅格地图&lt;/li&gt;
+&lt;/ol&gt;
 &lt;p&gt;当定位稳定后，Octomap 节点开始接收点云和位姿，实时构建环境模型。&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;cd octomap_mapping_ws
 source devel/setup.bash
