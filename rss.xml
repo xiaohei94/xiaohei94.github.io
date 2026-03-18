@@ -376,7 +376,29 @@ images={[
 { src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
 ]}
 /&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
+&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
+  enable: true,
+  server: &apos;https://waline.example.com/&apos;,
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 常见说明&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
 &lt;p&gt;主题默认启用了常用扩展：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;GFM：表格、删除线、任务列表等&lt;/li&gt;
@@ -402,29 +424,7 @@ const a = 2 // [!code ++]
 &lt;/code&gt;&lt;/pre&gt;
 &lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
 &lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
-&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sun, 11 Jan 2026 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
-&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;/p&gt;
-&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;示例：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
-  enable: true,
-  server: &apos;https://waline.example.com/&apos;,
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 常见说明&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>ESP32 小型四旋翼开发指南</title><link>https://xiaohei94.github.io/blog/esp32-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/esp32-uav</guid><description>一份详尽的 ESP32 无人机开发上手教程。从环境搭建到硬件解析，再到 PID 调参。</description><pubDate>Wed, 17 Dec 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>ESP32 小型四旋翼开发指南</title><link>https://xiaohei94.github.io/blog/esp32-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/esp32-uav</guid><description>一份详尽的 ESP32 无人机开发上手教程。从环境搭建到硬件解析，再到 PID 调参。</description><pubDate>Wed, 17 Dec 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;还记得小时候仰望蓝天，看着飞机划过留下的白线，以及看着空军飞行员从天上俯瞰大地时那种广阔与豁达的视野，心里总会萌生出一种对飞翔的渴望。可惜的是我终究没有一个飞行员的身体，也算是些许的遗憾吧。庆幸的是科技发展的今天，借助开源硬件的蓬勃发展，我不必成为航天工程师，也能亲手打造属于自己的飞行器，也能简单的窥见梦想中的场景。&lt;/p&gt;
@@ -462,7 +462,7 @@ const a = 2 // [!code ++]
 &lt;p&gt;点击“安装”后，安装程序会自动下载并配置所需的工具链。当看到“安装完成”的界面时，开发环境已经配置完成！此时你的桌面上应该会出现两个黑色的图标，&lt;code&gt;ESP-IDF 5.3 PowerShell&lt;/code&gt; 和 &lt;code&gt;ESP-IDF 5.3 CMD&lt;/code&gt;。它们是命令行的开发工具，另外还有一个图形化工具 &lt;code&gt;Espressif IDF&lt;/code&gt;，这个可能更适合新手玩家，也更方便一些。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/finish.png&quot; alt=&quot;安装&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;创建项目&lt;/h2&gt;
-&lt;p&gt;环境装好了，不跑个程序怎么行？在嵌入式世界里，点灯是仪式感，输出 &quot;Hello World&quot; 是信仰。让我们先让 ESP32 对这个世界打个招呼。&lt;/p&gt;
+&lt;p&gt;环境装好了，不跑个程序怎么行。在嵌入式世界里，点灯是仪式感，输出 &quot;Hello World&quot; 是信仰。让我们先让 ESP32 对这个世界打个招呼。&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;启动与初始化&lt;/li&gt;
 &lt;/ol&gt;
@@ -523,11 +523,11 @@ const a = 2 // [!code ++]
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3&gt;进入下载模式&lt;/h3&gt;
-&lt;p&gt;我们的小飞机采用了 &lt;strong&gt;ESP32-S3-WROOM-1（D2N8）&lt;/strong&gt; 模组。这不仅仅是一个 Wi-Fi 芯片，它双核 240MHz 的算力足够同时处理姿态解算和 PID 控制。对于该芯片程序烧写模式的触发，我们在电路上是这么设置的。&lt;strong&gt;下载电路&lt;/strong&gt;是手动下载，通过飞控上 &lt;code&gt;boot&lt;/code&gt; 和 &lt;code&gt;rst&lt;/code&gt; 按钮进入下载模式（&lt;strong&gt;先按住不放 &lt;code&gt;boot&lt;/code&gt;，再按一下 &lt;code&gt;rst&lt;/code&gt; 就可以进入下载模式了&lt;/strong&gt;），然后可以直接通过串口下载（购买一个&lt;strong&gt;串口下载器&lt;/strong&gt;按照四个引脚 &lt;code&gt;rx&lt;/code&gt;，&lt;code&gt;tx&lt;/code&gt;，&lt;code&gt;3.3V&lt;/code&gt;，&lt;code&gt;gnd&lt;/code&gt;连接上即可）。&lt;/p&gt;
+&lt;p&gt;我们的小飞机采用了 &lt;strong&gt;ESP32-S3-WROOM-1（D2N8）&lt;/strong&gt; 模组。这不仅仅是一个 Wi-Fi 芯片，它双核 240MHz 的算力足够同时处理姿态解算和 PID 控制。对于该芯片程序烧写模式的触发，我们在电路上是这么设置的。&lt;strong&gt;下载电路&lt;/strong&gt;是手动下载，通过飞控上 &lt;code&gt;boot&lt;/code&gt; 和 &lt;code&gt;rst&lt;/code&gt; 按钮进入下载模式（先按住不放 &lt;code&gt;boot&lt;/code&gt;，再按一下 &lt;code&gt;rst&lt;/code&gt; 就可以进入下载模式了），然后可以直接通过串口下载（购买一个&lt;strong&gt;串口下载器&lt;/strong&gt;按照四个引脚 &lt;code&gt;rx&lt;/code&gt;，&lt;code&gt;tx&lt;/code&gt;，&lt;code&gt;3.3V&lt;/code&gt;，&lt;code&gt;gnd&lt;/code&gt;连接上即可）。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/download.png&quot; alt=&quot;连线图解&quot;&gt;&lt;/p&gt;
 &lt;h3&gt;硬件拼装接线方案&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;电机接口&lt;/strong&gt;：四个电机接口 &lt;code&gt;M1, M2, M3, M4&lt;/code&gt; 分别对应飞机的四个螺旋桨。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;桨叶安装与电机接线&lt;/strong&gt;：一定要注意正反桨的安装顺序！通常是对角线电机转向相同（比如 M1/M3 顺时针，M2/M4 逆时针），桨叶也要对应安装（A桨配顺时针电机，B桨配逆时针电机）。装反了，飞机就会原地打转或者直接栽地里。另外，我们使用的全部都是&lt;strong&gt;红蓝线电机&lt;/strong&gt;，因为现在所卖的黑线电机的转向与程序定义不符，如果想要使用黑白线电机则需要手动将两根线的线序进行交换。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;桨叶安装与电机接线&lt;/strong&gt;：一定要注意正反桨的安装顺序！通常是对角线电机转向相同（比如 M1/M3 顺时针，M2/M4 逆时针），桨叶也要对应安装（A桨配顺时针电机，B桨配逆时针电机）。装反了，飞机就会原地打转或者直接栽地里。另外，我们使用的全部都是&lt;strong&gt;红蓝线电机&lt;/strong&gt;，因为现在所卖的黑线电机的转向与程序定义不符，如果想要使用&lt;strong&gt;黑白线电机则需要手动将两根线的线序进行交换&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/drone.jpeg&quot; alt=&quot;小飞机&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;软件架构&lt;/h2&gt;
 &lt;ol&gt;
@@ -536,7 +536,7 @@ const a = 2 // [!code ++]
 &lt;p&gt;飞机要飞得稳，首先得知道自己“歪”了没。我们使用 &lt;strong&gt;MPU6050&lt;/strong&gt; 六轴传感器（三轴加速度计 + 三轴陀螺仪）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;获取数据&lt;/strong&gt;：通过 I2C 总线，我们不断读取 MPU6050 的原始数据。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;互补滤波/卡尔曼滤波&lt;/strong&gt;：原始数据是有噪声的。加速度计在剧烈运动时不可信，陀螺仪会有温漂。我们需要把两者结合起来，算出一个干净、准确的 &lt;strong&gt;欧拉角&lt;/strong&gt;（Pitch, Roll, Yaw）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;互补滤波/卡尔曼滤波&lt;/strong&gt;：原始数据是有噪声的。加速度计在剧烈运动时不可信，陀螺仪会有温漂。我们需要把两者结合起来，算出一个干净、准确的&lt;strong&gt;欧拉角&lt;/strong&gt;（Pitch, Roll, Yaw）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;PID 控制&lt;/li&gt;
@@ -570,7 +570,8 @@ motor2 = throttle + pitch_out - roll_out + yaw_out;
 motor3 = throttle - pitch_out - roll_out - yaw_out;
 motor4 = throttle - pitch_out + roll_out + yaw_out;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;（注：具体正负号取决于你的电机布局和转向定义，这里仅为示意）&lt;/p&gt;
+&lt;p&gt;（注：具体正负号取决于你的电机布局和转向定义，这里仅为示意）
+&lt;/p&gt;
 &lt;h2&gt;上位机调试&lt;/h2&gt;
 &lt;p&gt;在实现飞行的时候，我们很难肉眼看出 PID 参数的好坏。这时候就需要 &lt;strong&gt;上位机&lt;/strong&gt;（Ground Control Station）来帮忙。&lt;/p&gt;
 &lt;p&gt;推荐使用 &lt;strong&gt;匿名上位机 (AnoTC)&lt;/strong&gt;。&lt;/p&gt;
