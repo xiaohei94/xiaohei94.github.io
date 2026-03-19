@@ -637,338 +637,7 @@ roslaunch octomap_server octomap_mapping.launch
 &lt;h2&gt;结语&lt;/h2&gt;
 &lt;p&gt;至此，我们完成了从物理世界的接线、系统底层的驱动安装，到数字世界中点云与栅格地图构建的全部流程。&lt;/p&gt;
 &lt;p&gt;与科研理论的学习相比，这种偏工程实践的魅力在于，它永远不会像教程里写得那样一帆风顺。在未来的调试中，你可能会遇到 USB 供电不足导致的设备掉线，可能会遇到 WiFi 驱动莫名消失的焦虑，也可能会在 TF 坐标系变换中迷失方向。但请记住，每一个红色的 Error 报错，都是系统在试图告诉你它的真实状态。每一次解决问题的过程，都是你对机器人底层逻辑理解的一次升华。&lt;/p&gt;
-&lt;p&gt;经常有人会这么说，你多看几个报错日志、多查几次文档、多做积累，做一个长期主义的人，总有一天会做到融会贯通的。希望这篇实战记录能成为你起飞前的最后一次检查清单。祝你的无人机，感知精准，飞行稳健。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DN-SvCbu.jpg"/><enclosure url="/_astro/heroimage.DN-SvCbu.jpg"/></item><item><title>强化学习算法程序实践（1）：通用训练框架 + Q-Learning / Sarsa</title><link>https://xiaohei94.github.io/blog/rl-algorithm-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-1</guid><description>从一个可落地 Q-Learning 与 Sarsa、epsilon-greedy、回合训练循环、以及保存与加载的最小实践。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
-&lt;h2&gt;前言&lt;/h2&gt;
-&lt;p&gt;我在做强化学习实验时，最痛苦的不是推公式，而是：&lt;strong&gt;同一个算法换个环境就要重写一堆训练脚手架&lt;/strong&gt;。后来我索性把常用套路总结成一个“可复用的算法骨架”，再把每个算法的差异点（几乎都集中在 &lt;code&gt;sample&lt;/code&gt; 和 &lt;code&gt;update&lt;/code&gt;）填进去。&lt;/p&gt;
-&lt;p&gt;更具体一点说，我踩过的坑基本都集中在“工程细节被忽略”上：同样的算法，有时候不是你公式写错了，而是你训练循环里 &lt;code&gt;terminated/truncated&lt;/code&gt; 没处理好、epsilon 衰减太快导致过早收敛、或者你没有把每回合最大步数限制住导致训练数据统计完全不一致。于是到最后你只能对着一条乱七八糟的 reward 曲线发呆，完全不知道是环境问题还是代码问题。&lt;/p&gt;
-&lt;p&gt;所以这篇我会很刻意地把“程序骨架”写得死一点：有哪些函数、训练/测试循环怎么摆、每一步该打印什么，尽量让你在写第二个、第三个算法时不用再从头搭脚手架。&lt;/p&gt;
-&lt;p&gt;这篇是系列第一篇，目标很明确：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;给出一个&lt;strong&gt;可复用的 RL 项目代码结构&lt;/strong&gt;（训练 / 测试 / 环境 / 参数）&lt;/li&gt;
-&lt;li&gt;用它实现经典的 &lt;strong&gt;Q-Learning&lt;/strong&gt;（off-policy）&lt;/li&gt;
-&lt;li&gt;以及和它只有一处关键差别的 &lt;strong&gt;Sarsa&lt;/strong&gt;（on-policy）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;后续文章我会按“值函数系（DQN 家族）”和“策略梯度 / Actor-Critic 系”继续拆分：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;第 2 篇：DQN / Double DQN / Dueling DQN / Noisy DQN / PER-DQN&lt;/li&gt;
-&lt;li&gt;第 3 篇：Policy Gradient（REINFORCE）/ PPO / A2C&lt;/li&gt;
-&lt;li&gt;第 4 篇：DDPG / TD3 / SAC（连续控制三件套）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;一个通用的 RL 代码骨架&lt;/h2&gt;
-&lt;p&gt;不管是表格型方法（Q-table），还是深度强化学习（DQN 及其变体），我习惯把智能体抽象成 4 个核心动作：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练时采样动作（带探索，Exploration）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试时输出动作（不探索，Exploitation）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;update(transition)&lt;/code&gt;：用交互数据更新策略&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;save()/load()&lt;/code&gt;：保存与加载（可选，但强烈推荐）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;其中&lt;strong&gt;最关键的提醒&lt;/strong&gt;是：对不同算法而言，&lt;code&gt;sample&lt;/code&gt; 和 &lt;code&gt;update&lt;/code&gt; 的实现差异很大；其它（训练循环、日志、保存/加载）通常大同小异。&lt;/p&gt;
-&lt;h3&gt;训练循环（定义训练）&lt;/h3&gt;
-&lt;p&gt;一个“回合制（episode-based）”的训练循环，基本就是下面这个顺序：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;回合开始：&lt;code&gt;state = env.reset()&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;设定每回合最大步数 &lt;code&gt;max_steps&lt;/code&gt;（帮助更快收敛，也避免一直跑不结束）&lt;/li&gt;
-&lt;li&gt;循环交互直到终止：
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;action = agent.sample(state)&lt;/code&gt;（探索策略）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;next_state, reward, terminated, truncated, info = env.step(action)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;构造 &lt;code&gt;transition&lt;/code&gt;（必要时写入 memory）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;agent.update(transition)&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;state = next_state&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;若 &lt;code&gt;terminated or truncated&lt;/code&gt; 则结束回合&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;用几行伪代码把它写死（推荐你直接复制作为项目模板）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;def train(env, agent, num_episodes: int, max_steps: int):
-	for ep in range(num_episodes):
-		state, info = env.reset()
-		ep_return = 0.0
-
-		for t in range(max_steps):
-			action = agent.sample(state)
-			next_state, reward, terminated, truncated, info = env.step(action)
-
-			agent.update(state, action, reward, next_state, terminated)
-
-			ep_return += reward
-			state = next_state
-			if terminated or truncated:
-				break
-
-		print(f&quot;episode={ep} return={ep_return:.1f} eps={agent.epsilon:.3f}&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;测试循环（定义测试）&lt;/h3&gt;
-&lt;p&gt;测试和训练长得很像，但有两点必须改：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;不要更新&lt;/strong&gt;：测试只是评估性能&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;不要 sample&lt;/strong&gt;：用 &lt;code&gt;predict&lt;/code&gt; 走纯利用（Exploitation）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;def evaluate(env, agent, num_episodes: int, max_steps: int):
-	returns = []
-	for ep in range(num_episodes):
-		state, info = env.reset()
-		ep_return = 0.0
-		for t in range(max_steps):
-			action = agent.predict(state)
-			next_state, reward, terminated, truncated, info = env.step(action)
-			ep_return += reward
-			state = next_state
-			if terminated or truncated:
-				break
-		returns.append(ep_return)
-		print(f&quot;[eval] episode={ep} return={ep_return:.1f}&quot;)
-	return sum(returns) / len(returns)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h3&gt;环境：用 Gym 就够了（需要自定义时只看 reset/step）&lt;/h3&gt;
-&lt;p&gt;大多数情况下我不会自己造环境：Gym/Gymnasium 已经足够。&lt;/p&gt;
-&lt;p&gt;如果你必须自定义环境，最关键就是对齐这两个接口：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;reset()&lt;/code&gt;：回合开始，返回初始状态&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;step(action)&lt;/code&gt;：执行动作，返回 &lt;code&gt;(next_state, reward, terminated, truncated, info)&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;Q-Learning：从“骨架”到可跑的算法&lt;/h2&gt;
-&lt;h3&gt;Q-Learning 的三个核心函数&lt;/h3&gt;
-&lt;p&gt;Q-Learning（表格法）里我们维护一个 $Q(s,a)$ 表。把它塞进“骨架”里，你会发现：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：选 $\arg\max_a Q(s,a)$&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：在 &lt;code&gt;predict&lt;/code&gt; 基础上加探索（epsilon-greedy / UCB etc.）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;update(...)&lt;/code&gt;：就是贝尔曼更新（TD）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;epsilon-greedy（最常用的探索策略）&lt;/h4&gt;
-&lt;p&gt;训练过程一般是：前期探索多、后期逐步收敛，也就是让 $\epsilon$ 从大到小。&lt;/p&gt;
-&lt;p&gt;通常会设三元组：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;epsilon_start&lt;/code&gt;：初始探索率（常见 0.95）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;epsilon_end&lt;/code&gt;：最小探索率（常见 0.01，留一点探索避免错过更优策略）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;epsilon_decay&lt;/code&gt;：衰减速度（太快容易“过早收敛/过拟合”，太慢收敛会拖）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;一个简单衰减：
-$$
-\epsilon \leftarrow \max(\epsilon_{end}, \epsilon \cdot \epsilon_{decay})
-$$&lt;/p&gt;
-&lt;h3&gt;一份“能直接套用”的 Q-Learning 类&lt;/h3&gt;
-&lt;p&gt;下面代码是我常用的最小实现（离散状态/动作）。写成类是为了和 DQN 等深度算法保持一致的接口。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import random
-from collections import defaultdict
-from dataclasses import dataclass
-
-
-@dataclass
-class QLearningConfig:
-	gamma: float = 0.99
-	lr: float = 0.1
-	epsilon_start: float = 0.95
-	epsilon_end: float = 0.01
-	epsilon_decay: float = 0.995
-
-
-class QLearningAgent:
-	def __init__(self, n_actions: int, cfg: QLearningConfig):
-		self.n_actions = n_actions
-		self.cfg = cfg
-
-		self.Q = defaultdict(lambda: [0.0 for _ in range(n_actions)])
-		self.epsilon = cfg.epsilon_start
-
-	def sample(self, state):
-		# Exploration + exploitation
-		if random.random() &amp;#x3C; self.epsilon:
-			return random.randrange(self.n_actions)
-		return self.predict(state)
-
-	def predict(self, state):
-		q = self.Q[state]
-		return int(max(range(self.n_actions), key=lambda a: q[a]))
-
-	def update(self, state, action, reward, next_state, terminated: bool):
-		q_sa = self.Q[state][action]
-		next_q_max = 0.0 if terminated else max(self.Q[next_state])
-		target = reward + self.cfg.gamma * next_q_max
-		self.Q[state][action] = q_sa + self.cfg.lr * (target - q_sa)
-
-		# decay epsilon once per step (or per episode, both ok; step 更细)
-		self.epsilon = max(self.cfg.epsilon_end, self.epsilon * self.cfg.epsilon_decay)
-
-	def save(self, path: str):
-		import json
-		with open(path, &apos;w&apos;, encoding=&apos;utf-8&apos;) as f:
-			json.dump({str(k): v for k, v in self.Q.items()}, f, ensure_ascii=False)
-
-	def load(self, path: str):
-		import json
-		with open(path, &apos;r&apos;, encoding=&apos;utf-8&apos;) as f:
-			obj = json.load(f)
-		self.Q = defaultdict(lambda: [0.0 for _ in range(self.n_actions)])
-		for k, v in obj.items():
-			self.Q[k] = v
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;Sarsa：和 Q-Learning 只差一个 update&lt;/h2&gt;
-&lt;p&gt;Sarsa 和 Q-Learning 的核心差别，一句话总结：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Sarsa&lt;/strong&gt;：用“实际执行的下一步动作”更新（on-policy）&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Q-Learning&lt;/strong&gt;：用“假设下一步最优动作”更新（off-policy）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;写成更新目标（只看差异就好）：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Q-Learning：$r + \gamma \max_{a&apos;} Q(s&apos;, a&apos;)$&lt;/li&gt;
-&lt;li&gt;Sarsa：$r + \gamma Q(s&apos;, a_{next})$，其中 $a_{next}$ 是用当前策略在 $s&apos;$ 上采样的动作&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3&gt;Sarsa 的最小实现（只展示 update 差异）&lt;/h3&gt;
-&lt;p&gt;Sarsa 的代码组织和 Q-Learning 几乎一致，主要差别在 &lt;code&gt;update&lt;/code&gt; 需要 &lt;code&gt;next_action&lt;/code&gt;：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;class SarsaAgent(QLearningAgent):
-	def update(self, state, action, reward, next_state, next_action, terminated: bool):
-		q_sa = self.Q[state][action]
-		next_q = 0.0 if terminated else self.Q[next_state][next_action]
-		target = reward + self.cfg.gamma * next_q
-		self.Q[state][action] = q_sa + self.cfg.lr * (target - q_sa)
-		self.epsilon = max(self.cfg.epsilon_end, self.epsilon * self.cfg.epsilon_decay)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;对应训练循环也要改一行：先拿到 &lt;code&gt;next_action&lt;/code&gt; 再更新。&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;action = agent.sample(state)
-next_state, reward, terminated, truncated, info = env.step(action)
-next_action = agent.sample(next_state)
-agent.update(state, action, reward, next_state, next_action, terminated)
-state = next_state
-action = next_action
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;小结&lt;/h2&gt;
-&lt;p&gt;你如果只记住一件事，那就是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;训练/测试循环可以固定成模板&lt;/strong&gt;，主要改 &lt;code&gt;sample/predict/update&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;下一篇我会把这个模板升级到“深度强化学习”版本：引入 Replay Buffer、目标网络，逐步讲清楚 DQN 以及它的几种常见改进（Double / Dueling / Noisy / PER）。&lt;/p&gt;
-&lt;h3&gt;我常用的调参/调试顺序（很实用）&lt;/h3&gt;
-&lt;p&gt;最后留一段我自己最常用的“排障流程”。强化学习的坏处是：它不会像监督学习那样一眼看出你是不是 overfit，它更像一锅粥，哪一步有问题都可能表现成“reward 不涨”。我一般按下面顺序来定位：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;先把环境跑通&lt;/strong&gt;：随机策略能不能结束回合？&lt;code&gt;terminated/truncated&lt;/code&gt; 是否合理？reward 的量级大概是多少？&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;把日志打印得足够具体&lt;/strong&gt;：每回合 return、每步/每回合 epsilon、以及“是否提前结束”。如果是 Q 表法，我还会打印 &lt;code&gt;max(Q[state])&lt;/code&gt; 的量级看有没有爆炸。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;epsilon 先别衰减太快&lt;/strong&gt;：我最常犯的错误是 &lt;code&gt;epsilon_decay&lt;/code&gt; 设太狠，导致前几十回合就开始“自信地瞎走”。如果你看到 reward 一开始有波动、很快就僵住，优先怀疑探索不足。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;gamma 和 max_steps 要配套&lt;/strong&gt;：&lt;code&gt;gamma&lt;/code&gt; 大的时候，回报有效视野更长；如果你 &lt;code&gt;max_steps&lt;/code&gt; 又很短，很多环境会变成“怎么都学不出来”。反过来也是：&lt;code&gt;max_steps&lt;/code&gt; 太长会让训练变慢且方差更大。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;先在最小环境验证&lt;/strong&gt;：像 FrozenLake / Taxi 这种可以快速验证“训练循环是否正确”。骨架确认没问题，再搬到复杂环境会省掉很多时间。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>强化学习算法程序实践（4）：连续控制（DDPG / TD3 / SAC）</title><link>https://xiaohei94.github.io/blog/rl-algorithm-4</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-4</guid><description>Actor/Critic 输入输出、Replay Buffer、探索噪声、以及各自 update 的关键差异</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
-&lt;h2&gt;前言&lt;/h2&gt;
-&lt;p&gt;到了连续控制（continuous action space），你会发现 DQN 这套“输出离散动作 Q 值”的方式没那么顺手了。&lt;/p&gt;
-&lt;p&gt;我第一次做连续控制任务时最大的感受是：&lt;strong&gt;动作不再是“选 A 还是选 B”，而是“输出一段连续向量”&lt;/strong&gt;。这时再用 DQN 去离散化动作，往往既不优雅也不高效。更顺的路线是 Actor-Critic：Actor 直接产出连续动作，Critic 负责评价这个动作在当前状态下到底值不值。&lt;/p&gt;
-&lt;p&gt;我自己当时的“翻车现场”也很典型：把动作离散成 11 档、21 档，看起来很细了，但策略依然像在抖腿——要么动作不够细导致控制很粗糙，要么离散太细导致动作维度膨胀，学习变得又慢又不稳定。更要命的是，reward 曲线的抖动和环境随机性混在一起，你根本不知道是探索问题、还是值估计的问题。于是我就彻底转到 Actor-Critic：动作直接从网络里出来，探索要么靠噪声（DDPG/TD3），要么靠熵正则（SAC），思路一下子清爽很多。&lt;/p&gt;
-&lt;p&gt;这一篇我就沿着我自己的实践顺序，把三套最常用的 off-policy 连续控制算法串起来：DDPG 是最基础的 deterministic Actor-Critic；TD3 主要是修 DDPG 容易高估、容易抖的问题；SAC 则在目标函数里把“熵”引入进来，让探索更自然、训练更稳。&lt;/p&gt;
-&lt;p&gt;这篇我按“你写代码时要实现哪些模块”来整理。&lt;/p&gt;
-&lt;h2&gt;DDPG：deterministic Actor-Critic 的最小工程结构&lt;/h2&gt;
-&lt;p&gt;DDPG 的结构非常“工科”：Actor 输出动作 $a$，Critic 评估 $(s,a)$ 的 Q 值。这里有一个我认为必须牢牢记住的关键点：&lt;strong&gt;Critic 的输入是 state + action 的拼接&lt;/strong&gt;，不是只喂 state。&lt;/p&gt;
-&lt;h3&gt;网络结构&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Actor（策略网络）：输入 state，输出连续动作；输出层常用 &lt;code&gt;tanh&lt;/code&gt; 把动作限制到 $[-1,1]$（再映射到环境动作范围）&lt;/li&gt;
-&lt;li&gt;Critic（价值网络）：输入 &lt;code&gt;[state, action]&lt;/code&gt; 拼接向量，输出 $Q(s,a)$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;实现时我会额外注意一个特别容易被忽略的小细节：Actor/Critic 的输出层初始化不要太“放飞”。如果初始动作幅度很大，或者 Critic 初始 Q 值异常夸张，训练经常会在前几千步就开始发散。很多实现会对最后一层的权重做更小范围的初始化，就是为了解决这个。&lt;/p&gt;
-&lt;h3&gt;Replay Buffer&lt;/h3&gt;
-&lt;p&gt;和 DQN 类似（push+sample），但 transition 里的 action 是连续向量。&lt;/p&gt;
-&lt;h3&gt;探索噪声&lt;/h3&gt;
-&lt;p&gt;DDPG 是确定性策略（deterministic policy），所以探索通常靠&lt;strong&gt;给动作加噪声&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;action = actor(state) + noise&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我的习惯是：训练阶段加噪声促进探索；测试阶段完全关掉噪声，只看学到的确定性策略到底能拿多少回报。否则你会出现一个很“玄学”的现象：测试时看起来也很随机，根本不知道模型到底学没学会。&lt;/p&gt;
-&lt;h3&gt;update：先 critic 再 actor，再软更新 target&lt;/h3&gt;
-&lt;p&gt;DDPG 的 &lt;code&gt;update()&lt;/code&gt; 我通常按固定顺序写死：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;从 replay 采样一批 transition&lt;/li&gt;
-&lt;li&gt;用贝尔曼方程算 critic target&lt;/li&gt;
-&lt;li&gt;更新 critic（最小化 TD error）&lt;/li&gt;
-&lt;li&gt;更新 actor（最大化 critic 对当前 actor 动作的 Q 值）&lt;/li&gt;
-&lt;li&gt;更新各自目标网络参数（soft update）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;TD3：Twin Delayed DDPG（解决高估与不稳定）&lt;/h2&gt;
-&lt;p&gt;当我用 DDPG 在更复杂的连续控制任务上跑起来以后，很常见的痛点是：回报曲线一会儿很好看，一会儿又突然崩掉；或者 Critic 的 Q 值虚高，导致 Actor 被带偏。TD3 的出现基本就是为了解决这些问题，它把 Double Q-learning 的“取较小估计更保守”的思想带进了 DDPG。&lt;/p&gt;
-&lt;p&gt;工程上 TD3 的“显眼差别”主要体现在三件事：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;双 Critic&lt;/strong&gt;：两个 $Q_1, Q_2$，算 target 时取较小者缓解过估计&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;延迟更新 Actor&lt;/strong&gt;：critic 更新更频繁，actor 慢一点（delayed policy update）
-3.（常见实现里还有 target policy smoothing：对 target 动作加一点小噪声）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;实际写代码时，你只要把“双 critic”写对、把“actor 延迟更新”写对，就能看到稳定性明显提升；其它技巧（比如 target policy smoothing）可以作为锦上添花后面再加。&lt;/p&gt;
-&lt;h2&gt;SAC：Soft Actor-Critic（熵正则化让探索更“软”）&lt;/h2&gt;
-&lt;p&gt;SAC 是我在连续控制里最喜欢的一套，因为它对“探索”这件事的处理更自然：不是靠外部噪声硬塞随机性，而是在优化目标里直接鼓励策略保持一定随机性（最大化熵）。很多时候这会让训练更稳，也更不容易陷入坏的局部最优。&lt;/p&gt;
-&lt;p&gt;从工程上看，SAC 依然离不开三块：网络、replay、update。常见的网络拆分是 ValueNet / QNet / PolicyNet（也有实现会省略 ValueNet，用 twin Q + target V 替代，但主旨不变）。&lt;/p&gt;
-&lt;p&gt;你选哪种网络拆法都可以，关键是 update 的目标里要正确引入熵正则项，以及 Policy 更新时要能拿到 action 的 &lt;code&gt;log_prob&lt;/code&gt;。&lt;/p&gt;
-&lt;h3&gt;SAC 的直觉&lt;/h3&gt;
-&lt;p&gt;如果你把 PPO 理解成“动作概率分布 + on-policy 约束”，那 SAC 更像：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 off-policy 的 Q 学习里，鼓励策略保持一定随机性（最大化熵），让探索更稳定。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;工程差异点：PolicyNet 的动作采样&lt;/h3&gt;
-&lt;p&gt;我在实现 SAC 时，会把策略网络的动作相关函数明确拆成两种：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;evaluate()&lt;/code&gt; 用于训练：返回采样动作以及它的 &lt;code&gt;log_prob&lt;/code&gt;（因为熵项要用到它）；&lt;code&gt;get_action()&lt;/code&gt; 用于交互/测试：给定 state 输出动作（测试时通常用更确定的方式，比如取均值，或者关掉随机性）。&lt;/p&gt;
-&lt;p&gt;你可以把它们理解为我们前面文章中的 &lt;code&gt;sample/predict&lt;/code&gt; 的连续动作版本：训练期需要概率信息，测试期只需要行为本身。&lt;/p&gt;
-&lt;h2&gt;小结&lt;/h2&gt;
-&lt;p&gt;把连续控制这三套算法压缩成一句工程结论：&lt;/p&gt;
-&lt;p&gt;DDPG/TD3/SAC 都是“Actor 产动作、Critic 评估 $(s,a)$、Replay 做 off-policy”，差异主要体现在 &lt;code&gt;update()&lt;/code&gt; 的 target 计算方式、是否用双 critic、是否延迟更新 actor、以及是否引入熵正则。&lt;/p&gt;
-&lt;p&gt;如果你后面要把这些算法写成统一框架，我建议保留同样的接口：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练交互（DDPG/TD3 加噪声，SAC 采样分布）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试（不加噪声/取均值动作）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 replay 采样并更新网络&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;后续我会看情况把这个系列继续补成“通用工程模板仓库”：统一日志、统一评估、统一保存/加载与配置管理。&lt;/p&gt;
-&lt;h3&gt;连续控制里我最常踩的坑 &amp;#x26; 排障顺序&lt;/h3&gt;
-&lt;p&gt;连续控制的训练“崩”起来比离散动作更快，尤其是 DDPG/TD3 这种 deterministic 方法，稍微一个尺度不对就会直接发散。我一般按下面顺序排查：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;动作缩放是否正确&lt;/strong&gt;：Actor 输出常是 &lt;code&gt;tanh&lt;/code&gt; 的 $[-1,1]$，环境动作空间可能是别的范围。这个映射一旦错了，训练会表现得非常诡异（像是永远学不会某个动作方向）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;噪声别太大/别太小&lt;/strong&gt;：噪声太大动作乱飞，buffer 里全是坏数据；噪声太小又不探索。建议先把噪声单独打印出来，看它的量级相对动作范围是否合理。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;先盯 Q 值是否爆炸&lt;/strong&gt;：每隔一段时间打印 &lt;code&gt;Q1/Q2&lt;/code&gt; 的均值、最大值；如果 Q 值飙升，优先怀疑学习率、reward 尺度、done 处理、target 计算。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;target 的软更新系数（tau）要保守&lt;/strong&gt;：tau 太大，target 跟着在线网络跑，稳定性下降；tau 太小，又会学得很慢。建议先用保守设置跑通，再微调。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;TD3 的双 critic/取 min 要写对&lt;/strong&gt;：这是它解决过估计的核心。如果你写成了 max，或者 target 用错了 critic，会直接退化/发散。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SAC 重点看 entropy / alpha&lt;/strong&gt;：熵项权重不合适，会出现“动作太随机”或“过早确定”。如果实现支持自动调 alpha，一般会更省心。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;先用短 horizon 验证闭环&lt;/strong&gt;：把 episode length 缩短、reward 简化、甚至先关掉部分随机性，确认 update 不会爆，再逐步加回真实设置。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DVisbO6f.jpg"/><enclosure url="/_astro/heroimage.DVisbO6f.jpg"/></item><item><title>RL 学习笔记（1）：算法程序实践</title><link>https://xiaohei94.github.io/blog/rl-learning-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-learning-1</guid><description>让我们来把算法跑起来</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
-&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
-&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
-&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
-&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>RL 学习笔记（1）：算法程序实践</title><link>https://xiaohei94.github.io/blog/rl-learning-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-learning-2</guid><description>让我们来把算法跑起来</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
-&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
-&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
-&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
-&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>强化学习算法程序实践（2）：DQN 及其改进</title><link>https://xiaohei94.github.io/blog/rl-algorithm-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-2</guid><description>从 Q-table 走向深度强化学习</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;p&gt;经常有人会这么说，你多看几个报错日志、多查几次文档、多做积累，做一个长期主义的人，总有一天会做到融会贯通的。希望这篇实战记录能成为你起飞前的最后一次检查清单。祝你的无人机，感知精准，飞行稳健。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DN-SvCbu.jpg"/><enclosure url="/_astro/heroimage.DN-SvCbu.jpg"/></item><item><title>强化学习算法程序实践（2）：DQN 及其改进</title><link>https://xiaohei94.github.io/blog/rl-algorithm-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-2</guid><description>从 Q-table 走向深度强化学习</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;第 1 篇我们把“回合训练骨架”固定了，并用 Q-Learning/Sarsa 验证：很多算法的工程结构可以复用。&lt;/p&gt;
 &lt;p&gt;这篇开始进入深度强化学习：&lt;strong&gt;DQN（Deep Q-Network）&lt;/strong&gt;。它的本质很简单：&lt;/p&gt;
@@ -1202,7 +871,290 @@ $$&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;action 与 log_prob 是否匹配同一次采样&lt;/strong&gt;：不要在采样后又对 action 做 clip/变换但忘了同步 log_prob（SAC 里尤其常见）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;先从最简单环境验证闭环&lt;/strong&gt;：CartPole 这类任务能快速验证“分布采样 + log_prob + 更新”是否正确，别一上来就怼高维连续控制。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;下一篇进入连续控制的三件套：DDPG / TD3 / SAC。它们和 PPO/A2C 的共同点是都有 Actor-Critic，但一个更偏 off-policy，一个更偏熵正则化。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DTT8jEEi.jpg"/><enclosure url="/_astro/heroimage.DTT8jEEi.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;下一篇进入连续控制的三件套：DDPG / TD3 / SAC。它们和 PPO/A2C 的共同点是都有 Actor-Critic，但一个更偏 off-policy，一个更偏熵正则化。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DTT8jEEi.jpg"/><enclosure url="/_astro/heroimage.DTT8jEEi.jpg"/></item><item><title>强化学习算法程序实践（4）：连续控制（DDPG / TD3 / SAC）</title><link>https://xiaohei94.github.io/blog/rl-algorithm-4</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-4</guid><description>Actor/Critic 输入输出、Replay Buffer、探索噪声、以及各自 update 的关键差异</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;到了连续控制（continuous action space），你会发现 DQN 这套“输出离散动作 Q 值”的方式没那么顺手了。&lt;/p&gt;
+&lt;p&gt;我第一次做连续控制任务时最大的感受是：&lt;strong&gt;动作不再是“选 A 还是选 B”，而是“输出一段连续向量”&lt;/strong&gt;。这时再用 DQN 去离散化动作，往往既不优雅也不高效。更顺的路线是 Actor-Critic：Actor 直接产出连续动作，Critic 负责评价这个动作在当前状态下到底值不值。&lt;/p&gt;
+&lt;p&gt;我自己当时的“翻车现场”也很典型：把动作离散成 11 档、21 档，看起来很细了，但策略依然像在抖腿——要么动作不够细导致控制很粗糙，要么离散太细导致动作维度膨胀，学习变得又慢又不稳定。更要命的是，reward 曲线的抖动和环境随机性混在一起，你根本不知道是探索问题、还是值估计的问题。于是我就彻底转到 Actor-Critic：动作直接从网络里出来，探索要么靠噪声（DDPG/TD3），要么靠熵正则（SAC），思路一下子清爽很多。&lt;/p&gt;
+&lt;p&gt;这一篇我就沿着我自己的实践顺序，把三套最常用的 off-policy 连续控制算法串起来：DDPG 是最基础的 deterministic Actor-Critic；TD3 主要是修 DDPG 容易高估、容易抖的问题；SAC 则在目标函数里把“熵”引入进来，让探索更自然、训练更稳。&lt;/p&gt;
+&lt;p&gt;这篇我按“你写代码时要实现哪些模块”来整理。&lt;/p&gt;
+&lt;h2&gt;DDPG：deterministic Actor-Critic 的最小工程结构&lt;/h2&gt;
+&lt;p&gt;DDPG 的结构非常“工科”：Actor 输出动作 $a$，Critic 评估 $(s,a)$ 的 Q 值。这里有一个我认为必须牢牢记住的关键点：&lt;strong&gt;Critic 的输入是 state + action 的拼接&lt;/strong&gt;，不是只喂 state。&lt;/p&gt;
+&lt;h3&gt;网络结构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Actor（策略网络）：输入 state，输出连续动作；输出层常用 &lt;code&gt;tanh&lt;/code&gt; 把动作限制到 $[-1,1]$（再映射到环境动作范围）&lt;/li&gt;
+&lt;li&gt;Critic（价值网络）：输入 &lt;code&gt;[state, action]&lt;/code&gt; 拼接向量，输出 $Q(s,a)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实现时我会额外注意一个特别容易被忽略的小细节：Actor/Critic 的输出层初始化不要太“放飞”。如果初始动作幅度很大，或者 Critic 初始 Q 值异常夸张，训练经常会在前几千步就开始发散。很多实现会对最后一层的权重做更小范围的初始化，就是为了解决这个。&lt;/p&gt;
+&lt;h3&gt;Replay Buffer&lt;/h3&gt;
+&lt;p&gt;和 DQN 类似（push+sample），但 transition 里的 action 是连续向量。&lt;/p&gt;
+&lt;h3&gt;探索噪声&lt;/h3&gt;
+&lt;p&gt;DDPG 是确定性策略（deterministic policy），所以探索通常靠&lt;strong&gt;给动作加噪声&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;action = actor(state) + noise&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我的习惯是：训练阶段加噪声促进探索；测试阶段完全关掉噪声，只看学到的确定性策略到底能拿多少回报。否则你会出现一个很“玄学”的现象：测试时看起来也很随机，根本不知道模型到底学没学会。&lt;/p&gt;
+&lt;h3&gt;update：先 critic 再 actor，再软更新 target&lt;/h3&gt;
+&lt;p&gt;DDPG 的 &lt;code&gt;update()&lt;/code&gt; 我通常按固定顺序写死：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从 replay 采样一批 transition&lt;/li&gt;
+&lt;li&gt;用贝尔曼方程算 critic target&lt;/li&gt;
+&lt;li&gt;更新 critic（最小化 TD error）&lt;/li&gt;
+&lt;li&gt;更新 actor（最大化 critic 对当前 actor 动作的 Q 值）&lt;/li&gt;
+&lt;li&gt;更新各自目标网络参数（soft update）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;TD3：Twin Delayed DDPG（解决高估与不稳定）&lt;/h2&gt;
+&lt;p&gt;当我用 DDPG 在更复杂的连续控制任务上跑起来以后，很常见的痛点是：回报曲线一会儿很好看，一会儿又突然崩掉；或者 Critic 的 Q 值虚高，导致 Actor 被带偏。TD3 的出现基本就是为了解决这些问题，它把 Double Q-learning 的“取较小估计更保守”的思想带进了 DDPG。&lt;/p&gt;
+&lt;p&gt;工程上 TD3 的“显眼差别”主要体现在三件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;双 Critic&lt;/strong&gt;：两个 $Q_1, Q_2$，算 target 时取较小者缓解过估计&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;延迟更新 Actor&lt;/strong&gt;：critic 更新更频繁，actor 慢一点（delayed policy update）
+3.（常见实现里还有 target policy smoothing：对 target 动作加一点小噪声）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实际写代码时，你只要把“双 critic”写对、把“actor 延迟更新”写对，就能看到稳定性明显提升；其它技巧（比如 target policy smoothing）可以作为锦上添花后面再加。&lt;/p&gt;
+&lt;h2&gt;SAC：Soft Actor-Critic（熵正则化让探索更“软”）&lt;/h2&gt;
+&lt;p&gt;SAC 是我在连续控制里最喜欢的一套，因为它对“探索”这件事的处理更自然：不是靠外部噪声硬塞随机性，而是在优化目标里直接鼓励策略保持一定随机性（最大化熵）。很多时候这会让训练更稳，也更不容易陷入坏的局部最优。&lt;/p&gt;
+&lt;p&gt;从工程上看，SAC 依然离不开三块：网络、replay、update。常见的网络拆分是 ValueNet / QNet / PolicyNet（也有实现会省略 ValueNet，用 twin Q + target V 替代，但主旨不变）。&lt;/p&gt;
+&lt;p&gt;你选哪种网络拆法都可以，关键是 update 的目标里要正确引入熵正则项，以及 Policy 更新时要能拿到 action 的 &lt;code&gt;log_prob&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;SAC 的直觉&lt;/h3&gt;
+&lt;p&gt;如果你把 PPO 理解成“动作概率分布 + on-policy 约束”，那 SAC 更像：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 off-policy 的 Q 学习里，鼓励策略保持一定随机性（最大化熵），让探索更稳定。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;工程差异点：PolicyNet 的动作采样&lt;/h3&gt;
+&lt;p&gt;我在实现 SAC 时，会把策略网络的动作相关函数明确拆成两种：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;evaluate()&lt;/code&gt; 用于训练：返回采样动作以及它的 &lt;code&gt;log_prob&lt;/code&gt;（因为熵项要用到它）；&lt;code&gt;get_action()&lt;/code&gt; 用于交互/测试：给定 state 输出动作（测试时通常用更确定的方式，比如取均值，或者关掉随机性）。&lt;/p&gt;
+&lt;p&gt;你可以把它们理解为我们前面文章中的 &lt;code&gt;sample/predict&lt;/code&gt; 的连续动作版本：训练期需要概率信息，测试期只需要行为本身。&lt;/p&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;把连续控制这三套算法压缩成一句工程结论：&lt;/p&gt;
+&lt;p&gt;DDPG/TD3/SAC 都是“Actor 产动作、Critic 评估 $(s,a)$、Replay 做 off-policy”，差异主要体现在 &lt;code&gt;update()&lt;/code&gt; 的 target 计算方式、是否用双 critic、是否延迟更新 actor、以及是否引入熵正则。&lt;/p&gt;
+&lt;p&gt;如果你后面要把这些算法写成统一框架，我建议保留同样的接口：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练交互（DDPG/TD3 加噪声，SAC 采样分布）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试（不加噪声/取均值动作）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 replay 采样并更新网络&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;后续我会看情况把这个系列继续补成“通用工程模板仓库”：统一日志、统一评估、统一保存/加载与配置管理。&lt;/p&gt;
+&lt;h3&gt;连续控制里我最常踩的坑 &amp;#x26; 排障顺序&lt;/h3&gt;
+&lt;p&gt;连续控制的训练“崩”起来比离散动作更快，尤其是 DDPG/TD3 这种 deterministic 方法，稍微一个尺度不对就会直接发散。我一般按下面顺序排查：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;动作缩放是否正确&lt;/strong&gt;：Actor 输出常是 &lt;code&gt;tanh&lt;/code&gt; 的 $[-1,1]$，环境动作空间可能是别的范围。这个映射一旦错了，训练会表现得非常诡异（像是永远学不会某个动作方向）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;噪声别太大/别太小&lt;/strong&gt;：噪声太大动作乱飞，buffer 里全是坏数据；噪声太小又不探索。建议先把噪声单独打印出来，看它的量级相对动作范围是否合理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先盯 Q 值是否爆炸&lt;/strong&gt;：每隔一段时间打印 &lt;code&gt;Q1/Q2&lt;/code&gt; 的均值、最大值；如果 Q 值飙升，优先怀疑学习率、reward 尺度、done 处理、target 计算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;target 的软更新系数（tau）要保守&lt;/strong&gt;：tau 太大，target 跟着在线网络跑，稳定性下降；tau 太小，又会学得很慢。建议先用保守设置跑通，再微调。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TD3 的双 critic/取 min 要写对&lt;/strong&gt;：这是它解决过估计的核心。如果你写成了 max，或者 target 用错了 critic，会直接退化/发散。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SAC 重点看 entropy / alpha&lt;/strong&gt;：熵项权重不合适，会出现“动作太随机”或“过早确定”。如果实现支持自动调 alpha，一般会更省心。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先用短 horizon 验证闭环&lt;/strong&gt;：把 episode length 缩短、reward 简化、甚至先关掉部分随机性，确认 update 不会爆，再逐步加回真实设置。&lt;/li&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.BMCKMFQL.jpg"/><enclosure url="/_astro/heroimage.BMCKMFQL.jpg"/></item><item><title>强化学习算法程序实践（1）：通用训练框架 + Q-Learning / Sarsa</title><link>https://xiaohei94.github.io/blog/rl-algorithm-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-1</guid><description>从一个可落地 Q-Learning 与 Sarsa、epsilon-greedy、回合训练循环、以及保存与加载的最小实践。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;我在做强化学习实验时，最痛苦的不是推公式，而是：&lt;strong&gt;同一个算法换个环境就要重写一堆训练脚手架&lt;/strong&gt;。后来我索性把常用套路总结成一个“可复用的算法骨架”，再把每个算法的差异点（几乎都集中在 &lt;code&gt;sample&lt;/code&gt; 和 &lt;code&gt;update&lt;/code&gt;）填进去。&lt;/p&gt;
+&lt;p&gt;更具体一点说，我踩过的坑基本都集中在“工程细节被忽略”上：同样的算法，有时候不是你公式写错了，而是你训练循环里 &lt;code&gt;terminated/truncated&lt;/code&gt; 没处理好、epsilon 衰减太快导致过早收敛、或者你没有把每回合最大步数限制住导致训练数据统计完全不一致。于是到最后你只能对着一条乱七八糟的 reward 曲线发呆，完全不知道是环境问题还是代码问题。&lt;/p&gt;
+&lt;p&gt;所以这篇我会很刻意地把“程序骨架”写得死一点：有哪些函数、训练/测试循环怎么摆、每一步该打印什么，尽量让你在写第二个、第三个算法时不用再从头搭脚手架。&lt;/p&gt;
+&lt;p&gt;这篇是系列第一篇，目标很明确：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;给出一个&lt;strong&gt;可复用的 RL 项目代码结构&lt;/strong&gt;（训练 / 测试 / 环境 / 参数）&lt;/li&gt;
+&lt;li&gt;用它实现经典的 &lt;strong&gt;Q-Learning&lt;/strong&gt;（off-policy）&lt;/li&gt;
+&lt;li&gt;以及和它只有一处关键差别的 &lt;strong&gt;Sarsa&lt;/strong&gt;（on-policy）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;后续文章我会按“值函数系（DQN 家族）”和“策略梯度 / Actor-Critic 系”继续拆分：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第 2 篇：DQN / Double DQN / Dueling DQN / Noisy DQN / PER-DQN&lt;/li&gt;
+&lt;li&gt;第 3 篇：Policy Gradient（REINFORCE）/ PPO / A2C&lt;/li&gt;
+&lt;li&gt;第 4 篇：DDPG / TD3 / SAC（连续控制三件套）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;一个通用的 RL 代码骨架&lt;/h2&gt;
+&lt;p&gt;不管是表格型方法（Q-table），还是深度强化学习（DQN 及其变体），我习惯把智能体抽象成 4 个核心动作：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练时采样动作（带探索，Exploration）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试时输出动作（不探索，Exploitation）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update(transition)&lt;/code&gt;：用交互数据更新策略&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;save()/load()&lt;/code&gt;：保存与加载（可选，但强烈推荐）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;其中&lt;strong&gt;最关键的提醒&lt;/strong&gt;是：对不同算法而言，&lt;code&gt;sample&lt;/code&gt; 和 &lt;code&gt;update&lt;/code&gt; 的实现差异很大；其它（训练循环、日志、保存/加载）通常大同小异。&lt;/p&gt;
+&lt;h3&gt;训练循环（定义训练）&lt;/h3&gt;
+&lt;p&gt;一个“回合制（episode-based）”的训练循环，基本就是下面这个顺序：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;回合开始：&lt;code&gt;state = env.reset()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;设定每回合最大步数 &lt;code&gt;max_steps&lt;/code&gt;（帮助更快收敛，也避免一直跑不结束）&lt;/li&gt;
+&lt;li&gt;循环交互直到终止：
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;action = agent.sample(state)&lt;/code&gt;（探索策略）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;next_state, reward, terminated, truncated, info = env.step(action)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;构造 &lt;code&gt;transition&lt;/code&gt;（必要时写入 memory）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;agent.update(transition)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;state = next_state&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;若 &lt;code&gt;terminated or truncated&lt;/code&gt; 则结束回合&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;用几行伪代码把它写死（推荐你直接复制作为项目模板）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;def train(env, agent, num_episodes: int, max_steps: int):
+	for ep in range(num_episodes):
+		state, info = env.reset()
+		ep_return = 0.0
+
+		for t in range(max_steps):
+			action = agent.sample(state)
+			next_state, reward, terminated, truncated, info = env.step(action)
+
+			agent.update(state, action, reward, next_state, terminated)
+
+			ep_return += reward
+			state = next_state
+			if terminated or truncated:
+				break
+
+		print(f&quot;episode={ep} return={ep_return:.1f} eps={agent.epsilon:.3f}&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;测试循环（定义测试）&lt;/h3&gt;
+&lt;p&gt;测试和训练长得很像，但有两点必须改：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;不要更新&lt;/strong&gt;：测试只是评估性能&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;不要 sample&lt;/strong&gt;：用 &lt;code&gt;predict&lt;/code&gt; 走纯利用（Exploitation）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;def evaluate(env, agent, num_episodes: int, max_steps: int):
+	returns = []
+	for ep in range(num_episodes):
+		state, info = env.reset()
+		ep_return = 0.0
+		for t in range(max_steps):
+			action = agent.predict(state)
+			next_state, reward, terminated, truncated, info = env.step(action)
+			ep_return += reward
+			state = next_state
+			if terminated or truncated:
+				break
+		returns.append(ep_return)
+		print(f&quot;[eval] episode={ep} return={ep_return:.1f}&quot;)
+	return sum(returns) / len(returns)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;环境：用 Gym 就够了（需要自定义时只看 reset/step）&lt;/h3&gt;
+&lt;p&gt;大多数情况下我不会自己造环境：Gym/Gymnasium 已经足够。&lt;/p&gt;
+&lt;p&gt;如果你必须自定义环境，最关键就是对齐这两个接口：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;reset()&lt;/code&gt;：回合开始，返回初始状态&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;step(action)&lt;/code&gt;：执行动作，返回 &lt;code&gt;(next_state, reward, terminated, truncated, info)&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Q-Learning：从“骨架”到可跑的算法&lt;/h2&gt;
+&lt;h3&gt;Q-Learning 的三个核心函数&lt;/h3&gt;
+&lt;p&gt;Q-Learning（表格法）里我们维护一个 $Q(s,a)$ 表。把它塞进“骨架”里，你会发现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：选 $\arg\max_a Q(s,a)$&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：在 &lt;code&gt;predict&lt;/code&gt; 基础上加探索（epsilon-greedy / UCB etc.）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update(...)&lt;/code&gt;：就是贝尔曼更新（TD）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;epsilon-greedy（最常用的探索策略）&lt;/h4&gt;
+&lt;p&gt;训练过程一般是：前期探索多、后期逐步收敛，也就是让 $\epsilon$ 从大到小。&lt;/p&gt;
+&lt;p&gt;通常会设三元组：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;epsilon_start&lt;/code&gt;：初始探索率（常见 0.95）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;epsilon_end&lt;/code&gt;：最小探索率（常见 0.01，留一点探索避免错过更优策略）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;epsilon_decay&lt;/code&gt;：衰减速度（太快容易“过早收敛/过拟合”，太慢收敛会拖）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一个简单衰减：
+$$
+\epsilon \leftarrow \max(\epsilon_{end}, \epsilon \cdot \epsilon_{decay})
+$$&lt;/p&gt;
+&lt;h3&gt;一份“能直接套用”的 Q-Learning 类&lt;/h3&gt;
+&lt;p&gt;下面代码是我常用的最小实现（离散状态/动作）。写成类是为了和 DQN 等深度算法保持一致的接口。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import random
+from collections import defaultdict
+from dataclasses import dataclass
+
+
+@dataclass
+class QLearningConfig:
+	gamma: float = 0.99
+	lr: float = 0.1
+	epsilon_start: float = 0.95
+	epsilon_end: float = 0.01
+	epsilon_decay: float = 0.995
+
+
+class QLearningAgent:
+	def __init__(self, n_actions: int, cfg: QLearningConfig):
+		self.n_actions = n_actions
+		self.cfg = cfg
+
+		self.Q = defaultdict(lambda: [0.0 for _ in range(n_actions)])
+		self.epsilon = cfg.epsilon_start
+
+	def sample(self, state):
+		# Exploration + exploitation
+		if random.random() &amp;#x3C; self.epsilon:
+			return random.randrange(self.n_actions)
+		return self.predict(state)
+
+	def predict(self, state):
+		q = self.Q[state]
+		return int(max(range(self.n_actions), key=lambda a: q[a]))
+
+	def update(self, state, action, reward, next_state, terminated: bool):
+		q_sa = self.Q[state][action]
+		next_q_max = 0.0 if terminated else max(self.Q[next_state])
+		target = reward + self.cfg.gamma * next_q_max
+		self.Q[state][action] = q_sa + self.cfg.lr * (target - q_sa)
+
+		# decay epsilon once per step (or per episode, both ok; step 更细)
+		self.epsilon = max(self.cfg.epsilon_end, self.epsilon * self.cfg.epsilon_decay)
+
+	def save(self, path: str):
+		import json
+		with open(path, &apos;w&apos;, encoding=&apos;utf-8&apos;) as f:
+			json.dump({str(k): v for k, v in self.Q.items()}, f, ensure_ascii=False)
+
+	def load(self, path: str):
+		import json
+		with open(path, &apos;r&apos;, encoding=&apos;utf-8&apos;) as f:
+			obj = json.load(f)
+		self.Q = defaultdict(lambda: [0.0 for _ in range(self.n_actions)])
+		for k, v in obj.items():
+			self.Q[k] = v
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Sarsa：和 Q-Learning 只差一个 update&lt;/h2&gt;
+&lt;p&gt;Sarsa 和 Q-Learning 的核心差别，一句话总结：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Sarsa&lt;/strong&gt;：用“实际执行的下一步动作”更新（on-policy）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Q-Learning&lt;/strong&gt;：用“假设下一步最优动作”更新（off-policy）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;写成更新目标（只看差异就好）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Q-Learning：$r + \gamma \max_{a&apos;} Q(s&apos;, a&apos;)$&lt;/li&gt;
+&lt;li&gt;Sarsa：$r + \gamma Q(s&apos;, a_{next})$，其中 $a_{next}$ 是用当前策略在 $s&apos;$ 上采样的动作&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;Sarsa 的最小实现（只展示 update 差异）&lt;/h3&gt;
+&lt;p&gt;Sarsa 的代码组织和 Q-Learning 几乎一致，主要差别在 &lt;code&gt;update&lt;/code&gt; 需要 &lt;code&gt;next_action&lt;/code&gt;：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;class SarsaAgent(QLearningAgent):
+	def update(self, state, action, reward, next_state, next_action, terminated: bool):
+		q_sa = self.Q[state][action]
+		next_q = 0.0 if terminated else self.Q[next_state][next_action]
+		target = reward + self.cfg.gamma * next_q
+		self.Q[state][action] = q_sa + self.cfg.lr * (target - q_sa)
+		self.epsilon = max(self.cfg.epsilon_end, self.epsilon * self.cfg.epsilon_decay)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;对应训练循环也要改一行：先拿到 &lt;code&gt;next_action&lt;/code&gt; 再更新。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;action = agent.sample(state)
+next_state, reward, terminated, truncated, info = env.step(action)
+next_action = agent.sample(next_state)
+agent.update(state, action, reward, next_state, next_action, terminated)
+state = next_state
+action = next_action
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;你如果只记住一件事，那就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;训练/测试循环可以固定成模板&lt;/strong&gt;，主要改 &lt;code&gt;sample/predict/update&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下一篇我会把这个模板升级到“深度强化学习”版本：引入 Replay Buffer、目标网络，逐步讲清楚 DQN 以及它的几种常见改进（Double / Dueling / Noisy / PER）。&lt;/p&gt;
+&lt;h3&gt;我常用的调参/调试顺序（很实用）&lt;/h3&gt;
+&lt;p&gt;最后留一段我自己最常用的“排障流程”。强化学习的坏处是：它不会像监督学习那样一眼看出你是不是 overfit，它更像一锅粥，哪一步有问题都可能表现成“reward 不涨”。我一般按下面顺序来定位：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;先把环境跑通&lt;/strong&gt;：随机策略能不能结束回合？&lt;code&gt;terminated/truncated&lt;/code&gt; 是否合理？reward 的量级大概是多少？&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;把日志打印得足够具体&lt;/strong&gt;：每回合 return、每步/每回合 epsilon、以及“是否提前结束”。如果是 Q 表法，我还会打印 &lt;code&gt;max(Q[state])&lt;/code&gt; 的量级看有没有爆炸。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;epsilon 先别衰减太快&lt;/strong&gt;：我最常犯的错误是 &lt;code&gt;epsilon_decay&lt;/code&gt; 设太狠，导致前几十回合就开始“自信地瞎走”。如果你看到 reward 一开始有波动、很快就僵住，优先怀疑探索不足。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;gamma 和 max_steps 要配套&lt;/strong&gt;：&lt;code&gt;gamma&lt;/code&gt; 大的时候，回报有效视野更长；如果你 &lt;code&gt;max_steps&lt;/code&gt; 又很短，很多环境会变成“怎么都学不出来”。反过来也是：&lt;code&gt;max_steps&lt;/code&gt; 太长会让训练变慢且方差更大。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先在最小环境验证&lt;/strong&gt;：像 FrozenLake / Taxi 这种可以快速验证“训练循环是否正确”。骨架确认没问题，再搬到复杂环境会省掉很多时间。&lt;/li&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>RL 学习笔记（1）：算法程序实践</title><link>https://xiaohei94.github.io/blog/rl-learning-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-learning-1</guid><description>让我们来把算法跑起来</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
 &lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
 &lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
 &lt;ul&gt;
@@ -1226,7 +1178,31 @@ $$&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
 &lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>RL 学习笔记（1）：算法程序实践</title><link>https://xiaohei94.github.io/blog/rl-learning-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-learning-2</guid><description>让我们来把算法跑起来</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
+&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
+&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
+&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
 &lt;li&gt;自动构建：push 即部署&lt;/li&gt;
@@ -1260,7 +1236,31 @@ pnpm build
 &lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
+&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
+&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
+&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
 import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
@@ -1326,7 +1326,7 @@ pnpm preview
 &lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.BUZOZq_i.jpg"/><enclosure url="/_astro/heroimage.BUZOZq_i.jpg"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DXx_8_1r.jpg"/><enclosure url="/_astro/heroimage.DXx_8_1r.jpg"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Axi Theme 中启用评论与访问量统计。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
 &lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;a href=&quot;https://zoooooone.github.io/posts/waline/#2-%E8%AF%84%E8%AE%BA%E9%80%9A%E7%9F%A5%E5%BC%80%E5%90%AF&quot;&gt;Waline 评论系统&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
