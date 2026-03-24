@@ -411,10 +411,13 @@ motor4 = throttle - pitch_out + roll_out + yaw_out;
 &lt;p&gt;&lt;img src=&quot;./image/anotc_pid.png&quot; alt=&quot;上位机1&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;结语&lt;/h2&gt;
 &lt;p&gt;从一行编译烧录命令到飞机第一次颤颤巍巍地离地，这中间可能会经历无数次的炸机、断桨和代码报错。但当你亲手写的算法让飞行器稳稳地悬停在空中的那一刻，那种成就感是无与伦比的。&lt;/p&gt;
-&lt;p&gt;这篇博客主要带大家理清了 ESP32 无人机开发的脉络。后续我会在对应的位置补充更多实战图片和详细的接线图。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.h2t7fPYM.jpg"/><enclosure url="/_astro/heroimage.h2t7fPYM.jpg"/></item><item><title>Paper Reading： Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem } from &apos;@/components/user&apos;
+&lt;p&gt;这篇博客主要带大家理清了 ESP32 无人机开发的脉络。后续我会在对应的位置补充更多实战图片和详细的接线图。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.h2t7fPYM.jpg"/><enclosure url="/_astro/heroimage.h2t7fPYM.jpg"/></item><item><title>Paper Reading：Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;#x3C;ArxivRating id=&apos;2511.18810&apos; tldr=&apos;Merge LoRA 进行多任务学习的 Pi-like VLA&apos; rank={2}&gt;
+&lt;pre&gt;&lt;code&gt;## VLA
+
+&amp;#x3C;ArxivRating id=&apos;2511.18810&apos; tldr=&apos;Merge LoRA 进行多任务学习的 Pi-like VLA&apos; rank={2}&gt;
   &amp;#x3C;p&gt;
+    ![show](./image/data.png)
     MergeVLA 的核心思路是把“多任务 + 多 LoRA”的训练与推理流程做成可控的组合：训练阶段面向不同任务学习各自的
     LoRA 专家，并通过更有针对性的跨任务对齐设计降低任务之间的冲突；推理阶段再用路由/合并策略把需要的能力组合起来，
     以尽可能少的参数增量覆盖更多任务。
@@ -422,6 +425,8 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &amp;#x3C;/ArxivRating&gt;
 
 &amp;#x3C;div class=&apos;my-6&apos;&gt;&amp;#x3C;/div&gt;
+
+## VLM
 
 &amp;#x3C;ArxivRating id=&apos;2511.18950&apos; tldr=&apos;通过减少计算量和视觉 token 数量来提高 VLA 效率&apos; rank={2}&gt;
   &amp;#x3C;p&gt;
@@ -683,31 +688,18 @@ roslaunch octomap_server octomap_mapping.launch
 &lt;ol&gt;
 &lt;li&gt;手机端拍照&lt;/li&gt;
 &lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;ArkUI&lt;/strong&gt;——构建分布式应用界面的声明式 UI 开发框架&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;服务卡片&lt;/strong&gt;功能，上滑呼出服务卡片，直达拍照服务，减少层级&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;JS FA 调用 Java PA&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;通过 &lt;strong&gt;FeatureAbility.callAbility&lt;/strong&gt; 调用PA，实现拉取相册图库功能&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;./image/show1.gif&quot; alt=&quot;功能演示4&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/show1.gif&quot; alt=&quot;功能演示4&quot;&gt;
+&lt;/p&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;图传识别&lt;/li&gt;
 &lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;用户手机端图传分类，图库中&lt;strong&gt;选择皮肤病照片&lt;/strong&gt;上传&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;@ohos.request&lt;/strong&gt; 发送文件传输至服务端识别&lt;/li&gt;
-&lt;li&gt;分类结果返回到鸿蒙 APP&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;./image/show2.gif&quot; alt=&quot;功能演示5&quot;&gt;&lt;/p&gt;
-&lt;ol start=&quot;2&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;./image/show2.gif&quot; alt=&quot;功能演示5&quot;&gt;
+&lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;查看检测结果&lt;/li&gt;
 &lt;/ol&gt;
-&lt;ul&gt;
-&lt;li&gt;在医院识别皮肤镜图像，得到&lt;strong&gt;分割结果&lt;/strong&gt;及报告&lt;/li&gt;
-&lt;li&gt;APP &lt;strong&gt;下拉刷新，@ohos.net.http&lt;/strong&gt; 发送网络请求&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;list&lt;/strong&gt; 组件显示识别结果&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;img src=&quot;./image/show3.gif&quot; alt=&quot;功能演示5&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/show3.gif&quot; alt=&quot;功能演示5&quot;&gt;
+&lt;/p&gt;
 &lt;h2&gt;产品价值&lt;/h2&gt;
 &lt;p&gt;本项目致力于通过端云协同的 AI 辅助诊疗平台，打破基层医疗机构在微小皮肤病变诊断上的专业资源壁垒。面对恶性皮肤肿瘤早期肉眼查验难、三甲医院专家资源极度匮乏的现实痛点，系统将先进的深度学习实例分割算法与便携式皮肤镜硬件相融合，把高精度的AI筛查能力下沉至社区，极大地提升了病灶识别的准确性与效率，帮助患者把握住能显著提高生存率的早期干预窗口。此外，依托于华为云强大的算力底座与 OpenHarmony 生态的轻量化交互体验，“识瘤者”系统不仅为患者提供了触手可及的健康管理追踪通道，也为基层医生搭建了集病例管理与学测结合的数字化赋能平台，真正实现了科技普及与医疗向善的社会价值。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BlZ3cqs7.jpg"/><enclosure url="/_astro/heroimage.BlZ3cqs7.jpg"/></item><item><title>帕金森患者康复疗效预估系统</title><link>https://xiaohei94.github.io/blog/parkinson</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/parkinson</guid><description>Makerizon-帕金森项目作品展示集。</description><pubDate>Sat, 17 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;
 import { WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
@@ -729,30 +721,35 @@ import { WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;检测过程复杂&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;市面上已存在的帕金森设备存在检测不灵敏、检测过程复杂等问题，且对于患者的检测周期较长。&lt;/p&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;前期症状不明显&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;社会上的帕金森患者在早期的帕金森病表现状况不够明显，也没有相应的日常检测设备。&lt;/p&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;患者线下数据收集难&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;随着互联网医疗体系的完善，医生对患者数据的管理与分析变得迫切。与互联网医疗配套的家用医疗器械缺乏，患者数据无法第一时间向医生反馈。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/heart.png&quot; alt=&quot;项目痛点&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;开发挑战&lt;/h2&gt;
 &lt;p&gt;我们团队在开发时遇到的挑战:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;私有协议开发&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;自行开发私有协议，并且需要在硬件端和后台同时部署，开发周期达 3.5 人\月，不利于产品的快速开发。
+&lt;/p&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;数据量庞大冗余&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;针对目前帕金森场景下，每次上传的数据量达到 1000 条，急需将部分滤波、降维算子进行下发到端侧，减少冗余无用的数据。
+&lt;/p&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;场景数据杂乱&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;对帕金森场景下的数据获取，没有统一的物模型;涉及 30 多项设备属性、数据类型和数量大小的确定，后期移植困难。
+&lt;/p&gt;
 &lt;ol start=&quot;4&quot;&gt;
 &lt;li&gt;多设备的数据联动&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;针对多个帕金森评估设备之间的信息传输和联动，存在数据传输过程复杂，更新不及时的问题。
+&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/chanllege.png&quot; alt=&quot;项目挑战&quot;&gt;&lt;/p&gt;
 &lt;p&gt;基于以上我们团队结合自身的技术力量，针对上述的问题，使用华为云 IoT 端侧规则引擎，实现联动规则云端下发、端侧快速执行，提高设备联动效率，提出了一套基于 OpenHarmony 结合物联网、数据交叉融合算法等技术构建的可穿戴帕金森病症多数据融合监测系统。和市面上相比，我们产品可以实现对帕金森患者的手部震颤加速度数据、肌电信号、手指弯曲的信号和压力数据进行多数据采集，并且采用数据融合技术，实现高准确率的评估。而且在后期，我们可以实现日常情况的随时检测和评估，方便患者的日常使用。&lt;/p&gt;
 &lt;h2&gt;项目架构&lt;/h2&gt;
@@ -788,19 +785,15 @@ import { WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;患者居家&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;作品聚焦于65岁以上前中期帕金森惠者，而且主要面向居家患者。对帕金森患者可以通过医疗辅助器材商店或者网上购买本产品，使用产品设备每天一到三次，按照我们自主设计的范式测量方法进行简短时间的数据采集，可以实时通过鸿蒙APP查看病情状况和分析及科学的疗养方案。&lt;/p&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;医院&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;医生面对新就诊患者时，本产品检测病情程度的功能，可以辅助医生准确判断患者当前病情情况;医生面对复查病情的患者时，可以参考产品记录患者的日常数据、分析的结果，及实时检测的结果对患者进行准确的病情状态把握，有利于准确诊断。并且和河南省中医院等省市级医院达成合作后，通过省市级医院的辐射作用推广到下级医院。&lt;/p&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;社区康养中心&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;作品将推广到社区康养中心，实现区域化推广和销售。患者可以在康养中心的专业人员指导下使用，更加专业和科学。&lt;/p&gt;
 &lt;ol start=&quot;4&quot;&gt;
 &lt;li&gt;医疗科研机构&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;对于各大高校，研究机构等，需要相关的软硬件作为数据采集终端，本作品将面向科研人员进行推广售卖。&lt;/p&gt;
 &lt;h2&gt;产品价值&lt;/h2&gt;
 &lt;p&gt;本作品主要用于采集帕金森患者日常运动状态数据并记录方便医生了解患者病情情况并及时给予康复建议。并目主要的客户来源是中老年人帕金森患者，并且有一定时间的患病经历。目的旨在解决早发现帕金森病的前驱症状，实现疾病的早诊断、早治疗。以及医生与患者突破时间，空间限制的交流，实现帕金森患者居家获得及时的医生康复建议。&lt;/p&gt;
 &lt;p&gt;基于以上我们团队结合自身的技术力量，针对上述的问题，使用华为云 IoT 端侧规则引擎，实现联动规则云端下发、端侧快速执行，提高设备联动效率，提出了一套结合物联网、数据交叉融合算法等技术构建的基于可穿戴传感器的帕金森病运动迟缓量化测评系统。和市面上相比，我们产品可以实现对帕金森患者的手部震颤加速度数据、肌电信号、手指弯曲的信号和压力数据进行多数据采集，并且采用数据融合技术，实现高准确率的评估。而且在后期，我们可以实现日常情况的随时检测和评估，方便患者的日常使用。&lt;/p&gt;
