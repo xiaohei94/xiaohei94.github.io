@@ -411,11 +411,25 @@ motor4 = throttle - pitch_out + roll_out + yaw_out;
 &lt;p&gt;&lt;img src=&quot;./image/anotc_pid.png&quot; alt=&quot;上位机1&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;结语&lt;/h2&gt;
 &lt;p&gt;从一行编译烧录命令到飞机第一次颤颤巍巍地离地，这中间可能会经历无数次的炸机、断桨和代码报错。但当你亲手写的算法让飞行器稳稳地悬停在空中的那一刻，那种成就感是无与伦比的。&lt;/p&gt;
-&lt;p&gt;这篇博客主要带大家理清了 ESP32 无人机开发的脉络。后续我会在对应的位置补充更多实战图片和详细的接线图。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.h2t7fPYM.jpg"/><enclosure url="/_astro/heroimage.h2t7fPYM.jpg"/></item><item><title>帕金森患者康复疗效预估系统</title><link>https://xiaohei94.github.io/blog/parkinson</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/parkinson</guid><description>Makerizon-帕金森项目作品展示集。</description><pubDate>Sat, 18 Oct 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
-&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
-&lt;h2&gt;前言&lt;/h2&gt;
-&lt;p&gt;在这个数字时代，我们习惯于在社交媒体上分享生活，在简历上罗列技能。但这些平台终究是别人的空间，充满了格式化的限制和信息的喧嚣。你是否想过，拥有一个完全由你掌控的、独特的线上空间？&lt;/p&gt;
-&lt;p&gt;很多人可能会觉得，搭建一个看起来很炫酷的网站是件非常复杂和昂贵的事情，需要学习 HTML/CSS/JS 全家桶，还要懂后端、数据库和服务器运维。但事实是，&lt;strong&gt;借助现代化的工具，这一切比你想象的要简单得多，甚至可以完全免费&lt;/strong&gt;。本教程将作为一个完整的指南，带你从零开始，尽可能一步步搭建并部署一个高性能、易于维护的个人网站。即使你没有任何编程基础，只要跟着步骤走，也能拥有一个属于自己的主页。但是这并不意味着你不需要任何的技术积累，当然就像我对这篇博客的介绍一样，我会尽可能的从新手的角度写的详细一些，感谢那些开源的贡献者，是他们帮助了我，我也将这份精神传递下去来帮助更多的人。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DCZs3pCj.jpg"/><enclosure url="/_astro/heroimage.DCZs3pCj.jpg"/></item><item><title>自主无人机的感知模块配置教程</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>开源无人机硬件项目中关于感知模块的连接配置。</description><pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;
+&lt;p&gt;这篇博客主要带大家理清了 ESP32 无人机开发的脉络。后续我会在对应的位置补充更多实战图片和详细的接线图。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.h2t7fPYM.jpg"/><enclosure url="/_astro/heroimage.h2t7fPYM.jpg"/></item><item><title>Paper Reading： Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem } from &apos;@/components/user&apos;
+import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#x3C;ArxivRating id=&apos;2511.18810&apos; tldr=&apos;Merge LoRA 进行多任务学习的 Pi-like VLA&apos; rank={2}&gt;
+  &amp;#x3C;p&gt;
+    MergeVLA 的核心思路是把“多任务 + 多 LoRA”的训练与推理流程做成可控的组合：训练阶段面向不同任务学习各自的
+    LoRA 专家，并通过更有针对性的跨任务对齐设计降低任务之间的冲突；推理阶段再用路由/合并策略把需要的能力组合起来，
+    以尽可能少的参数增量覆盖更多任务。
+  &amp;#x3C;/p&gt;
+&amp;#x3C;/ArxivRating&gt;
+
+&amp;#x3C;div class=&apos;my-6&apos;&gt;&amp;#x3C;/div&gt;
+
+&amp;#x3C;ArxivRating id=&apos;2511.18950&apos; tldr=&apos;通过减少计算量和视觉 token 数量来提高 VLA 效率&apos; rank={2}&gt;
+  &amp;#x3C;p&gt;
+    Compressor-VLA 关注的是把视觉侧 token 压缩到“足够用”的程度，从而在不明显牺牲任务表现的前提下显著降低计算与显存
+    开销；整体方法更偏工程与效率优化，适合作为现有 VLA 管线的轻量改造模块。
+  &amp;#x3C;/p&gt;
+&amp;#x3C;/ArxivRating&gt;
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><h:img src="/_astro/heroimage.BTiOoGhT.jpg"/><enclosure url="/_astro/heroimage.BTiOoGhT.jpg"/></item><item><title>自主无人机的感知模块配置教程</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>开源无人机硬件项目中关于感知模块的连接配置。</description><pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;
 import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;感知模块的配置，往往是无人机开发中最考验人心性的环节。它不像飞控算法那样有确定的数学推导，也不像机械结构那样所见即所得，它更像是一场与软硬件兼容性、通信协议以及物理连接的漫长博弈。通俗的讲这个过程其实并不涉及什么很深奥的原理和推导，更多的其实就是有人手把手的带你走过一遍就可以，然后你就什么都懂了。&lt;/p&gt;
@@ -641,7 +655,156 @@ roslaunch octomap_server octomap_mapping.launch
 &lt;h2&gt;结语&lt;/h2&gt;
 &lt;p&gt;至此，我们完成了从物理世界的接线、系统底层的驱动安装，到数字世界中点云与栅格地图构建的全部流程。&lt;/p&gt;
 &lt;p&gt;与科研理论的学习相比，这种偏工程实践的魅力在于，它永远不会像教程里写得那样一帆风顺。在未来的调试中，你可能会遇到 USB 供电不足导致的设备掉线，可能会遇到 WiFi 驱动莫名消失的焦虑，也可能会在 TF 坐标系变换中迷失方向。但请记住，每一个红色的 Error 报错，都是系统在试图告诉你它的真实状态。每一次解决问题的过程，都是你对机器人底层逻辑理解的一次升华。&lt;/p&gt;
-&lt;p&gt;经常有人会这么说，你多看几个报错日志、多查几次文档、多做积累，做一个长期主义的人，总有一天会做到融会贯通的。希望这篇实战记录能成为你起飞前的最后一次检查清单。祝你的无人机，感知精准，飞行稳健。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DN-SvCbu.jpg"/><enclosure url="/_astro/heroimage.DN-SvCbu.jpg"/></item><item><title>RL 学习笔记（12）：DDPG</title><link>https://xiaohei94.github.io/blog/rl-learning-12</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-learning-12</guid><description>DDPG</description><pubDate>Tue, 13 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;p&gt;经常有人会这么说，你多看几个报错日志、多查几次文档、多做积累，做一个长期主义的人，总有一天会做到融会贯通的。希望这篇实战记录能成为你起飞前的最后一次检查清单。祝你的无人机，感知精准，飞行稳健。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DN-SvCbu.jpg"/><enclosure url="/_astro/heroimage.DN-SvCbu.jpg"/></item><item><title>基于实例分割的黑色素瘤病灶区域检测系统</title><link>https://xiaohei94.github.io/blog/melanoma</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/melanoma</guid><description>Makerizon-黑色素瘤项目作品展示集</description><pubDate>Tue, 27 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;h2&gt;项目简介&lt;/h2&gt;
+&lt;p&gt;项目设计了一款用于采集恶性皮肤肿瘤图片的实验装置，主要是由摄像头、LED 柔光灯和皮肤镜组成。通过 USB 连接到电脑或树莓派等嵌入式设备上，全高清光学放大倍数高达 50 倍。由皮肤镜进行图像采集之后，将视频传输至 Qt 应用程序，在端侧进行图像的预处理，然后通过 HTTP 协议将图像传输至 ECS 服务端，在服务端有部署好的深度学习模型，进行检测，同时将数据存储至 RDS 数据库，图像归档备份至 OBS 对象存储服务。识别结果会反馈至 Qt 界面，将诊断结果可视化。在 APP 端，患者也可以查看自己的诊疗结果。识瘤者 APP 使用 ArkUI 方舟开发框架，轻量级存储等，开发效率提高 30%。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/system.png&quot; alt=&quot;系统简介&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;项目背景与痛点问题&lt;/h2&gt;
+&lt;p&gt;皮肤是人体面积最大的器官。皮肤具有屏障作用，保持着人体内环境的稳定，同时皮肤也参与人体的代谢过程。一个成年人的皮肤展开面积在 2 平方米左右，重量约为人体重量的 16%。然而在阳光照射、化学性致癌物质、遗传等因素下会引起恶性皮肤肿瘤发病。它是一种起源于表皮基底细胞的低度恶性肿瘤。全球平均每年新发 152 万例，在所有的皮肤肿瘤中恶性皮肤肿瘤占第三位。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/bg.png&quot; alt=&quot;项目背景&quot;&gt;&lt;/p&gt;
+&lt;p&gt;根据我们的调查显示随着年份的增加 社区医院的数量也在逐年增加。但在右侧，这个以泾洋中心医院为代表的社区医院中，发现高中和大专的人员比例已经达到了 63.8%，通过了解我们可以知道对于皮肤病的诊断，专业性是尤为重要的。由于恶性皮肤肿瘤早期难以区分的痛点在其早期并不能被及时发现，大部分病人在发现患病后已经处于晚期。但是恶性皮肤肿瘤的晚期五年生存率只有 4.6%，早期生存期有 89%，所以急需早发现、早治疗、早复查。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/data.png&quot; alt=&quot;项目数据&quot;&gt;&lt;/p&gt;
+&lt;p&gt;我们在进行信息搜集后发现，对于皮肤病的诊断，医院一般都会使用皮肤镜进行观察，皮肤镜易于使用、减少不必要的活检。但是这种方式存在一定的问题，比如皮肤镜中图像对比度低、肉眼难以区分。人工检查费时费力、效率低下。相关专家数量不足，大型三甲级医院医患比 1：70000，同时比较依赖专家经验。&lt;/p&gt;
+&lt;h2&gt;项目架构&lt;/h2&gt;
+&lt;p&gt;我们的团队就致力于解决这些问题。该检测系统是通过皮肤镜作为采集端采集病灶区域的相关信息，在设备端经过数据处理后，传输到服务端进行实例分割等操作，最后将结果返回至用户端的系统设备。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/tech.png&quot; alt=&quot;技术支持&quot;&gt;&lt;/p&gt;
+&lt;p&gt;那么我们具体是怎样实现的呢？首先皮肤镜图像采集，图像传输到 Qt 应用程序，在端侧进行图像的预处理，然后发送至华为云 ECS 服务器进行识别，同时数据存储至 RDS 数据库，图像归档备份至 OBS 对象存储服务。识别结果会反馈至 Qt 界面。我们的识瘤者 APP 使用 ArkUI 方舟开发框架，轻量级存储等，开发效率提高超过 30%。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/tech2.png&quot; alt=&quot;技术架构&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/algo.png&quot; alt=&quot;算法设计&quot;&gt;&lt;/p&gt;
+&lt;p&gt;视频可以实时传输至Qt界面。在确认具体病灶区域进行识别，返回病灶区域分割和类别输出。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/QT.png&quot; alt=&quot;功能演示&quot;&gt;&lt;/p&gt;
+&lt;p&gt;同时患者可以在鸿蒙APP中查看自己的诊疗记录。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/APP.png&quot; alt=&quot;功能演示2&quot;&gt;&lt;/p&gt;
+&lt;p&gt;医生可以在网页端对病人数据进行管理，同时在网页端答题，提高医生和医院的专业水平。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/web.png&quot; alt=&quot;功能演示3&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;功能演示&lt;/h2&gt;
+&lt;p&gt;使用 DAYU200 鸿蒙季开发板端侧部署基于 OpenHarmony 的软件交互 APP，实现可视化建议操作进行病患信息采集。保证快速上手。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;手机端拍照&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;ArkUI&lt;/strong&gt;——构建分布式应用界面的声明式 UI 开发框架&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;服务卡片&lt;/strong&gt;功能，上滑呼出服务卡片，直达拍照服务，减少层级&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;JS FA 调用 Java PA&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;通过 &lt;strong&gt;FeatureAbility.callAbility&lt;/strong&gt; 调用PA，实现拉取相册图库功能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;./image/show1.gif&quot; alt=&quot;功能演示4&quot;&gt;&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;图传识别&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;用户手机端图传分类，图库中&lt;strong&gt;选择皮肤病照片&lt;/strong&gt;上传&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@ohos.request&lt;/strong&gt; 发送文件传输至服务端识别&lt;/li&gt;
+&lt;li&gt;分类结果返回到鸿蒙 APP&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;./image/show2.gif&quot; alt=&quot;功能演示5&quot;&gt;&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;查看检测结果&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;在医院识别皮肤镜图像，得到&lt;strong&gt;分割结果&lt;/strong&gt;及报告&lt;/li&gt;
+&lt;li&gt;APP &lt;strong&gt;下拉刷新，@ohos.net.http&lt;/strong&gt; 发送网络请求&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;list&lt;/strong&gt; 组件显示识别结果&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&quot;./image/show3.gif&quot; alt=&quot;功能演示5&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;产品价值&lt;/h2&gt;
+&lt;p&gt;本项目致力于通过端云协同的 AI 辅助诊疗平台，打破基层医疗机构在微小皮肤病变诊断上的专业资源壁垒。面对恶性皮肤肿瘤早期肉眼查验难、三甲医院专家资源极度匮乏的现实痛点，系统将先进的深度学习实例分割算法与便携式皮肤镜硬件相融合，把高精度的AI筛查能力下沉至社区，极大地提升了病灶识别的准确性与效率，帮助患者把握住能显著提高生存率的早期干预窗口。此外，依托于华为云强大的算力底座与 OpenHarmony 生态的轻量化交互体验，“识瘤者”系统不仅为患者提供了触手可及的健康管理追踪通道，也为基层医生搭建了集病例管理与学测结合的数字化赋能平台，真正实现了科技普及与医疗向善的社会价值。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BlZ3cqs7.jpg"/><enclosure url="/_astro/heroimage.BlZ3cqs7.jpg"/></item><item><title>帕金森患者康复疗效预估系统</title><link>https://xiaohei94.github.io/blog/parkinson</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/parkinson</guid><description>Makerizon-帕金森项目作品展示集。</description><pubDate>Sat, 17 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;
+import { WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;这个项目的全称叫做&lt;strong&gt;基于 OpenHarmony 的帕金森病症多数据融合监测系统&lt;/strong&gt;，是我在本科时参加&lt;strong&gt;李一浩老师&lt;/strong&gt;的&lt;a href=&quot;https://bbs.huaweicloud.com/blogs/380630&quot;&gt;梅科尔工作室&lt;/a&gt;时所参与并负责的项目之一。由于之前需要保密的原因，关于这个项目的展示材料一直没办法对外公布，现在随着项目的发展与我们第一批老成员的离开，这个项目也慢慢走到了尽头。&lt;/p&gt;
+&lt;p&gt;我曾一直在想，该用什么样的一种形式去展示这个项目，让它即不张扬又不被埋没。因为它身上不仅承载着我们的付出，还有我们项目成员之间的友谊，以及我们那回忆起来还算美好的大学时光。对它的感情是复杂的，可能从一开始就没有把它只当成一个打卡式的任务或者一个“活”来对待吧。&lt;/p&gt;
+&lt;p&gt;终于，慢慢的，我想我找到了让它可以永远被记录，但又不那么受人瞩目的展示形式了——将它记录到我的博客里。我想那种对于这个项目的感情可能只是我一个人的臆想，因为我是一个爱活在回忆里的人，同时我又有着自由主义者的那种偏功利的心理状态。我希望这个项目可以再一次成就我，作为我的一个可以展示的闪光点。&lt;/p&gt;
+&lt;p&gt;把它写成一个作品集（介绍博客），不断有一个声音提醒我，好像如果我不记录下这个项目，它就要溜走了一样。但我仍然是拖到了现在才来真正去写它，去阐述它。那就来吧，用我好久没读过书而显得拙劣的文笔，来展示我这个即爱又艾的项目。&lt;/p&gt;
+&lt;h2&gt;项目简介&lt;/h2&gt;
+&lt;p&gt;本项目是一个将大数据与物联网和现代医疗相结合的基于华为云 OpenHarmony 的帕金森病症多数据融合监测系统。该系统可以帮助帕金森轻症患者在家完成手颤抖动、手指弯曲、肌电信号等数据的采样，及时发现帕金森病情恶化趋势，实现疾病的早诊断、早治疗，提高了诊断效率，降低了医疗机构评估工作强度，减轻了患者经济与心理负担。&lt;/p&gt;
+&lt;p&gt;该项目基于华为云 IoT 的端侧规则引擎技术，通过 IoTDA 设置联动规则，基于 SQL 语句的规则引擎云端一键下发给设备，在设备之间通过 OpenHarmony 的分布式软总线，直接在端侧完成设备间的联动，降低网络质量的依赖，提高整体设备联动效率。此外将特征提取算子、滤波算子等云端算子一键下发至传感设备中，在端侧设备上就能完成无效数据的过滤和屏蔽。该项目通过华为云 IoT 设备接入云服务，不仅仅实现设备通过物模型的极简上云，还让设备具备主动“思考”的能力，从而大幅降低帕金森项目的开发工作量。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/system.png&quot; alt=&quot;系统简介&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;项目背景与痛点问题&lt;/h2&gt;
+&lt;p&gt;我国的帕金森患者 300 万以上，65 岁以上老人患者率高达 1.7% 。帕金森患者有&lt;strong&gt;抖、僵、慢、倒四大核心症状&lt;/strong&gt;。静止性震颤、肌强直、运动迟缓、步态障碍，给患者和家人带来极大的痛苦。因此我们团队在想有没有一种方法将我们所学到的技术用于这方面，帮助医生患者进行评估。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/bg.png&quot; alt=&quot;项目背景&quot;&gt;&lt;/p&gt;
+&lt;p&gt;目前市面上的对帕金森病检测的设备很少，且功能单一。不能结合医疗实现医生对患者日常运动状态的监控。已有的评估方案是对帕金森病的运动障碍评估，这种评估基于病史信息、患者自述和神经科医师的临床检查，并且借助统一帕金森评估量表、改良的运动迟缓评估量表进行评估。此类方法虽然简单易用，全面地反映患者的病情变化，但是也存在着一些不足。第一，准确性差，因为通过医师等评估，依赖主观经验。第二，及时性差，临床评估只能针对患者的当前状态，日常状态无法反映。&lt;/p&gt;
+&lt;p&gt;此外还有基于计算机视觉的方法，主要是利用摄像机和光学运动捕捉系统记录患者的运动过程，计算运动学参数，虽然精度较高，但是主要应用于临床试验。关于惯性传感器采集患者的运动信号，从而对症状进行分析和评估。但是存在数据的单一，造成误判等情况。&lt;/p&gt;
+&lt;p&gt;市面上帕金森疾病检测产品，存在以下痛点:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;检测过程复杂&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;市面上已存在的帕金森设备存在检测不灵敏、检测过程复杂等问题，且对于患者的检测周期较长。&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;前期症状不明显&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;社会上的帕金森患者在早期的帕金森病表现状况不够明显，也没有相应的日常检测设备。&lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;患者线下数据收集难&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;随着互联网医疗体系的完善，医生对患者数据的管理与分析变得迫切。与互联网医疗配套的家用医疗器械缺乏，患者数据无法第一时间向医生反馈。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/heart.png&quot; alt=&quot;项目痛点&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;开发挑战&lt;/h2&gt;
+&lt;p&gt;我们团队在开发时遇到的挑战:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;私有协议开发&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;数据量庞大冗余&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;场景数据杂乱&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;多设备的数据联动&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;./image/chanllege.png&quot; alt=&quot;项目挑战&quot;&gt;&lt;/p&gt;
+&lt;p&gt;基于以上我们团队结合自身的技术力量，针对上述的问题，使用华为云 IoT 端侧规则引擎，实现联动规则云端下发、端侧快速执行，提高设备联动效率，提出了一套基于 OpenHarmony 结合物联网、数据交叉融合算法等技术构建的可穿戴帕金森病症多数据融合监测系统。和市面上相比，我们产品可以实现对帕金森患者的手部震颤加速度数据、肌电信号、手指弯曲的信号和压力数据进行多数据采集，并且采用数据融合技术，实现高准确率的评估。而且在后期，我们可以实现日常情况的随时检测和评估，方便患者的日常使用。&lt;/p&gt;
+&lt;h2&gt;项目架构&lt;/h2&gt;
+&lt;p&gt;帕金森病运动迟缓量化测评系统主控方面是由 BearPi-HM Nano 组成。通过 MPU6050 (小熊派套件 E53_SC2 模块)、弯曲传感器、肌电传感器以及压力传感器采集手部数据。结合华为云 IoT 平台 ModelArts 深度学习平台进行交叉验证分析，在预测数据集上取得最好性能的患者模型。并结合 UPDRS、H&amp;#x26;Y 量化评估制定了帕金森全定评估量表，对患者病情程度进行判断。将数据以 MQTT 协议通过 WiFi 传输到华为云 IoT 平台，结合物联网技术以及数据交叉算法，进行数据融合。数据传递到 IoT 平台后，通过 Django 后台存储数据到数据库，并提供给前端调用的接口，实现将数据发送到手机或平板终端，实现智能化设计。通过鸿蒙App实现患者日常状态的数据记录和展示，能够及时分析病情并及时调整。项目的架构如图:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/build.png&quot; alt=&quot;项目架构&quot;&gt;&lt;/p&gt;
+&lt;p&gt;该项目基于华为云 IoT 的端侧规则引擎技术，通过 IoTDA 设置联动规则，基于 SQL 语句的规则引擎云端一键下发给设备，在设备之间通过 OpenHarmony 的分布式软总线，直接在端侧完成设备间的联动，降低对网络质量的依赖，提高整体设备联动效率。此外将特征提取算子、滤波算子等云端算子一键下发至传感设备中，在端侧设备上就能完成无效数据的过滤和屏蔽。该项目通过华为云 IoT 设备接入云服务，不仅仅实现设备通过物模型的极简上云，还让设备具备主动“思考”的能力，从而大幅降低项目的开发工作量。&lt;/p&gt;
+&lt;p&gt;帕金森数据采集模块可以实现对帕金森手部的相关数据进行采集，包括手部禁止性震颤、手指弯曲情况、手部肌电信号以及手指压力等数据，实现无线远程采集。在患者日常生活中，可以使用采集设备进行日常采集和评估。内部由加速度 MPU6050 (小熊派套件 E53_SC2 模块)、弯曲传感器以及肌电传感器组成，主控方面是由 BearPi-HM Nano 组成，穿戴节点为手腕、手指以及手臂，用多个传感器来采集全方位的数据，并且搭载 WiFi 模块，硬件具有无线传输、工作时间长、微负荷、便携等特点。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/mokuai.webp&quot; alt=&quot;采集模块&quot;&gt;&lt;/p&gt;
+&lt;p&gt;数据分析模块主要包括预处理和 ModelArts 平台自动学习分析。对于采集到的患者诸多手部数据中，加速度传感器采集数据特征较为显著，因为我们着重分析加速度等数据，并且进行预处理。在处理过程中，我们通过加速度传感器、肌电传感器、弯曲传感获取手部震颤数据以及表面肌电信号等特征数据使用 IIR 滤波器进行滤波去除异常数据、滤波滤趋势、滤掉重力加速度，进行点积运算，对数据进行归一化处理，采用分布式容合的数据处理方式最终获得真正有代表性的数据。本团队不仅对数据进行预处理和日常的数据记录，而且还使用深度算法挖掘更深的信息，包括患者的病情预估。在本项目中，团队使用华为 AI 平台 ModelArts 作深度学习训练的平台，利用自动学习功能，对数据进行自主分析。&lt;/p&gt;
+&lt;p&gt;数据展示部分主要是通过鸿蒙 App 和网页端实时分析并展示分析结果。获得待推送给用户的数据，实时分析数据并得出当前病情状态分析结果。再结合患者历史数据，基于大数据综合分析，第一时间分析并推送科学的疗养方案和就医建议。从而使用户居家也可以通过鸿蒙 App 实时了解自己的病情状态，及时获得疗养方案和就医建议，在日常中根据给出对应的训练方案来延缓病情的发展。解决不能及时发现病情变化导致病情快速发展，和医生不能全面了解患者病情状态导致诊断偏差的情况。&lt;/p&gt;
+&lt;h2&gt;设计思路&lt;/h2&gt;
+&lt;h3&gt;算法设计&lt;/h3&gt;
+&lt;p&gt;在算法设计上。我们基于华为云 IoT 平台，将特征值提取算子和滤波算子直接下沉到我们的 OpenHarmony 设备上，数据在端侧进行过滤和有效提取，然后数据上传至华为云 IoT 平台转发到 ECS 服务器识别，输入训练好的深度学习模型，得出帕金森病情分级情况。比如伸开一个手指的动作，至少要上传 100 条左右的数据，现在采用这种方式，整个的数据传输量减少 50%，提高数据传输的效率，降低了对于网络的依赖。数据模型也更加完整。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/algo.png&quot; alt=&quot;算法设计&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;数据管理与后台&lt;/h3&gt;
+&lt;p&gt;帕金森康复数据传输和标注物模型设定。采用海思的 Hi3861 V100 作为主控芯片，基于 OpenHarmony 操作系统，通过华为云 IoTDA 设备接入服务实现数据的传输，采用 MQTT 协议，将加速度数据、弯曲传感器数据、肌电传感器数据和压力数据打包成 json 格式 WiFi 传输到华为 IoT 平台上。在华为云平台上实现帕金森康复手套的物模型建立。实现了平台的二次开发和一键导入。本项目的物模型包括加速度、角速度、压力、弯曲角度、肌电信号、训练时长等。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/wumodel.webp&quot; alt=&quot;物模型&quot;&gt;&lt;/p&gt;
+&lt;p&gt;使用华为云 IoT 云平台的数据转发服务，实现数据转发到华为云 ECS 服务器，服务器端使用的是基于 Django 的 Web 应用框架，实现从数据采集到传输至云平台，再到 ECS 服务器，实现数据的持久化存储。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/yuntai.webp&quot; alt=&quot;云平台&quot;&gt;&lt;/p&gt;
+&lt;p&gt;命令下发和算法下发实现通过平板调用华为云 IoT 平台下发和算子下发的 AP 接口，实现手指弯曲、手指捏合、手指震颤、手臂弯曲等范式动作的控制命令，并通过对应的传感器获取数据，另外将原先部署在云端的滤波算法下发到端侧设备中，实现了远程更新端侧算法和参数等。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/suanzi.webp&quot; alt=&quot;算子下发&quot;&gt;&lt;/p&gt;
+&lt;h3&gt;范式动作测试方法&lt;/h3&gt;
+&lt;p&gt;由于设备在采集数据时，受到各种因素影响，如采集的环境、不同人群等，此类因素可能会造成数据集质量不高以及数据分析时造成不准确的情况。因此团队和河南省中医院展开合作，基于帕金森患者实际的症状表现情况分析，制定适用于 60 岁以上人群的范式动作测试方法，并且和本团队设计的可穿戴硬件相结合，实现在家庭环境下，进行数据采集和分析。&lt;/p&gt;
+&lt;p&gt;范式动作测试方法将根据每一个范式动作进行检测，按照手指弯曲检测、手指捏合检测、手部震颤检测、手臂弯曲的肌申信号检测为顺序执行整个范式动作。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;./image/fanshi.png&quot; alt=&quot;范式动作&quot;&gt;&lt;/p&gt;
+&lt;h2&gt;实现原理&lt;/h2&gt;
+&lt;p&gt;产品基于 OpenHarmony 与华为云 IoT 端侧规则引擎，实现联动规则云端下发。通过使用华为云 IoT 的端侧规则引擎能力，将设备间的联动规则直接通过云端一键下发给设备，在设备之间通过 OpenHarmony 的分布式软总线，直接在端侧完成设备间的联动，降低网络质量的依赖，提高整体设备联动效率。&lt;/p&gt;
+&lt;p&gt;另外本产品是基于 ModelArts 自动学习结合全定评估量表的方式，实现帕金森病的康复情况监测，提出当前的就医建议，并且将结果实时展示给用户。并且设备结合物联网技术，使用 WiFi 和 4G 模块，实现了无线远程数据传输。此外我们对本产品的数据收集，设计了一套标准的范式动作测试方法，可以准确实现高质量数据采集。&lt;/p&gt;
+&lt;p&gt;通过压力传感器、弯曲传感器、加速度传感器以及肌电传感器，对帕金森手臂和手部的数据同时采集，并通过多源异质融合算法实现对帕金森病情的异常数据进行排查，如当帕金森患者的震颤频率小于 4Hz，触发肌电传感器二次识别患者是否处于静止性震颤状态。&lt;/p&gt;
+&lt;h2&gt;应用场景&lt;/h2&gt;
+&lt;p&gt;目前帕金森患者无法对自身的病情进行有效的预防和监控。在日常生活中，只能到医院进行相关检查才能够给获取自行的病情。那么如何快速有效的获取帕金森患者的病情以及后期预控是迫切解决的问题。此外，医护人员需要借助互联网进行数据收集、传输、分析，给予患者以相对持续、无创便携的病情监控，提高医护人员的工作效率，节约了时间和成本。而且如果出现了问题，还可以直接反馈给医生进一步降低医疗成本，释放传统医疗资源。&lt;/p&gt;
+&lt;p&gt;因此使用穿戴式传感器设备，通过多传感器多方面检测患者运动状态数据，将得到的传感器数据送往数据处理中心进行交叉分析验证，并结合量化评估表达到对患者病情程度进行判断。从而在一定程度上可以预测以及监控帕金森病的具体发展情况。并且结合物联网，将数据推送到鸿蒙 APP 中，提供给患者以及医护人员随时查看。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;患者居家&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;作品聚焦于65岁以上前中期帕金森惠者，而且主要面向居家患者。对帕金森患者可以通过医疗辅助器材商店或者网上购买本产品，使用产品设备每天一到三次，按照我们自主设计的范式测量方法进行简短时间的数据采集，可以实时通过鸿蒙APP查看病情状况和分析及科学的疗养方案。&lt;/p&gt;
+&lt;ol start=&quot;2&quot;&gt;
+&lt;li&gt;医院&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;医生面对新就诊患者时，本产品检测病情程度的功能，可以辅助医生准确判断患者当前病情情况;医生面对复查病情的患者时，可以参考产品记录患者的日常数据、分析的结果，及实时检测的结果对患者进行准确的病情状态把握，有利于准确诊断。并且和河南省中医院等省市级医院达成合作后，通过省市级医院的辐射作用推广到下级医院。&lt;/p&gt;
+&lt;ol start=&quot;3&quot;&gt;
+&lt;li&gt;社区康养中心&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;作品将推广到社区康养中心，实现区域化推广和销售。患者可以在康养中心的专业人员指导下使用，更加专业和科学。&lt;/p&gt;
+&lt;ol start=&quot;4&quot;&gt;
+&lt;li&gt;医疗科研机构&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;对于各大高校，研究机构等，需要相关的软硬件作为数据采集终端，本作品将面向科研人员进行推广售卖。&lt;/p&gt;
+&lt;h2&gt;产品价值&lt;/h2&gt;
+&lt;p&gt;本作品主要用于采集帕金森患者日常运动状态数据并记录方便医生了解患者病情情况并及时给予康复建议。并目主要的客户来源是中老年人帕金森患者，并且有一定时间的患病经历。目的旨在解决早发现帕金森病的前驱症状，实现疾病的早诊断、早治疗。以及医生与患者突破时间，空间限制的交流，实现帕金森患者居家获得及时的医生康复建议。&lt;/p&gt;
+&lt;p&gt;基于以上我们团队结合自身的技术力量，针对上述的问题，使用华为云 IoT 端侧规则引擎，实现联动规则云端下发、端侧快速执行，提高设备联动效率，提出了一套结合物联网、数据交叉融合算法等技术构建的基于可穿戴传感器的帕金森病运动迟缓量化测评系统。和市面上相比，我们产品可以实现对帕金森患者的手部震颤加速度数据、肌电信号、手指弯曲的信号和压力数据进行多数据采集，并且采用数据融合技术，实现高准确率的评估。而且在后期，我们可以实现日常情况的随时检测和评估，方便患者的日常使用。&lt;/p&gt;
+&lt;h2&gt;后记&lt;/h2&gt;</content:encoded><h:img src="/_astro/heroimage.DCZs3pCj.jpg"/><enclosure url="/_astro/heroimage.DCZs3pCj.jpg"/></item><item><title>RL 学习笔记（12）：DDPG</title><link>https://xiaohei94.github.io/blog/rl-learning-12</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-learning-12</guid><description>DDPG</description><pubDate>Tue, 13 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;需要说明的是，这个系列的博客是由我的幕布笔记转化而来，如果你更喜欢图文并茂的阅读，你可以去我的&lt;a href=&quot;EasyRL-base%EF%BC%9Ahttps://share.mubu.com/doc/7J8Kb2-DFkG&quot;&gt;幕布空间&lt;/a&gt;进行阅读,受限于篇幅的原因，第十二章&lt;a href=&quot;EasyRL-DDPG%EF%BC%9Ahttps://share.mubu.com/doc/61Hn_ilTsQG&quot;&gt;幕布笔记&lt;/a&gt;在这。如果你发现有哪些地方由逻辑错误，可以通过评论告知我，十分感谢！&lt;/p&gt;
 &lt;h2&gt;开始&lt;/h2&gt;
@@ -1270,146 +1433,7 @@ $$&lt;/p&gt;
 &lt;p&gt;强化学习永远在做一个闭环：&lt;strong&gt;采样（交互）→ 估计（价值/优势）→ 更新（策略/价值）→ 再采样&lt;/strong&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;后面的章节无论是 MDP、表格法、还是 PPO/DQN 这些大名鼎鼎的算法，本质都在这个闭环里换不同的估计方式和更新方式。&lt;/p&gt;
-&lt;p&gt;下一章我们会把这个闭环写成数学对象：马尔可夫过程、奖励过程、MDP、贝尔曼方程——你会发现，很多“看起来很抽象”的符号，其实是在回答工程里非常具体的问题：&lt;strong&gt;我怎么把未来折扣奖励写成一个可迭代的更新式？&lt;/strong&gt;&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CreDR_rs.jpg"/><enclosure url="/_astro/heroimage.CreDR_rs.jpg"/></item><item><title>强化学习算法程序实践（2）：DQN 及其改进</title><link>https://xiaohei94.github.io/blog/rl-algorithm-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-2</guid><description>从 Q-table 走向深度强化学习</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
-&lt;h2&gt;前言&lt;/h2&gt;
-&lt;p&gt;第 1 篇我们把“回合训练骨架”固定了，并用 Q-Learning/Sarsa 验证：很多算法的工程结构可以复用。&lt;/p&gt;
-&lt;p&gt;这篇开始进入深度强化学习：&lt;strong&gt;DQN（Deep Q-Network）&lt;/strong&gt;。它的本质很简单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用神经网络近似 $Q(s,a)$，替代原来的 Q-table&lt;/li&gt;
-&lt;li&gt;为了让训练稳定、样本利用率更高，引入两件关键装备：
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;经验回放（Replay Buffer）&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;目标网络（Target Network）&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我下面会按我自己做实验时的“演化路线”把它们串起来：先把最朴素的 DQN 跑通，再逐个替换模块，最后得到一套更稳、更省心的版本（Double / Dueling / Noisy / PER）。你会发现这些改进并没有把 DQN 变得面目全非，它们大多只是在某个关键环节多加了一块垫片：要么让 target 更可信，要么让探索更自然，要么让 replay 更“记重点”。&lt;/p&gt;
-&lt;p&gt;我自己真正开始“理解 DQN”是从一次失败开始的：代码能跑、loss 也在降，但 reward 纹丝不动；甚至有时候 reward 还会先上去一小段，然后突然崩得一干二净。后来我才意识到，DQN 的难点从来不在“会不会写反传”，而在“你的训练信号到底稳不稳”。如果 target 网络没更新好、replay 的采样没有打散相关性、或者奖励尺度和学习率不匹配，你得到的梯度就像在噪声里摸黑，越走越偏。&lt;/p&gt;
-&lt;p&gt;所以这篇我会尽量用工程语言把它讲清楚：&lt;strong&gt;DQN 为什么要 Replay、为什么要 Target、update 的 target 到底在干什么&lt;/strong&gt;，以及你可以按什么顺序迭代，把一个“能跑的 DQN”逐步打磨成一个“训练稳定的 DQN”。&lt;/p&gt;
-&lt;h2&gt;DQN：相对 Q-Learning 改了什么？&lt;/h2&gt;
-&lt;p&gt;如果把 Q-Learning 看作“边走边把 Q 表格填完整”，那 DQN 就是“我不填表了，我训练一个函数去拟合这张表”。为了让这个函数（神经网络）训练得稳定，我一般会把 DQN 的变化拆成三件事来记：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;用网络替代表&lt;/strong&gt;：$Q(s,a;\theta)$，输入是 state，输出是每个动作的 Q 值。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Replay Buffer&lt;/strong&gt;：把交互数据存起来，更新时随机采样一批（batch），提升样本效率并打破相关性。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;策略网络 + 目标网络&lt;/strong&gt;：用 $\theta$ 在线更新策略网络，用 $\theta^-$ 的目标网络去计算 target，定期拷贝参数来稳住训练。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;一个可复用的 DQN Agent 接口&lt;/h3&gt;
-&lt;p&gt;和第 1 篇一致：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练用（通常 epsilon-greedy）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试用（argmax）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 Replay Buffer 采样 batch 更新网络&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;注意：从 DQN 开始，&lt;code&gt;update()&lt;/code&gt; 往往不再接受单条 transition，而是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;先 &lt;code&gt;push(transition)&lt;/code&gt; 到 replay&lt;/li&gt;
-&lt;li&gt;再在合适时机（buffer 足够、间隔到达）调用 &lt;code&gt;update()&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我个人很推荐把 “push 交互数据” 和 “update 如果条件满足就更新” 分开写。因为你后面无论是加 PER（采样变了）、还是加 Noisy（探索变了）、还是加 Double（target 算法变了），这一层的训练主循环都不需要大改，改动会被限制在 buffer 或 update 的内部。&lt;/p&gt;
-&lt;h2&gt;Replay Buffer：push + sample 就够用&lt;/h2&gt;
-&lt;p&gt;我一般把经验回放（Replay Buffer）的实现压缩成两个方法：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;push&lt;/code&gt;：按顺序存 transition，满了就挤掉最旧的&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sample&lt;/code&gt;：随机采样出一个 batch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;最小结构通常是这样的：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import random
-from collections import deque
-
-
-class ReplayBuffer:
-	def __init__(self, capacity: int):
-		self.buffer = deque(maxlen=capacity)
-
-	def push(self, transition):
-		self.buffer.append(transition)
-
-	def sample(self, batch_size: int):
-		batch = random.sample(self.buffer, batch_size)
-		# 真实代码会在这里做 unzip + tensor 化
-		return batch
-
-	def __len__(self):
-		return len(self.buffer)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;DQN 的 update：损失怎么来的？&lt;/h2&gt;
-&lt;p&gt;我第一次实现 DQN 时，最容易卡住的点其实不是反传，而是“target 到底应该怎么算”。把它想清楚后，整个 update 就很机械：拿一批数据算出 target，再让网络的输出去贴近这个 target。&lt;/p&gt;
-&lt;p&gt;在最基础的 DQN 里，损失就是“期望值 $y_i$”和“实际值 $Q(s_i,a_i;\theta)$”的均方差。&lt;/p&gt;
-&lt;h3&gt;target（期望值）&lt;/h3&gt;
-&lt;p&gt;基础 DQN 常用：
-$$
-y_i = r_i + \gamma \max_{a&apos;} Q(s&apos;_i, a&apos;; \theta^-)
-$$&lt;/p&gt;
-&lt;p&gt;并且要处理终止状态：如果 &lt;code&gt;terminated==True&lt;/code&gt;，没有下一个状态，就直接 $y_i=r_i$。&lt;/p&gt;
-&lt;h3&gt;loss（均方差）&lt;/h3&gt;
-&lt;p&gt;$$
-\mathcal{L}(\theta)=\frac{1}{N}\sum_i (y_i - Q(s_i,a_i;\theta))^2
-$$&lt;/p&gt;
-&lt;p&gt;然后照常：定义 optimizer，&lt;code&gt;loss.backward()&lt;/code&gt;，&lt;code&gt;optimizer.step()&lt;/code&gt;。&lt;/p&gt;
-&lt;h2&gt;Dueling DQN：把 Q 网络拆成 V + A&lt;/h2&gt;
-&lt;p&gt;有些环境里（尤其状态复杂、但动作影响没那么明显的阶段），我会发现“学哪个动作更好”这件事很难，反而“这个状态整体值不值得继续待”更重要。Dueling 的直觉就是把这两件事分开学：先学状态价值 $V(s)$，再学动作相对优势 $A(s,a)$。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Value&lt;/strong&gt;：估计状态价值 $V(s)$&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Advantage&lt;/strong&gt;：估计每个动作相对优势 $A(s,a)$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;然后组合得到 $Q(s,a)$。&lt;/p&gt;
-&lt;p&gt;工程上你只需要关注两点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;网络 forward 输出从“直接输出 Q”变成“输出 V 和 A，再合成 Q”&lt;/li&gt;
-&lt;li&gt;其它（Replay、target、update）基本不变&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;Double DQN：缓解过估计&lt;/h2&gt;
-&lt;p&gt;基础 DQN 的一个老毛病是过估计：因为我们用同一个网络（或同一个估计过程）既“选最大动作”，又“评估这个最大动作的值”，这很容易把噪声也当成真相。&lt;/p&gt;
-&lt;p&gt;Double DQN 的关键改动是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用策略网络选动作（argmax）&lt;/li&gt;
-&lt;li&gt;用目标网络评估该动作的价值&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;一句话的工程翻译：只改 target 的计算方式，其它不动。&lt;/p&gt;
-&lt;h2&gt;Noisy DQN：用可学习噪声做探索&lt;/h2&gt;
-&lt;p&gt;Noisy DQN 的重点在“模型定义”：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在 &lt;code&gt;Linear&lt;/code&gt; 层里引入 &lt;code&gt;mu/sigma&lt;/code&gt; 参数&lt;/li&gt;
-&lt;li&gt;每次 forward 都注入噪声（训练时），并能 reset&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;它的好处是：在很多任务里，比手动调 epsilon 更省心。&lt;/p&gt;
-&lt;p&gt;你可以把它理解为：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不再由外部策略（epsilon-greedy）给动作加随机性，而是让网络自己学会在哪些状态该更“抖”。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2&gt;PER-DQN：优先经验回放（SumTree）&lt;/h2&gt;
-&lt;p&gt;PER 的工程要点我通常拆成两大块：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;SumTree&lt;/strong&gt;：用 $O(\log n)$ 管理样本优先级，并按优先级采样&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Importance Sampling&lt;/strong&gt;：用权重修正“非均匀采样”带来的偏差&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;实现上可以拆成三个类：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;SumTree&lt;/code&gt;：维护二叉树和优先级更新&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ReplayTree&lt;/code&gt;：基于 SumTree 的 replay buffer（push、sample、batch_update）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;PERDQNAgent&lt;/code&gt;：update 后把 TD-error 回写到 replay 里更新优先度&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果你想先做一个“最小可用”的 PER，我的建议是：别一上来就写得太花。把 SumTree 写对、把 &lt;code&gt;batch_update&lt;/code&gt; 的优先级回写逻辑写对，就能看到明显收益。之后再去补重要性采样权重、再去做 beta 的退火（anneal），会更顺畅。&lt;/p&gt;
-&lt;h2&gt;小结&lt;/h2&gt;
-&lt;p&gt;这一篇把 DQN 家族的“程序结构”串了起来：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;DQN 的稳定性来自 Replay + Target&lt;/li&gt;
-&lt;li&gt;Double/Dueling 改的是 target 或结构&lt;/li&gt;
-&lt;li&gt;Noisy 改的是探索的实现方式&lt;/li&gt;
-&lt;li&gt;PER 改的是 replay 的采样分布&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;下一篇我会切到策略梯度与 Actor-Critic：REINFORCE、PPO、A2C —— 你会发现它们的核心接口仍然可以复用，只是 &lt;code&gt;update()&lt;/code&gt; 里优化的对象从 $Q$ 变成了 $\pi_\theta$。&lt;/p&gt;
-&lt;h3&gt;我常用的 DQN 调参/调试清单（建议按顺序来）&lt;/h3&gt;
-&lt;p&gt;如果你发现 DQN “不收敛 / 忽好忽坏 / Q 值爆炸”，我一般按下面顺序排查，基本不会走弯路：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;先看 reward 尺度，再定学习率&lt;/strong&gt;：奖励如果在 $[0,1]$，学习率可以大胆一点；奖励如果动辄几十上百，先考虑 reward clipping 或把学习率降两档。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;把 Q 值范围打出来&lt;/strong&gt;：每隔 N 个 episode 打印一次 &lt;code&gt;q_mean/q_max&lt;/code&gt;（以 batch 为单位）。如果 Q 值从几十飙到几万，通常是 target 计算/终止状态处理/学习率出问题。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Replay 先保证“足够大 + 随机采样”&lt;/strong&gt;：buffer 太小就更新，训练非常不稳；我一般会设一个 &lt;code&gt;min_buffer_size&lt;/code&gt;，不够就只 push 不 update。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Target network 更新频率别太激进&lt;/strong&gt;：更新太频繁等于没用 target，更新太慢又会学得很慢。一个常用起点：每 500~2000 个 env step 同步一次（具体随环境而变）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;epsilon 衰减别太快&lt;/strong&gt;：你看到 reward 前期抖动、很快停滞，优先怀疑探索不足；宁愿衰减慢一点，也不要“自信地随机”。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;batch_size、gamma、update 频率要成套&lt;/strong&gt;：batch 太小梯度噪声大；gamma 太大又没配足够长的 episode/steps，容易学不到。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;先跑基础版再加花活&lt;/strong&gt;：Double/Dueling/Noisy/PER 都是锦上添花。基础 DQN 如果你连 “target 正确 + done 处理正确 + replay 正常” 都没确认，上改进往往只会更乱。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DbVa9Sil.jpg"/><enclosure url="/_astro/heroimage.DbVa9Sil.jpg"/></item><item><title>强化学习算法程序实践（1）：通用训练框架 + Q-Learning / Sarsa</title><link>https://xiaohei94.github.io/blog/rl-algorithm-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-1</guid><description>从一个可落地 Q-Learning 与 Sarsa、epsilon-greedy、回合训练循环、以及保存与加载的最小实践。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;p&gt;下一章我们会把这个闭环写成数学对象：马尔可夫过程、奖励过程、MDP、贝尔曼方程——你会发现，很多“看起来很抽象”的符号，其实是在回答工程里非常具体的问题：&lt;strong&gt;我怎么把未来折扣奖励写成一个可迭代的更新式？&lt;/strong&gt;&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CreDR_rs.jpg"/><enclosure url="/_astro/heroimage.CreDR_rs.jpg"/></item><item><title>强化学习算法程序实践（1）：通用训练框架 + Q-Learning / Sarsa</title><link>https://xiaohei94.github.io/blog/rl-algorithm-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-1</guid><description>从一个可落地 Q-Learning 与 Sarsa、epsilon-greedy、回合训练循环、以及保存与加载的最小实践。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;我在做强化学习实验时，最痛苦的不是推公式，而是：&lt;strong&gt;同一个算法换个环境就要重写一堆训练脚手架&lt;/strong&gt;。后来我索性把常用套路总结成一个“可复用的算法骨架”，再把每个算法的差异点（几乎都集中在 &lt;code&gt;sample&lt;/code&gt; 和 &lt;code&gt;update&lt;/code&gt;）填进去。&lt;/p&gt;
 &lt;p&gt;更具体一点说，我踩过的坑基本都集中在“工程细节被忽略”上：同样的算法，有时候不是你公式写错了，而是你训练循环里 &lt;code&gt;terminated/truncated&lt;/code&gt; 没处理好、epsilon 衰减太快导致过早收敛、或者你没有把每回合最大步数限制住导致训练数据统计完全不一致。于是到最后你只能对着一条乱七八糟的 reward 曲线发呆，完全不知道是环境问题还是代码问题。&lt;/p&gt;
@@ -1618,7 +1642,146 @@ action = next_action
 &lt;li&gt;&lt;strong&gt;epsilon 先别衰减太快&lt;/strong&gt;：我最常犯的错误是 &lt;code&gt;epsilon_decay&lt;/code&gt; 设太狠，导致前几十回合就开始“自信地瞎走”。如果你看到 reward 一开始有波动、很快就僵住，优先怀疑探索不足。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;gamma 和 max_steps 要配套&lt;/strong&gt;：&lt;code&gt;gamma&lt;/code&gt; 大的时候，回报有效视野更长；如果你 &lt;code&gt;max_steps&lt;/code&gt; 又很短，很多环境会变成“怎么都学不出来”。反过来也是：&lt;code&gt;max_steps&lt;/code&gt; 太长会让训练变慢且方差更大。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;先在最小环境验证&lt;/strong&gt;：像 FrozenLake / Taxi 这种可以快速验证“训练循环是否正确”。骨架确认没问题，再搬到复杂环境会省掉很多时间。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>强化学习算法程序实践（3）：策略梯度与 Actor-Critic</title><link>https://xiaohei94.github.io/blog/rl-algorithm-3</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-3</guid><description>策略分布（Softmax / Gaussian）设计，回报累积与并行采样。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>强化学习算法程序实践（2）：DQN 及其改进</title><link>https://xiaohei94.github.io/blog/rl-algorithm-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-2</guid><description>从 Q-table 走向深度强化学习</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;第 1 篇我们把“回合训练骨架”固定了，并用 Q-Learning/Sarsa 验证：很多算法的工程结构可以复用。&lt;/p&gt;
+&lt;p&gt;这篇开始进入深度强化学习：&lt;strong&gt;DQN（Deep Q-Network）&lt;/strong&gt;。它的本质很简单：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用神经网络近似 $Q(s,a)$，替代原来的 Q-table&lt;/li&gt;
+&lt;li&gt;为了让训练稳定、样本利用率更高，引入两件关键装备：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;经验回放（Replay Buffer）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标网络（Target Network）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我下面会按我自己做实验时的“演化路线”把它们串起来：先把最朴素的 DQN 跑通，再逐个替换模块，最后得到一套更稳、更省心的版本（Double / Dueling / Noisy / PER）。你会发现这些改进并没有把 DQN 变得面目全非，它们大多只是在某个关键环节多加了一块垫片：要么让 target 更可信，要么让探索更自然，要么让 replay 更“记重点”。&lt;/p&gt;
+&lt;p&gt;我自己真正开始“理解 DQN”是从一次失败开始的：代码能跑、loss 也在降，但 reward 纹丝不动；甚至有时候 reward 还会先上去一小段，然后突然崩得一干二净。后来我才意识到，DQN 的难点从来不在“会不会写反传”，而在“你的训练信号到底稳不稳”。如果 target 网络没更新好、replay 的采样没有打散相关性、或者奖励尺度和学习率不匹配，你得到的梯度就像在噪声里摸黑，越走越偏。&lt;/p&gt;
+&lt;p&gt;所以这篇我会尽量用工程语言把它讲清楚：&lt;strong&gt;DQN 为什么要 Replay、为什么要 Target、update 的 target 到底在干什么&lt;/strong&gt;，以及你可以按什么顺序迭代，把一个“能跑的 DQN”逐步打磨成一个“训练稳定的 DQN”。&lt;/p&gt;
+&lt;h2&gt;DQN：相对 Q-Learning 改了什么？&lt;/h2&gt;
+&lt;p&gt;如果把 Q-Learning 看作“边走边把 Q 表格填完整”，那 DQN 就是“我不填表了，我训练一个函数去拟合这张表”。为了让这个函数（神经网络）训练得稳定，我一般会把 DQN 的变化拆成三件事来记：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;用网络替代表&lt;/strong&gt;：$Q(s,a;\theta)$，输入是 state，输出是每个动作的 Q 值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Replay Buffer&lt;/strong&gt;：把交互数据存起来，更新时随机采样一批（batch），提升样本效率并打破相关性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;策略网络 + 目标网络&lt;/strong&gt;：用 $\theta$ 在线更新策略网络，用 $\theta^-$ 的目标网络去计算 target，定期拷贝参数来稳住训练。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;一个可复用的 DQN Agent 接口&lt;/h3&gt;
+&lt;p&gt;和第 1 篇一致：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练用（通常 epsilon-greedy）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试用（argmax）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 Replay Buffer 采样 batch 更新网络&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意：从 DQN 开始，&lt;code&gt;update()&lt;/code&gt; 往往不再接受单条 transition，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先 &lt;code&gt;push(transition)&lt;/code&gt; 到 replay&lt;/li&gt;
+&lt;li&gt;再在合适时机（buffer 足够、间隔到达）调用 &lt;code&gt;update()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我个人很推荐把 “push 交互数据” 和 “update 如果条件满足就更新” 分开写。因为你后面无论是加 PER（采样变了）、还是加 Noisy（探索变了）、还是加 Double（target 算法变了），这一层的训练主循环都不需要大改，改动会被限制在 buffer 或 update 的内部。&lt;/p&gt;
+&lt;h2&gt;Replay Buffer：push + sample 就够用&lt;/h2&gt;
+&lt;p&gt;我一般把经验回放（Replay Buffer）的实现压缩成两个方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;push&lt;/code&gt;：按顺序存 transition，满了就挤掉最旧的&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sample&lt;/code&gt;：随机采样出一个 batch&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最小结构通常是这样的：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import random
+from collections import deque
+
+
+class ReplayBuffer:
+	def __init__(self, capacity: int):
+		self.buffer = deque(maxlen=capacity)
+
+	def push(self, transition):
+		self.buffer.append(transition)
+
+	def sample(self, batch_size: int):
+		batch = random.sample(self.buffer, batch_size)
+		# 真实代码会在这里做 unzip + tensor 化
+		return batch
+
+	def __len__(self):
+		return len(self.buffer)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;DQN 的 update：损失怎么来的？&lt;/h2&gt;
+&lt;p&gt;我第一次实现 DQN 时，最容易卡住的点其实不是反传，而是“target 到底应该怎么算”。把它想清楚后，整个 update 就很机械：拿一批数据算出 target，再让网络的输出去贴近这个 target。&lt;/p&gt;
+&lt;p&gt;在最基础的 DQN 里，损失就是“期望值 $y_i$”和“实际值 $Q(s_i,a_i;\theta)$”的均方差。&lt;/p&gt;
+&lt;h3&gt;target（期望值）&lt;/h3&gt;
+&lt;p&gt;基础 DQN 常用：
+$$
+y_i = r_i + \gamma \max_{a&apos;} Q(s&apos;_i, a&apos;; \theta^-)
+$$&lt;/p&gt;
+&lt;p&gt;并且要处理终止状态：如果 &lt;code&gt;terminated==True&lt;/code&gt;，没有下一个状态，就直接 $y_i=r_i$。&lt;/p&gt;
+&lt;h3&gt;loss（均方差）&lt;/h3&gt;
+&lt;p&gt;$$
+\mathcal{L}(\theta)=\frac{1}{N}\sum_i (y_i - Q(s_i,a_i;\theta))^2
+$$&lt;/p&gt;
+&lt;p&gt;然后照常：定义 optimizer，&lt;code&gt;loss.backward()&lt;/code&gt;，&lt;code&gt;optimizer.step()&lt;/code&gt;。&lt;/p&gt;
+&lt;h2&gt;Dueling DQN：把 Q 网络拆成 V + A&lt;/h2&gt;
+&lt;p&gt;有些环境里（尤其状态复杂、但动作影响没那么明显的阶段），我会发现“学哪个动作更好”这件事很难，反而“这个状态整体值不值得继续待”更重要。Dueling 的直觉就是把这两件事分开学：先学状态价值 $V(s)$，再学动作相对优势 $A(s,a)$。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Value&lt;/strong&gt;：估计状态价值 $V(s)$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Advantage&lt;/strong&gt;：估计每个动作相对优势 $A(s,a)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然后组合得到 $Q(s,a)$。&lt;/p&gt;
+&lt;p&gt;工程上你只需要关注两点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;网络 forward 输出从“直接输出 Q”变成“输出 V 和 A，再合成 Q”&lt;/li&gt;
+&lt;li&gt;其它（Replay、target、update）基本不变&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Double DQN：缓解过估计&lt;/h2&gt;
+&lt;p&gt;基础 DQN 的一个老毛病是过估计：因为我们用同一个网络（或同一个估计过程）既“选最大动作”，又“评估这个最大动作的值”，这很容易把噪声也当成真相。&lt;/p&gt;
+&lt;p&gt;Double DQN 的关键改动是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用策略网络选动作（argmax）&lt;/li&gt;
+&lt;li&gt;用目标网络评估该动作的价值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一句话的工程翻译：只改 target 的计算方式，其它不动。&lt;/p&gt;
+&lt;h2&gt;Noisy DQN：用可学习噪声做探索&lt;/h2&gt;
+&lt;p&gt;Noisy DQN 的重点在“模型定义”：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;Linear&lt;/code&gt; 层里引入 &lt;code&gt;mu/sigma&lt;/code&gt; 参数&lt;/li&gt;
+&lt;li&gt;每次 forward 都注入噪声（训练时），并能 reset&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它的好处是：在很多任务里，比手动调 epsilon 更省心。&lt;/p&gt;
+&lt;p&gt;你可以把它理解为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不再由外部策略（epsilon-greedy）给动作加随机性，而是让网络自己学会在哪些状态该更“抖”。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;PER-DQN：优先经验回放（SumTree）&lt;/h2&gt;
+&lt;p&gt;PER 的工程要点我通常拆成两大块：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;SumTree&lt;/strong&gt;：用 $O(\log n)$ 管理样本优先级，并按优先级采样&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Importance Sampling&lt;/strong&gt;：用权重修正“非均匀采样”带来的偏差&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实现上可以拆成三个类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SumTree&lt;/code&gt;：维护二叉树和优先级更新&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ReplayTree&lt;/code&gt;：基于 SumTree 的 replay buffer（push、sample、batch_update）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PERDQNAgent&lt;/code&gt;：update 后把 TD-error 回写到 replay 里更新优先度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果你想先做一个“最小可用”的 PER，我的建议是：别一上来就写得太花。把 SumTree 写对、把 &lt;code&gt;batch_update&lt;/code&gt; 的优先级回写逻辑写对，就能看到明显收益。之后再去补重要性采样权重、再去做 beta 的退火（anneal），会更顺畅。&lt;/p&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;这一篇把 DQN 家族的“程序结构”串了起来：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DQN 的稳定性来自 Replay + Target&lt;/li&gt;
+&lt;li&gt;Double/Dueling 改的是 target 或结构&lt;/li&gt;
+&lt;li&gt;Noisy 改的是探索的实现方式&lt;/li&gt;
+&lt;li&gt;PER 改的是 replay 的采样分布&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下一篇我会切到策略梯度与 Actor-Critic：REINFORCE、PPO、A2C —— 你会发现它们的核心接口仍然可以复用，只是 &lt;code&gt;update()&lt;/code&gt; 里优化的对象从 $Q$ 变成了 $\pi_\theta$。&lt;/p&gt;
+&lt;h3&gt;我常用的 DQN 调参/调试清单（建议按顺序来）&lt;/h3&gt;
+&lt;p&gt;如果你发现 DQN “不收敛 / 忽好忽坏 / Q 值爆炸”，我一般按下面顺序排查，基本不会走弯路：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;先看 reward 尺度，再定学习率&lt;/strong&gt;：奖励如果在 $[0,1]$，学习率可以大胆一点；奖励如果动辄几十上百，先考虑 reward clipping 或把学习率降两档。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;把 Q 值范围打出来&lt;/strong&gt;：每隔 N 个 episode 打印一次 &lt;code&gt;q_mean/q_max&lt;/code&gt;（以 batch 为单位）。如果 Q 值从几十飙到几万，通常是 target 计算/终止状态处理/学习率出问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Replay 先保证“足够大 + 随机采样”&lt;/strong&gt;：buffer 太小就更新，训练非常不稳；我一般会设一个 &lt;code&gt;min_buffer_size&lt;/code&gt;，不够就只 push 不 update。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Target network 更新频率别太激进&lt;/strong&gt;：更新太频繁等于没用 target，更新太慢又会学得很慢。一个常用起点：每 500~2000 个 env step 同步一次（具体随环境而变）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;epsilon 衰减别太快&lt;/strong&gt;：你看到 reward 前期抖动、很快停滞，优先怀疑探索不足；宁愿衰减慢一点，也不要“自信地随机”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;batch_size、gamma、update 频率要成套&lt;/strong&gt;：batch 太小梯度噪声大；gamma 太大又没配足够长的 episode/steps，容易学不到。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先跑基础版再加花活&lt;/strong&gt;：Double/Dueling/Noisy/PER 都是锦上添花。基础 DQN 如果你连 “target 正确 + done 处理正确 + replay 正常” 都没确认，上改进往往只会更乱。&lt;/li&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DbVa9Sil.jpg"/><enclosure url="/_astro/heroimage.DbVa9Sil.jpg"/></item><item><title>强化学习算法程序实践（3）：策略梯度与 Actor-Critic</title><link>https://xiaohei94.github.io/blog/rl-algorithm-3</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-3</guid><description>策略分布（Softmax / Gaussian）设计，回报累积与并行采样。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;前两篇我们一直站在“值函数”的视角：学 $Q(s,a)$，再用 $\arg\max$ 导出策略。&lt;/p&gt;
 &lt;p&gt;策略梯度（Policy Gradient）反过来：&lt;strong&gt;直接优化策略 $\pi_\theta(a|s)$&lt;/strong&gt;。这件事在实战里很“香”，一方面它天然适配连续动作（不用把动作硬离散、再用 DQN 去拟合），另一方面策略本身就是概率分布，探索不再是外部贴一层 epsilon 的补丁，而是模型输出的一部分。&lt;/p&gt;
