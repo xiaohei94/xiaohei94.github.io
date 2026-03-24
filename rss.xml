@@ -413,27 +413,33 @@ motor4 = throttle - pitch_out + roll_out + yaw_out;
 &lt;p&gt;从一行编译烧录命令到飞机第一次颤颤巍巍地离地，这中间可能会经历无数次的炸机、断桨和代码报错。但当你亲手写的算法让飞行器稳稳地悬停在空中的那一刻，那种成就感是无与伦比的。&lt;/p&gt;
 &lt;p&gt;这篇博客主要带大家理清了 ESP32 无人机开发的脉络。后续我会在对应的位置补充更多实战图片和详细的接线图。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.h2t7fPYM.jpg"/><enclosure url="/_astro/heroimage.h2t7fPYM.jpg"/></item><item><title>Paper Reading：Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;## VLA
+&lt;pre&gt;&lt;code&gt;&amp;#x3C;div class=&apos;min-w-0 flex-1&apos;&gt;
+  &amp;#x3C;Aside type=&apos;caution&apos; title=&apos;内容不完整提醒&apos;&gt;
+    本篇内容仍在整理中，其中部分文字为 AI 生成的概览，仅供 Paper List 参考。在完善本篇内容后会移除此提醒。
+  &amp;#x3C;/Aside&gt;
 
-&amp;#x3C;ArxivRating id=&apos;2511.18810&apos; tldr=&apos;Merge LoRA 进行多任务学习的 Pi-like VLA&apos; rank={2}&gt;
-  &amp;#x3C;p&gt;
-    ![show](./image/data.png)
-    MergeVLA 的核心思路是把“多任务 + 多 LoRA”的训练与推理流程做成可控的组合：训练阶段面向不同任务学习各自的
-    LoRA 专家，并通过更有针对性的跨任务对齐设计降低任务之间的冲突；推理阶段再用路由/合并策略把需要的能力组合起来，
-    以尽可能少的参数增量覆盖更多任务。
-  &amp;#x3C;/p&gt;
-&amp;#x3C;/ArxivRating&gt;
+  ## VLA
 
-&amp;#x3C;div class=&apos;my-6&apos;&gt;&amp;#x3C;/div&gt;
+  &amp;#x3C;ArxivRating id=&apos;2511.18810&apos; tldr=&apos;Merge LoRA 进行多任务学习的 Pi-like VLA&apos; rank={2}&gt;
+    &amp;#x3C;p&gt;
+      ![show](./image/data.png)
+      MergeVLA 的核心思路是把“多任务 + 多 LoRA”的训练与推理流程做成可控的组合：训练阶段面向不同任务学习各自的
+      LoRA 专家，并通过更有针对性的跨任务对齐设计降低任务之间的冲突；推理阶段再用路由/合并策略把需要的能力组合起来，
+      以尽可能少的参数增量覆盖更多任务。
+    &amp;#x3C;/p&gt;
+  &amp;#x3C;/ArxivRating&gt;
 
-## VLM
+  &amp;#x3C;div class=&apos;my-6&apos;&gt;&amp;#x3C;/div&gt;
 
-&amp;#x3C;ArxivRating id=&apos;2511.18950&apos; tldr=&apos;通过减少计算量和视觉 token 数量来提高 VLA 效率&apos; rank={2}&gt;
-  &amp;#x3C;p&gt;
-    Compressor-VLA 关注的是把视觉侧 token 压缩到“足够用”的程度，从而在不明显牺牲任务表现的前提下显著降低计算与显存
-    开销；整体方法更偏工程与效率优化，适合作为现有 VLA 管线的轻量改造模块。
-  &amp;#x3C;/p&gt;
-&amp;#x3C;/ArxivRating&gt;
+  ## VLM
+
+  &amp;#x3C;ArxivRating id=&apos;2511.18950&apos; tldr=&apos;通过减少计算量和视觉 token 数量来提高 VLA 效率&apos; rank={2}&gt;
+    &amp;#x3C;p&gt;
+      Compressor-VLA 关注的是把视觉侧 token 压缩到“足够用”的程度，从而在不明显牺牲任务表现的前提下显著降低计算与显存
+      开销；整体方法更偏工程与效率优化，适合作为现有 VLA 管线的轻量改造模块。
+    &amp;#x3C;/p&gt;
+  &amp;#x3C;/ArxivRating&gt;
+&amp;#x3C;/div&gt;
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><h:img src="/_astro/heroimage.BTiOoGhT.jpg"/><enclosure url="/_astro/heroimage.BTiOoGhT.jpg"/></item><item><title>自主无人机的感知模块配置教程</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>开源无人机硬件项目中关于感知模块的连接配置。</description><pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;
 import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
@@ -721,12 +727,18 @@ import { WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;检测过程复杂&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;市面上已存在的帕金森设备存在检测不灵敏、检测过程复杂等问题，且对于患者的检测周期较长。
+&lt;/p&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;前期症状不明显&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;社会上的帕金森患者在早期的帕金森病表现状况不够明显，也没有相应的日常检测设备。
+&lt;/p&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;患者线下数据收集难&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;随着互联网医疗体系的完善，医生对患者数据的管理与分析变得迫切。与互联网医疗配套的家用医疗器械缺乏，患者数据无法第一时间向医生反馈。
+&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/heart.png&quot; alt=&quot;项目痛点&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;开发挑战&lt;/h2&gt;
 &lt;p&gt;我们团队在开发时遇到的挑战:&lt;/p&gt;
@@ -785,15 +797,23 @@ import { WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;患者居家&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;作品聚焦于65岁以上前中期帕金森惠者，而且主要面向居家患者。对帕金森患者可以通过医疗辅助器材商店或者网上购买本产品，使用产品设备每天一到三次，按照我们自主设计的范式测量方法进行简短时间的数据采集，可以实时通过鸿蒙APP查看病情状况和分析及科学的疗养方案。
+&lt;/p&gt;
 &lt;ol start=&quot;2&quot;&gt;
 &lt;li&gt;医院&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;医生面对新就诊患者时，本产品检测病情程度的功能，可以辅助医生准确判断患者当前病情情况;医生面对复查病情的患者时，可以参考产品记录患者的日常数据、分析的结果，及实时检测的结果对患者进行准确的病情状态把握，有利于准确诊断。并且和河南省中医院等省市级医院达成合作后，通过省市级医院的辐射作用推广到下级医院。
+&lt;/p&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;社区康养中心&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;作品将推广到社区康养中心，实现区域化推广和销售。患者可以在康养中心的专业人员指导下使用，更加专业和科学。
+&lt;/p&gt;
 &lt;ol start=&quot;4&quot;&gt;
 &lt;li&gt;医疗科研机构&lt;/li&gt;
 &lt;/ol&gt;
+&lt;p&gt;对于各大高校，研究机构等，需要相关的软硬件作为数据采集终端，本作品将面向科研人员进行推广售卖。
+&lt;/p&gt;
 &lt;h2&gt;产品价值&lt;/h2&gt;
 &lt;p&gt;本作品主要用于采集帕金森患者日常运动状态数据并记录方便医生了解患者病情情况并及时给予康复建议。并目主要的客户来源是中老年人帕金森患者，并且有一定时间的患病经历。目的旨在解决早发现帕金森病的前驱症状，实现疾病的早诊断、早治疗。以及医生与患者突破时间，空间限制的交流，实现帕金森患者居家获得及时的医生康复建议。&lt;/p&gt;
 &lt;p&gt;基于以上我们团队结合自身的技术力量，针对上述的问题，使用华为云 IoT 端侧规则引擎，实现联动规则云端下发、端侧快速执行，提高设备联动效率，提出了一套结合物联网、数据交叉融合算法等技术构建的基于可穿戴传感器的帕金森病运动迟缓量化测评系统。和市面上相比，我们产品可以实现对帕金森患者的手部震颤加速度数据、肌电信号、手指弯曲的信号和压力数据进行多数据采集，并且采用数据融合技术，实现高准确率的评估。而且在后期，我们可以实现日常情况的随时检测和评估，方便患者的日常使用。&lt;/p&gt;
@@ -1943,7 +1963,31 @@ $$&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;TD3 的双 critic/取 min 要写对&lt;/strong&gt;：这是它解决过估计的核心。如果你写成了 max，或者 target 用错了 critic，会直接退化/发散。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;SAC 重点看 entropy / alpha&lt;/strong&gt;：熵项权重不合适，会出现“动作太随机”或“过早确定”。如果实现支持自动调 alpha，一般会更省心。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;先用短 horizon 验证闭环&lt;/strong&gt;：把 episode length 缩短、reward 简化、甚至先关掉部分随机性，确认 update 不会爆，再逐步加回真实设置。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.BMCKMFQL.jpg"/><enclosure url="/_astro/heroimage.BMCKMFQL.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.BMCKMFQL.jpg"/><enclosure url="/_astro/heroimage.BMCKMFQL.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
+&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
+&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
+&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
 &lt;li&gt;自动构建：push 即部署&lt;/li&gt;
@@ -1977,31 +2021,7 @@ pnpm build
 &lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
-&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
-&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
-&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
-&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
 import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
