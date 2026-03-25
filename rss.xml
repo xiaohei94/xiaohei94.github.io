@@ -1971,7 +1971,23 @@ pnpm build
 &lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
+import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
+&lt;h2&gt;2. User 组件示例&lt;/h2&gt;
+&lt;h2&gt;3. Advanced 组件示例&lt;/h2&gt;
+&lt;h3&gt;GitHub 卡片&lt;/h3&gt;
+&lt;h3&gt;链接预览&lt;/h3&gt;
+&lt;h3&gt;二维码&lt;/h3&gt;
+&lt;h3&gt;图片组（等高拼图）&lt;/h3&gt;
+&lt;p&gt;&amp;#x3C;ImageGroup
+images={[
+{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image A&apos;, aspectRatio: 16 / 9 },
+{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
+]}
+/&gt;&lt;/p&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="/_astro/heroimage.MTMZ7R1c.jpg"/><enclosure url="/_astro/heroimage.MTMZ7R1c.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
 &lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
 &lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
 &lt;ul&gt;
@@ -1995,23 +2011,7 @@ pnpm build
 &lt;/ul&gt;
 &lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
 &lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
-import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
-&lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
-&lt;h2&gt;2. User 组件示例&lt;/h2&gt;
-&lt;h2&gt;3. Advanced 组件示例&lt;/h2&gt;
-&lt;h3&gt;GitHub 卡片&lt;/h3&gt;
-&lt;h3&gt;链接预览&lt;/h3&gt;
-&lt;h3&gt;二维码&lt;/h3&gt;
-&lt;h3&gt;图片组（等高拼图）&lt;/h3&gt;
-&lt;p&gt;&amp;#x3C;ImageGroup
-images={[
-{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image A&apos;, aspectRatio: 16 / 9 },
-{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
-]}
-/&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="/_astro/heroimage.MTMZ7R1c.jpg"/><enclosure url="/_astro/heroimage.MTMZ7R1c.jpg"/></item><item><title>Astro Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>Astro Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
 &lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
