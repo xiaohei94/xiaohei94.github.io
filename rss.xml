@@ -1420,146 +1420,7 @@ $$&lt;/p&gt;
 &lt;p&gt;强化学习永远在做一个闭环：&lt;strong&gt;采样（交互）→ 估计（价值/优势）→ 更新（策略/价值）→ 再采样&lt;/strong&gt;。&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;后面的章节无论是 MDP、表格法、还是 PPO/DQN 这些大名鼎鼎的算法，本质都在这个闭环里换不同的估计方式和更新方式。&lt;/p&gt;
-&lt;p&gt;下一章我们会把这个闭环写成数学对象：马尔可夫过程、奖励过程、MDP、贝尔曼方程——你会发现，很多“看起来很抽象”的符号，其实是在回答工程里非常具体的问题：&lt;strong&gt;我怎么把未来折扣奖励写成一个可迭代的更新式？&lt;/strong&gt;&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CreDR_rs.jpg"/><enclosure url="/_astro/heroimage.CreDR_rs.jpg"/></item><item><title>强化学习算法程序实践（2）：DQN 及其改进</title><link>https://xiaohei94.github.io/blog/rl-algorithm-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-2</guid><description>从 Q-table 走向深度强化学习</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
-&lt;h2&gt;前言&lt;/h2&gt;
-&lt;p&gt;第 1 篇我们把“回合训练骨架”固定了，并用 Q-Learning/Sarsa 验证：很多算法的工程结构可以复用。&lt;/p&gt;
-&lt;p&gt;这篇开始进入深度强化学习：&lt;strong&gt;DQN（Deep Q-Network）&lt;/strong&gt;。它的本质很简单：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用神经网络近似 $Q(s,a)$，替代原来的 Q-table&lt;/li&gt;
-&lt;li&gt;为了让训练稳定、样本利用率更高，引入两件关键装备：
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;经验回放（Replay Buffer）&lt;/strong&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;目标网络（Target Network）&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我下面会按我自己做实验时的“演化路线”把它们串起来：先把最朴素的 DQN 跑通，再逐个替换模块，最后得到一套更稳、更省心的版本（Double / Dueling / Noisy / PER）。你会发现这些改进并没有把 DQN 变得面目全非，它们大多只是在某个关键环节多加了一块垫片：要么让 target 更可信，要么让探索更自然，要么让 replay 更“记重点”。&lt;/p&gt;
-&lt;p&gt;我自己真正开始“理解 DQN”是从一次失败开始的：代码能跑、loss 也在降，但 reward 纹丝不动；甚至有时候 reward 还会先上去一小段，然后突然崩得一干二净。后来我才意识到，DQN 的难点从来不在“会不会写反传”，而在“你的训练信号到底稳不稳”。如果 target 网络没更新好、replay 的采样没有打散相关性、或者奖励尺度和学习率不匹配，你得到的梯度就像在噪声里摸黑，越走越偏。&lt;/p&gt;
-&lt;p&gt;所以这篇我会尽量用工程语言把它讲清楚：&lt;strong&gt;DQN 为什么要 Replay、为什么要 Target、update 的 target 到底在干什么&lt;/strong&gt;，以及你可以按什么顺序迭代，把一个“能跑的 DQN”逐步打磨成一个“训练稳定的 DQN”。&lt;/p&gt;
-&lt;h2&gt;DQN：相对 Q-Learning 改了什么？&lt;/h2&gt;
-&lt;p&gt;如果把 Q-Learning 看作“边走边把 Q 表格填完整”，那 DQN 就是“我不填表了，我训练一个函数去拟合这张表”。为了让这个函数（神经网络）训练得稳定，我一般会把 DQN 的变化拆成三件事来记：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;用网络替代表&lt;/strong&gt;：$Q(s,a;\theta)$，输入是 state，输出是每个动作的 Q 值。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Replay Buffer&lt;/strong&gt;：把交互数据存起来，更新时随机采样一批（batch），提升样本效率并打破相关性。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;策略网络 + 目标网络&lt;/strong&gt;：用 $\theta$ 在线更新策略网络，用 $\theta^-$ 的目标网络去计算 target，定期拷贝参数来稳住训练。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h3&gt;一个可复用的 DQN Agent 接口&lt;/h3&gt;
-&lt;p&gt;和第 1 篇一致：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练用（通常 epsilon-greedy）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试用（argmax）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 Replay Buffer 采样 batch 更新网络&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;注意：从 DQN 开始，&lt;code&gt;update()&lt;/code&gt; 往往不再接受单条 transition，而是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;先 &lt;code&gt;push(transition)&lt;/code&gt; 到 replay&lt;/li&gt;
-&lt;li&gt;再在合适时机（buffer 足够、间隔到达）调用 &lt;code&gt;update()&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我个人很推荐把 “push 交互数据” 和 “update 如果条件满足就更新” 分开写。因为你后面无论是加 PER（采样变了）、还是加 Noisy（探索变了）、还是加 Double（target 算法变了），这一层的训练主循环都不需要大改，改动会被限制在 buffer 或 update 的内部。&lt;/p&gt;
-&lt;h2&gt;Replay Buffer：push + sample 就够用&lt;/h2&gt;
-&lt;p&gt;我一般把经验回放（Replay Buffer）的实现压缩成两个方法：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;push&lt;/code&gt;：按顺序存 transition，满了就挤掉最旧的&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;sample&lt;/code&gt;：随机采样出一个 batch&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;最小结构通常是这样的：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import random
-from collections import deque
-
-
-class ReplayBuffer:
-	def __init__(self, capacity: int):
-		self.buffer = deque(maxlen=capacity)
-
-	def push(self, transition):
-		self.buffer.append(transition)
-
-	def sample(self, batch_size: int):
-		batch = random.sample(self.buffer, batch_size)
-		# 真实代码会在这里做 unzip + tensor 化
-		return batch
-
-	def __len__(self):
-		return len(self.buffer)
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;DQN 的 update：损失怎么来的？&lt;/h2&gt;
-&lt;p&gt;我第一次实现 DQN 时，最容易卡住的点其实不是反传，而是“target 到底应该怎么算”。把它想清楚后，整个 update 就很机械：拿一批数据算出 target，再让网络的输出去贴近这个 target。&lt;/p&gt;
-&lt;p&gt;在最基础的 DQN 里，损失就是“期望值 $y_i$”和“实际值 $Q(s_i,a_i;\theta)$”的均方差。&lt;/p&gt;
-&lt;h3&gt;target（期望值）&lt;/h3&gt;
-&lt;p&gt;基础 DQN 常用：
-$$
-y_i = r_i + \gamma \max_{a&apos;} Q(s&apos;_i, a&apos;; \theta^-)
-$$&lt;/p&gt;
-&lt;p&gt;并且要处理终止状态：如果 &lt;code&gt;terminated==True&lt;/code&gt;，没有下一个状态，就直接 $y_i=r_i$。&lt;/p&gt;
-&lt;h3&gt;loss（均方差）&lt;/h3&gt;
-&lt;p&gt;$$
-\mathcal{L}(\theta)=\frac{1}{N}\sum_i (y_i - Q(s_i,a_i;\theta))^2
-$$&lt;/p&gt;
-&lt;p&gt;然后照常：定义 optimizer，&lt;code&gt;loss.backward()&lt;/code&gt;，&lt;code&gt;optimizer.step()&lt;/code&gt;。&lt;/p&gt;
-&lt;h2&gt;Dueling DQN：把 Q 网络拆成 V + A&lt;/h2&gt;
-&lt;p&gt;有些环境里（尤其状态复杂、但动作影响没那么明显的阶段），我会发现“学哪个动作更好”这件事很难，反而“这个状态整体值不值得继续待”更重要。Dueling 的直觉就是把这两件事分开学：先学状态价值 $V(s)$，再学动作相对优势 $A(s,a)$。&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Value&lt;/strong&gt;：估计状态价值 $V(s)$&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Advantage&lt;/strong&gt;：估计每个动作相对优势 $A(s,a)$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;然后组合得到 $Q(s,a)$。&lt;/p&gt;
-&lt;p&gt;工程上你只需要关注两点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;网络 forward 输出从“直接输出 Q”变成“输出 V 和 A，再合成 Q”&lt;/li&gt;
-&lt;li&gt;其它（Replay、target、update）基本不变&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;Double DQN：缓解过估计&lt;/h2&gt;
-&lt;p&gt;基础 DQN 的一个老毛病是过估计：因为我们用同一个网络（或同一个估计过程）既“选最大动作”，又“评估这个最大动作的值”，这很容易把噪声也当成真相。&lt;/p&gt;
-&lt;p&gt;Double DQN 的关键改动是：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;用策略网络选动作（argmax）&lt;/li&gt;
-&lt;li&gt;用目标网络评估该动作的价值&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;一句话的工程翻译：只改 target 的计算方式，其它不动。&lt;/p&gt;
-&lt;h2&gt;Noisy DQN：用可学习噪声做探索&lt;/h2&gt;
-&lt;p&gt;Noisy DQN 的重点在“模型定义”：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;在 &lt;code&gt;Linear&lt;/code&gt; 层里引入 &lt;code&gt;mu/sigma&lt;/code&gt; 参数&lt;/li&gt;
-&lt;li&gt;每次 forward 都注入噪声（训练时），并能 reset&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;它的好处是：在很多任务里，比手动调 epsilon 更省心。&lt;/p&gt;
-&lt;p&gt;你可以把它理解为：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;不再由外部策略（epsilon-greedy）给动作加随机性，而是让网络自己学会在哪些状态该更“抖”。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2&gt;PER-DQN：优先经验回放（SumTree）&lt;/h2&gt;
-&lt;p&gt;PER 的工程要点我通常拆成两大块：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;SumTree&lt;/strong&gt;：用 $O(\log n)$ 管理样本优先级，并按优先级采样&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Importance Sampling&lt;/strong&gt;：用权重修正“非均匀采样”带来的偏差&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;实现上可以拆成三个类：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;SumTree&lt;/code&gt;：维护二叉树和优先级更新&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;ReplayTree&lt;/code&gt;：基于 SumTree 的 replay buffer（push、sample、batch_update）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;PERDQNAgent&lt;/code&gt;：update 后把 TD-error 回写到 replay 里更新优先度&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;如果你想先做一个“最小可用”的 PER，我的建议是：别一上来就写得太花。把 SumTree 写对、把 &lt;code&gt;batch_update&lt;/code&gt; 的优先级回写逻辑写对，就能看到明显收益。之后再去补重要性采样权重、再去做 beta 的退火（anneal），会更顺畅。&lt;/p&gt;
-&lt;h2&gt;小结&lt;/h2&gt;
-&lt;p&gt;这一篇把 DQN 家族的“程序结构”串了起来：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;DQN 的稳定性来自 Replay + Target&lt;/li&gt;
-&lt;li&gt;Double/Dueling 改的是 target 或结构&lt;/li&gt;
-&lt;li&gt;Noisy 改的是探索的实现方式&lt;/li&gt;
-&lt;li&gt;PER 改的是 replay 的采样分布&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;下一篇我会切到策略梯度与 Actor-Critic：REINFORCE、PPO、A2C —— 你会发现它们的核心接口仍然可以复用，只是 &lt;code&gt;update()&lt;/code&gt; 里优化的对象从 $Q$ 变成了 $\pi_\theta$。&lt;/p&gt;
-&lt;h3&gt;我常用的 DQN 调参/调试清单（建议按顺序来）&lt;/h3&gt;
-&lt;p&gt;如果你发现 DQN “不收敛 / 忽好忽坏 / Q 值爆炸”，我一般按下面顺序排查，基本不会走弯路：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;先看 reward 尺度，再定学习率&lt;/strong&gt;：奖励如果在 $[0,1]$，学习率可以大胆一点；奖励如果动辄几十上百，先考虑 reward clipping 或把学习率降两档。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;把 Q 值范围打出来&lt;/strong&gt;：每隔 N 个 episode 打印一次 &lt;code&gt;q_mean/q_max&lt;/code&gt;（以 batch 为单位）。如果 Q 值从几十飙到几万，通常是 target 计算/终止状态处理/学习率出问题。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Replay 先保证“足够大 + 随机采样”&lt;/strong&gt;：buffer 太小就更新，训练非常不稳；我一般会设一个 &lt;code&gt;min_buffer_size&lt;/code&gt;，不够就只 push 不 update。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Target network 更新频率别太激进&lt;/strong&gt;：更新太频繁等于没用 target，更新太慢又会学得很慢。一个常用起点：每 500~2000 个 env step 同步一次（具体随环境而变）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;epsilon 衰减别太快&lt;/strong&gt;：你看到 reward 前期抖动、很快停滞，优先怀疑探索不足；宁愿衰减慢一点，也不要“自信地随机”。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;batch_size、gamma、update 频率要成套&lt;/strong&gt;：batch 太小梯度噪声大；gamma 太大又没配足够长的 episode/steps，容易学不到。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;先跑基础版再加花活&lt;/strong&gt;：Double/Dueling/Noisy/PER 都是锦上添花。基础 DQN 如果你连 “target 正确 + done 处理正确 + replay 正常” 都没确认，上改进往往只会更乱。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DbVa9Sil.jpg"/><enclosure url="/_astro/heroimage.DbVa9Sil.jpg"/></item><item><title>强化学习算法程序实践（1）：通用训练框架 + Q-Learning / Sarsa</title><link>https://xiaohei94.github.io/blog/rl-algorithm-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-1</guid><description>从一个可落地 Q-Learning 与 Sarsa、epsilon-greedy、回合训练循环、以及保存与加载的最小实践。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;p&gt;下一章我们会把这个闭环写成数学对象：马尔可夫过程、奖励过程、MDP、贝尔曼方程——你会发现，很多“看起来很抽象”的符号，其实是在回答工程里非常具体的问题：&lt;strong&gt;我怎么把未来折扣奖励写成一个可迭代的更新式？&lt;/strong&gt;&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CreDR_rs.jpg"/><enclosure url="/_astro/heroimage.CreDR_rs.jpg"/></item><item><title>强化学习算法程序实践（1）：通用训练框架 + Q-Learning / Sarsa</title><link>https://xiaohei94.github.io/blog/rl-algorithm-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-1</guid><description>从一个可落地 Q-Learning 与 Sarsa、epsilon-greedy、回合训练循环、以及保存与加载的最小实践。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;我在做强化学习实验时，最痛苦的不是推公式，而是：&lt;strong&gt;同一个算法换个环境就要重写一堆训练脚手架&lt;/strong&gt;。后来我索性把常用套路总结成一个“可复用的算法骨架”，再把每个算法的差异点（几乎都集中在 &lt;code&gt;sample&lt;/code&gt; 和 &lt;code&gt;update&lt;/code&gt;）填进去。&lt;/p&gt;
 &lt;p&gt;更具体一点说，我踩过的坑基本都集中在“工程细节被忽略”上：同样的算法，有时候不是你公式写错了，而是你训练循环里 &lt;code&gt;terminated/truncated&lt;/code&gt; 没处理好、epsilon 衰减太快导致过早收敛、或者你没有把每回合最大步数限制住导致训练数据统计完全不一致。于是到最后你只能对着一条乱七八糟的 reward 曲线发呆，完全不知道是环境问题还是代码问题。&lt;/p&gt;
@@ -1768,7 +1629,146 @@ action = next_action
 &lt;li&gt;&lt;strong&gt;epsilon 先别衰减太快&lt;/strong&gt;：我最常犯的错误是 &lt;code&gt;epsilon_decay&lt;/code&gt; 设太狠，导致前几十回合就开始“自信地瞎走”。如果你看到 reward 一开始有波动、很快就僵住，优先怀疑探索不足。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;gamma 和 max_steps 要配套&lt;/strong&gt;：&lt;code&gt;gamma&lt;/code&gt; 大的时候，回报有效视野更长；如果你 &lt;code&gt;max_steps&lt;/code&gt; 又很短，很多环境会变成“怎么都学不出来”。反过来也是：&lt;code&gt;max_steps&lt;/code&gt; 太长会让训练变慢且方差更大。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;先在最小环境验证&lt;/strong&gt;：像 FrozenLake / Taxi 这种可以快速验证“训练循环是否正确”。骨架确认没问题，再搬到复杂环境会省掉很多时间。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>强化学习算法程序实践（3）：策略梯度与 Actor-Critic</title><link>https://xiaohei94.github.io/blog/rl-algorithm-3</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-3</guid><description>策略分布（Softmax / Gaussian）设计，回报累积与并行采样。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DR_jwJiT.jpg"/><enclosure url="/_astro/heroimage.DR_jwJiT.jpg"/></item><item><title>强化学习算法程序实践（2）：DQN 及其改进</title><link>https://xiaohei94.github.io/blog/rl-algorithm-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-2</guid><description>从 Q-table 走向深度强化学习</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;第 1 篇我们把“回合训练骨架”固定了，并用 Q-Learning/Sarsa 验证：很多算法的工程结构可以复用。&lt;/p&gt;
+&lt;p&gt;这篇开始进入深度强化学习：&lt;strong&gt;DQN（Deep Q-Network）&lt;/strong&gt;。它的本质很简单：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用神经网络近似 $Q(s,a)$，替代原来的 Q-table&lt;/li&gt;
+&lt;li&gt;为了让训练稳定、样本利用率更高，引入两件关键装备：
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;经验回放（Replay Buffer）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;目标网络（Target Network）&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我下面会按我自己做实验时的“演化路线”把它们串起来：先把最朴素的 DQN 跑通，再逐个替换模块，最后得到一套更稳、更省心的版本（Double / Dueling / Noisy / PER）。你会发现这些改进并没有把 DQN 变得面目全非，它们大多只是在某个关键环节多加了一块垫片：要么让 target 更可信，要么让探索更自然，要么让 replay 更“记重点”。&lt;/p&gt;
+&lt;p&gt;我自己真正开始“理解 DQN”是从一次失败开始的：代码能跑、loss 也在降，但 reward 纹丝不动；甚至有时候 reward 还会先上去一小段，然后突然崩得一干二净。后来我才意识到，DQN 的难点从来不在“会不会写反传”，而在“你的训练信号到底稳不稳”。如果 target 网络没更新好、replay 的采样没有打散相关性、或者奖励尺度和学习率不匹配，你得到的梯度就像在噪声里摸黑，越走越偏。&lt;/p&gt;
+&lt;p&gt;所以这篇我会尽量用工程语言把它讲清楚：&lt;strong&gt;DQN 为什么要 Replay、为什么要 Target、update 的 target 到底在干什么&lt;/strong&gt;，以及你可以按什么顺序迭代，把一个“能跑的 DQN”逐步打磨成一个“训练稳定的 DQN”。&lt;/p&gt;
+&lt;h2&gt;DQN：相对 Q-Learning 改了什么？&lt;/h2&gt;
+&lt;p&gt;如果把 Q-Learning 看作“边走边把 Q 表格填完整”，那 DQN 就是“我不填表了，我训练一个函数去拟合这张表”。为了让这个函数（神经网络）训练得稳定，我一般会把 DQN 的变化拆成三件事来记：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;用网络替代表&lt;/strong&gt;：$Q(s,a;\theta)$，输入是 state，输出是每个动作的 Q 值。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Replay Buffer&lt;/strong&gt;：把交互数据存起来，更新时随机采样一批（batch），提升样本效率并打破相关性。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;策略网络 + 目标网络&lt;/strong&gt;：用 $\theta$ 在线更新策略网络，用 $\theta^-$ 的目标网络去计算 target，定期拷贝参数来稳住训练。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;一个可复用的 DQN Agent 接口&lt;/h3&gt;
+&lt;p&gt;和第 1 篇一致：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练用（通常 epsilon-greedy）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试用（argmax）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 Replay Buffer 采样 batch 更新网络&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;注意：从 DQN 开始，&lt;code&gt;update()&lt;/code&gt; 往往不再接受单条 transition，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;先 &lt;code&gt;push(transition)&lt;/code&gt; 到 replay&lt;/li&gt;
+&lt;li&gt;再在合适时机（buffer 足够、间隔到达）调用 &lt;code&gt;update()&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我个人很推荐把 “push 交互数据” 和 “update 如果条件满足就更新” 分开写。因为你后面无论是加 PER（采样变了）、还是加 Noisy（探索变了）、还是加 Double（target 算法变了），这一层的训练主循环都不需要大改，改动会被限制在 buffer 或 update 的内部。&lt;/p&gt;
+&lt;h2&gt;Replay Buffer：push + sample 就够用&lt;/h2&gt;
+&lt;p&gt;我一般把经验回放（Replay Buffer）的实现压缩成两个方法：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;push&lt;/code&gt;：按顺序存 transition，满了就挤掉最旧的&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sample&lt;/code&gt;：随机采样出一个 batch&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最小结构通常是这样的：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-python&quot;&gt;import random
+from collections import deque
+
+
+class ReplayBuffer:
+	def __init__(self, capacity: int):
+		self.buffer = deque(maxlen=capacity)
+
+	def push(self, transition):
+		self.buffer.append(transition)
+
+	def sample(self, batch_size: int):
+		batch = random.sample(self.buffer, batch_size)
+		# 真实代码会在这里做 unzip + tensor 化
+		return batch
+
+	def __len__(self):
+		return len(self.buffer)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;DQN 的 update：损失怎么来的？&lt;/h2&gt;
+&lt;p&gt;我第一次实现 DQN 时，最容易卡住的点其实不是反传，而是“target 到底应该怎么算”。把它想清楚后，整个 update 就很机械：拿一批数据算出 target，再让网络的输出去贴近这个 target。&lt;/p&gt;
+&lt;p&gt;在最基础的 DQN 里，损失就是“期望值 $y_i$”和“实际值 $Q(s_i,a_i;\theta)$”的均方差。&lt;/p&gt;
+&lt;h3&gt;target（期望值）&lt;/h3&gt;
+&lt;p&gt;基础 DQN 常用：
+$$
+y_i = r_i + \gamma \max_{a&apos;} Q(s&apos;_i, a&apos;; \theta^-)
+$$&lt;/p&gt;
+&lt;p&gt;并且要处理终止状态：如果 &lt;code&gt;terminated==True&lt;/code&gt;，没有下一个状态，就直接 $y_i=r_i$。&lt;/p&gt;
+&lt;h3&gt;loss（均方差）&lt;/h3&gt;
+&lt;p&gt;$$
+\mathcal{L}(\theta)=\frac{1}{N}\sum_i (y_i - Q(s_i,a_i;\theta))^2
+$$&lt;/p&gt;
+&lt;p&gt;然后照常：定义 optimizer，&lt;code&gt;loss.backward()&lt;/code&gt;，&lt;code&gt;optimizer.step()&lt;/code&gt;。&lt;/p&gt;
+&lt;h2&gt;Dueling DQN：把 Q 网络拆成 V + A&lt;/h2&gt;
+&lt;p&gt;有些环境里（尤其状态复杂、但动作影响没那么明显的阶段），我会发现“学哪个动作更好”这件事很难，反而“这个状态整体值不值得继续待”更重要。Dueling 的直觉就是把这两件事分开学：先学状态价值 $V(s)$，再学动作相对优势 $A(s,a)$。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Value&lt;/strong&gt;：估计状态价值 $V(s)$&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Advantage&lt;/strong&gt;：估计每个动作相对优势 $A(s,a)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;然后组合得到 $Q(s,a)$。&lt;/p&gt;
+&lt;p&gt;工程上你只需要关注两点：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;网络 forward 输出从“直接输出 Q”变成“输出 V 和 A，再合成 Q”&lt;/li&gt;
+&lt;li&gt;其它（Replay、target、update）基本不变&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;Double DQN：缓解过估计&lt;/h2&gt;
+&lt;p&gt;基础 DQN 的一个老毛病是过估计：因为我们用同一个网络（或同一个估计过程）既“选最大动作”，又“评估这个最大动作的值”，这很容易把噪声也当成真相。&lt;/p&gt;
+&lt;p&gt;Double DQN 的关键改动是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用策略网络选动作（argmax）&lt;/li&gt;
+&lt;li&gt;用目标网络评估该动作的价值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一句话的工程翻译：只改 target 的计算方式，其它不动。&lt;/p&gt;
+&lt;h2&gt;Noisy DQN：用可学习噪声做探索&lt;/h2&gt;
+&lt;p&gt;Noisy DQN 的重点在“模型定义”：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在 &lt;code&gt;Linear&lt;/code&gt; 层里引入 &lt;code&gt;mu/sigma&lt;/code&gt; 参数&lt;/li&gt;
+&lt;li&gt;每次 forward 都注入噪声（训练时），并能 reset&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它的好处是：在很多任务里，比手动调 epsilon 更省心。&lt;/p&gt;
+&lt;p&gt;你可以把它理解为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不再由外部策略（epsilon-greedy）给动作加随机性，而是让网络自己学会在哪些状态该更“抖”。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;PER-DQN：优先经验回放（SumTree）&lt;/h2&gt;
+&lt;p&gt;PER 的工程要点我通常拆成两大块：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;SumTree&lt;/strong&gt;：用 $O(\log n)$ 管理样本优先级，并按优先级采样&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Importance Sampling&lt;/strong&gt;：用权重修正“非均匀采样”带来的偏差&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实现上可以拆成三个类：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SumTree&lt;/code&gt;：维护二叉树和优先级更新&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ReplayTree&lt;/code&gt;：基于 SumTree 的 replay buffer（push、sample、batch_update）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;PERDQNAgent&lt;/code&gt;：update 后把 TD-error 回写到 replay 里更新优先度&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果你想先做一个“最小可用”的 PER，我的建议是：别一上来就写得太花。把 SumTree 写对、把 &lt;code&gt;batch_update&lt;/code&gt; 的优先级回写逻辑写对，就能看到明显收益。之后再去补重要性采样权重、再去做 beta 的退火（anneal），会更顺畅。&lt;/p&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;这一篇把 DQN 家族的“程序结构”串了起来：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DQN 的稳定性来自 Replay + Target&lt;/li&gt;
+&lt;li&gt;Double/Dueling 改的是 target 或结构&lt;/li&gt;
+&lt;li&gt;Noisy 改的是探索的实现方式&lt;/li&gt;
+&lt;li&gt;PER 改的是 replay 的采样分布&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下一篇我会切到策略梯度与 Actor-Critic：REINFORCE、PPO、A2C —— 你会发现它们的核心接口仍然可以复用，只是 &lt;code&gt;update()&lt;/code&gt; 里优化的对象从 $Q$ 变成了 $\pi_\theta$。&lt;/p&gt;
+&lt;h3&gt;我常用的 DQN 调参/调试清单（建议按顺序来）&lt;/h3&gt;
+&lt;p&gt;如果你发现 DQN “不收敛 / 忽好忽坏 / Q 值爆炸”，我一般按下面顺序排查，基本不会走弯路：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;先看 reward 尺度，再定学习率&lt;/strong&gt;：奖励如果在 $[0,1]$，学习率可以大胆一点；奖励如果动辄几十上百，先考虑 reward clipping 或把学习率降两档。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;把 Q 值范围打出来&lt;/strong&gt;：每隔 N 个 episode 打印一次 &lt;code&gt;q_mean/q_max&lt;/code&gt;（以 batch 为单位）。如果 Q 值从几十飙到几万，通常是 target 计算/终止状态处理/学习率出问题。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Replay 先保证“足够大 + 随机采样”&lt;/strong&gt;：buffer 太小就更新，训练非常不稳；我一般会设一个 &lt;code&gt;min_buffer_size&lt;/code&gt;，不够就只 push 不 update。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Target network 更新频率别太激进&lt;/strong&gt;：更新太频繁等于没用 target，更新太慢又会学得很慢。一个常用起点：每 500~2000 个 env step 同步一次（具体随环境而变）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;epsilon 衰减别太快&lt;/strong&gt;：你看到 reward 前期抖动、很快停滞，优先怀疑探索不足；宁愿衰减慢一点，也不要“自信地随机”。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;batch_size、gamma、update 频率要成套&lt;/strong&gt;：batch 太小梯度噪声大；gamma 太大又没配足够长的 episode/steps，容易学不到。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先跑基础版再加花活&lt;/strong&gt;：Double/Dueling/Noisy/PER 都是锦上添花。基础 DQN 如果你连 “target 正确 + done 处理正确 + replay 正常” 都没确认，上改进往往只会更乱。&lt;/li&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DbVa9Sil.jpg"/><enclosure url="/_astro/heroimage.DbVa9Sil.jpg"/></item><item><title>强化学习算法程序实践（3）：策略梯度与 Actor-Critic</title><link>https://xiaohei94.github.io/blog/rl-algorithm-3</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-3</guid><description>策略分布（Softmax / Gaussian）设计，回报累积与并行采样。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;前两篇我们一直站在“值函数”的视角：学 $Q(s,a)$，再用 $\arg\max$ 导出策略。&lt;/p&gt;
 &lt;p&gt;策略梯度（Policy Gradient）反过来：&lt;strong&gt;直接优化策略 $\pi_\theta(a|s)$&lt;/strong&gt;。这件事在实战里很“香”，一方面它天然适配连续动作（不用把动作硬离散、再用 DQN 去拟合），另一方面策略本身就是概率分布，探索不再是外部贴一层 epsilon 的补丁，而是模型输出的一部分。&lt;/p&gt;
