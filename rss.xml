@@ -444,11 +444,10 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;h2&gt;RL端到端和传统方法的区别&lt;/h2&gt;
 &lt;p&gt;强化学习的方法没有，先进行感知构建一个地图再在上面进行轨迹规划，再沿着规划的轨迹去做控制这一个过程。实际上的一整个过程是一个闭环，是一个端到端的过程了，前面一端传感器采集数据，后面一端即为控制指令。&lt;/p&gt;
 &lt;p&gt;从本质上看就是在系统层面的对导航算法的优化。与传统模块化开发的算法在一个复杂系统中，即便他达到了局部最优，那当他们连在一起时也不能说明他达到了系统上的全局最优。因为模块和模块之间的梯度是不能流淌的、不连通的。&lt;/p&gt;
-&lt;p&gt;RL端到端的方法是直接优化整个模型，用一个模型就完全完成了一端到另一端的问题，理论上限是更高的。&lt;/p&gt;
-&lt;p&gt;RL的网络更加轻量，通过利用离线大量算力和计算时间，获得在线的推.理效率。（传统方法需要有很强的在线的优化和专用的数学求解工具），那么RL就可以得到更高的计算效率和更低的对机载芯片的功耗和造价的要求。&lt;/p&gt;
+&lt;p&gt;RL 端到端的方法是直接优化整个模型，用一个模型就完全完成了一端到另一端的问题，理论上限是更高的。RL 的网络更加轻量，通过利用离线大量算力和计算时间，获得在线的推.理效率。（传统方法需要有很强的在线的优化和专用的数学求解工具），那么 RL 就可以得到更高的计算效率和更低的对机载芯片的功耗和造价的要求。&lt;/p&gt;
 &lt;p&gt;传统方法的分模块化设计会出现累计误差（例如视觉传感器，他一定会有噪声和定位误差的，那么在后面建图与规划的过程中误差就会累计，让整个系统的表现变差）。&lt;/p&gt;
-&lt;p&gt;传统方法的优势：每个模块都是精心设计的，是透明的，可解释性强，易于分模块调试（知道问题出现在哪个模块上）。&lt;/p&gt;
-&lt;p&gt;RL方法的劣势：黑盒，整个系统就是一个模型，可能系统全部都能work，也可能全部都不能work，调试开发难度大。sim to real和real to sim需要大量的工程测试和一些实际部署上的技巧。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;传统方法的优势&lt;/strong&gt;：每个模块都是精心设计的，是透明的，可解释性强，易于分模块调试（知道问题出现在哪个模块上）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;RL 方法的劣势&lt;/strong&gt;：黑盒，整个系统就是一个模型，可能系统全部都能 work，也可能全部都不能 work，调试开发难度大。sim to real 和 real to sim 需要大量的工程测试和一些实际部署上的技巧。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/compare.png&quot; alt=&quot;compare&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;结合传统方法与强化学习（更完备、泛化性更强）&lt;/h2&gt;
 &lt;p&gt;把强化学习网络的一部分换成一个轨迹规划器（比以往完全是一个黑盒要好）。&lt;/p&gt;
@@ -464,14 +463,14 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;img src=&quot;./image/compate3.png&quot; alt=&quot;boyi3&quot;&gt;&lt;/p&gt;
 &lt;h3&gt;经典 RL + 博弈算法 —— PSRO&lt;/h3&gt;
 &lt;p&gt;训练出的 RL 算法要具有泛化性，注意在训练的时候不要出现过拟合的现象（不是针对特定对手策略的过拟合）。&lt;/p&gt;
-&lt;p&gt;PSRO 的流程：他不是单一的追逐者策略和逃跑者策略，而是维护了一个策略池，相当于有多个不同的追逐者，和多个不同的逃跑者，在训练其中一方时，我们从对手的策略池中，采样一个作为对手，这样就保持了对手的多样性，从对手的策略池中采样的这样一个策略。固定对手此时的策略，然后不断的训练我方策略直至收敛，使该策略成为在别的玩家策略不变的情况下，近似的最优的一个响应，然后将其加入该玩家的策略池中，这样来维护策略池的多样性。我们就在不断的博弈训练中，既提高了逃跑者也提高了追逐者的水平，并通过对手策略多样性保证自己的策略是通用的，有更好的泛化性。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;PSRO 的流程&lt;/strong&gt;：他不是单一的追逐者策略和逃跑者策略，而是维护了一个策略池，相当于有多个不同的追逐者，和多个不同的逃跑者，在训练其中一方时，我们从对手的策略池中，采样一个作为对手，这样就保持了对手的多样性，从对手的策略池中采样的这样一个策略。固定对手此时的策略，然后不断的训练我方策略直至收敛，使该策略成为在别的玩家策略不变的情况下，近似的最优的一个响应，然后将其加入该玩家的策略池中，这样来维护策略池的多样性。我们就在不断的博弈训练中，既提高了逃跑者也提高了追逐者的水平，并通过对手策略多样性保证自己的策略是通用的，有更好的泛化性。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/psro1.png&quot; alt=&quot;psro&quot;&gt;
 &lt;img src=&quot;./image/psro2.png&quot; alt=&quot;psro1&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;强化学习在大机动飞行中的应用&lt;/h2&gt;
-&lt;p&gt;基于视觉的窄缝穿越：网络输入图片，通过一个视觉的 encoder 编码器进行解析编码，最后直接输出控制指令（角速度和推力），一个难点是我们输入的图片是高维的，直接让网络同时去学习图片的感知理解与高精度运动控制是很难的，需要大量的数据，同时对解空间的探索效率是很低的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;基于视觉的窄缝穿越&lt;/strong&gt;：网络输入图片，通过一个视觉的 &lt;code&gt;encoder&lt;/code&gt; 编码器进行解析编码，最后直接输出控制指令（角速度和推力），一个难点是我们输入的图片是高维的，直接让网络同时去学习图片的感知理解与高精度运动控制是很难的，需要大量的数据，同时对解空间的探索效率是很低的。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/fly1.png&quot; alt=&quot;fly&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;方法&lt;/strong&gt;：用 &lt;strong&gt;teach-student&lt;/strong&gt; 这个框架，把希望无人机穿越的框（窄缝）的角点提取出来，去训练一个 teacher，它只需要关注无人机的运动控制，然后通过在线蒸馏，去监督 teacher 的输出和 student 的输出，得到一个真正要使用的 student 网络。这种方法可以提供一个更加明确的进化方向，显著提升网络的学习效率。并在网络结构上使用 GRU（一个 RNN 的网络结构），使训练出的 policy 对感知数据是有记忆的（因为这个网络里需要隐式的做窄缝的估计和识别），得到的多帧信息要比单帧信息要好，也可凭借之前的记忆（之前的观测），去完成后续的动作。&lt;/p&gt;
-&lt;p&gt;无人机特技飞行——自动逆课程学习（ARCL）&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方法&lt;/strong&gt;：用 &lt;code&gt;teach-student&lt;/code&gt; 这个框架，把希望无人机穿越的框（窄缝）的角点提取出来，去训练一个 &lt;code&gt;teacher&lt;/code&gt;，它只需要关注无人机的运动控制，然后通过在线蒸馏，去监督 &lt;code&gt;teacher&lt;/code&gt; 的输出和 &lt;code&gt;student&lt;/code&gt; 的输出，得到一个真正要使用的 &lt;code&gt;student&lt;/code&gt; 网络。这种方法可以提供一个更加明确的进化方向，显著提升网络的学习效率。并在网络结构上使用 &lt;code&gt;GRU&lt;/code&gt;（一个 &lt;code&gt;RNN&lt;/code&gt; 的网络结构），使训练出的 policy 对感知数据是有记忆的（因为这个网络里需要隐式的做窄缝的估计和识别），得到的多帧信息要比单帧信息要好，也可凭借之前的记忆（之前的观测），去完成后续的动作。&lt;/p&gt;
+&lt;p&gt;实现无人机特技飞行——自动逆课程学习（ARCL）&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/fly2.png&quot; alt=&quot;fly1&quot;&gt;&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CKByLajT.jpg"/><enclosure url="/_astro/heroimage.CKByLajT.jpg"/></item><item><title>自主无人机的感知模块配置教程</title><link>https://xiaohei94.github.io/blog/learning-base-uav</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/learning-base-uav</guid><description>开源无人机硬件项目中关于感知模块的连接配置。</description><pubDate>Wed, 16 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent } from &apos;@/components/user&apos;
 import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
@@ -785,14 +784,16 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;li&gt;无先验地图的无人机自主探索&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/document/10476684&quot;&gt;Deep Reinforcement Learning-based Large-scale Robot Exploration&lt;/a&gt;, Arxiv2024, National University of Singapore (NUS). 利用注意力机制学习不同空间尺度的依赖关系，对未知区域进行隐式预测，优化已知空间探索策略，提高探索效率。&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/document/10160565&quot;&gt;ARiADNE: A Reinforcement learning approach using Attention-based Deep Networks for Exploration&lt;/a&gt;, Arxiv2023, National University of Singapore (NUS). 学习已知不同区域在多个空间尺度上的相互依赖关系，并隐式预测探索这些区域可能获得的潜在收益。这使得代理能够安排行动顺序，以平衡在已知区域对地图进行开发/细化与探索新区域之间的自然权衡。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/document/10476684&quot;&gt;Deep Reinforcement Learning-based Large-scale Robot Exploration&lt;/a&gt;. Arxiv2024, National University of Singapore (NUS). 利用注意力机制学习不同空间尺度的依赖关系，对未知区域进行隐式预测，优化已知空间探索策略，提高探索效率。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/document/10160565&quot;&gt;ARiADNE: A Reinforcement learning approach using Attention-based Deep Networks for Exploration&lt;/a&gt;. Arxiv2023, National University of Singapore (NUS). 学习已知不同区域在多个空间尺度上的相互依赖关系，并隐式预测探索这些区域可能获得的潜在收益。这使得代理能够安排行动顺序，以平衡在已知区域对地图进行开发/细化与探索新区域之间的自然权衡。&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2410.16687&quot;&gt;DARE: Diffusion Policy for Autonomous Robot Exploration&lt;/a&gt;. Arxiv2024, National University of Singapore (NUS). DARE方法利用self-attention学习地图空间信息，并通过diffusion生成通往未知区域的轨迹，以提高自主机器人的探索效率。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;ol start=&quot;3&quot;&gt;
 &lt;li&gt;无人机竞速与大机动/特技飞行&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/2409.00895&quot;&gt;Whole-Body Control Through Narrow Gaps From Pixels to Action&lt;/a&gt;. ICRA 2025, ZJU. 使用强化学习实现视觉端到端窄缝穿越，不需要显式的位置和速度估计，超越传统方法性能。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2409.00895&quot;&gt;Whole-Body Control Through Narrow Gaps From Pixels to Action&lt;/a&gt;. ICRA 2025, ZJU. 使用强化学习实现视觉端到端窄缝穿越，不需要显式的位置和速度估计，超越传统方法性能。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2&gt;新构型无人机设计&lt;/h2&gt;
 &lt;p&gt;除了让算法变聪明，很多人也在尝试让无人机与机械臂结合或者具备变形能力。有了这些硬件构型上的创新，无人机的任务边界被大大拉宽了。&lt;/p&gt;
 &lt;h3&gt;空中机械臂（Aerial Manipulator）&lt;/h3&gt;
@@ -827,19 +828,19 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;li&gt;&lt;a href=&quot;https://ieeexplore.ieee.org/document/9691888&quot;&gt;Autonomous and Adaptive Navigation for Terrestrial-Aerial Bimodal Vehicles&lt;/a&gt;. RAL 2022, ZJU. 实现空地多模态无人机的自主导航。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;重要的技术方案&lt;/h2&gt;
-&lt;p&gt;对于任何一台无人机来说，能飞多快、多稳，下限是由状态估计（定位）系统决定的。这就绕不开最为人所熟悉的**里程计和同步定位与建图（Odometry &amp;#x26; SLAM）**技术。&lt;/p&gt;
+&lt;p&gt;对于任何一台无人机来说，能飞多快、多稳，下限是由状态估计（定位）系统决定的。这就绕不开最为人所熟悉的里程计和同步定位与建图（Odometry &amp;#x26; SLAM）技术。&lt;/p&gt;
 &lt;p&gt;里程计（Odometry）用于为机器人实时提供定位，里程计常常基于&lt;strong&gt;扩展卡尔曼滤波（EKF）&lt;strong&gt;实现，&lt;strong&gt;融合IMU、相机、激光雷达、码盘、毫米波雷达、光流传感器&lt;/strong&gt;等等各种常用于&lt;/strong&gt;机器人位姿感知传感器&lt;/strong&gt;中的多种观测，以较高的频率实现对机器人位姿的估计。&lt;/p&gt;
-&lt;p&gt;**视觉惯性里程计（VIO）**领域，最经典的代表莫过于港科大的 &lt;a href=&quot;https://github.com/HKUST-Aerial-Robotics/VINS-Fusion&quot;&gt;VINS-Mono / VINS-Fusion 项目&lt;/a&gt;。&lt;/p&gt;
-&lt;p&gt;**激光惯性里程计（LIO）**这边，港大的系列工作堪称标杆，从经典的 &lt;a href=&quot;https://publications.ri.cmu.edu/storage/publications/pub_files/2014/7/Ji_LidarMapping_RSS2014_v8.pdf&quot;&gt;LOAM&lt;/a&gt;，到后来火遍全网的 &lt;a href=&quot;https://github.com/hku-mars/FAST_LIO&quot;&gt;FAST-LIO&lt;/a&gt;，再到 &lt;a href=&quot;https://github.com/hku-mars/FAST-LIVO2&quot;&gt;FAST-LIVO2&lt;/a&gt;，一步步把实时建图与定位的效率推向了新高度。&lt;/p&gt;
+&lt;p&gt;视觉惯性里程计（VIO）领域，最经典的代表莫过于港科大的 &lt;a href=&quot;https://github.com/HKUST-Aerial-Robotics/VINS-Fusion&quot;&gt;VINS-Mono / VINS-Fusion 项目&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;激光惯性里程计（LIO）这边，港大的系列工作堪称标杆，从经典的 &lt;a href=&quot;https://publications.ri.cmu.edu/storage/publications/pub_files/2014/7/Ji_LidarMapping_RSS2014_v8.pdf&quot;&gt;LOAM&lt;/a&gt;，到后来火遍全网的 &lt;a href=&quot;https://github.com/hku-mars/FAST_LIO&quot;&gt;FAST-LIO&lt;/a&gt;，再到 &lt;a href=&quot;https://github.com/hku-mars/FAST-LIVO2&quot;&gt;FAST-LIVO2&lt;/a&gt;，一步步把实时建图与定位的效率推向了新高度。&lt;/p&gt;
 &lt;p&gt;另外，如果要在大型环境里长期飞行，具备回环检测的 SLAM（同时定位与建图）系统也是不可或缺的前端和后端基建。&lt;/p&gt;
 &lt;p&gt;SLAM（Simultaneous Locolization And Mapping）在定位的同时完成地图的构建，使得回环（Loop Closure）检测成为可能，回环检测的存在使得当机器人重新访问到某个位置时可以修正一部分的累计误差，提高在长时间作业时的定位精度。SLAM 的实现主要有 filter-based 和 optimization-based 两种，实现中一般又分前端和后端，基于不同传感器的 SLAM 又各有其特点。&lt;/p&gt;
 &lt;p&gt;除了建图算法，一些通用的机器人开发工具也是无人机研发的必备口粮：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;经典的 &lt;strong&gt;ROS / ROS2&lt;/strong&gt; 生态，特别是多传感器间的时间戳对齐（比如 &lt;code&gt;message_filters&lt;/code&gt; 的 &lt;code&gt;TimeSynchronizer&lt;/code&gt;）。&lt;/li&gt;
+&lt;li&gt;经典的 &lt;code&gt;ROS / ROS2&lt;/code&gt; 生态，特别是多传感器间的时间戳对齐（比如 &lt;code&gt;message_filters&lt;/code&gt; 的 &lt;code&gt;TimeSynchronizer&lt;/code&gt;）。&lt;/li&gt;
 &lt;li&gt;涉及到空中机械臂等强动力学场景时，大家也常会用到像 NVIDIA 的 &lt;a href=&quot;https://curobo.org/&quot;&gt;cuRobo&lt;/a&gt;（CUDA 加速碰撞检测与规划）、IKFast 或者是 &lt;a href=&quot;https://github.com/haosulab/ManiSkill&quot;&gt;ManiSkill 生态里的 mplib&lt;/a&gt; 等求解库。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2&gt;方向&lt;/h2&gt;
-&lt;p&gt;梳理完这些，我个人的一个最核心的感受是，**Sim2Real（从仿真到现实）可能是现阶段对个人开发者或小团队来说，最容易切入并且能看到实际成果的路线。**也就是说，无人机也需要迈向从物理智能到具身智能的方向的转换，后续我会在这部分再继续深入分析的，也会再写一篇 blog 进行总结。&lt;/p&gt;</content:encoded><h:img src="undefined"/><enclosure url="undefined"/></item><item><title>基于实例分割的黑色素瘤病灶区域检测系统</title><link>https://xiaohei94.github.io/blog/melanoma</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/melanoma</guid><description>Makerizon-黑色素瘤项目作品展示集</description><pubDate>Tue, 27 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;p&gt;梳理完这些，我个人的一个最核心的感受是，Sim2Real（从仿真到现实）可能是现阶段对个人开发者或小团队来说，最容易切入并且能看到实际成果的路线。也就是说，无人机也需要迈向从物理智能到具身智能的方向的转换，后续我会在这部分再继续深入分析的，也会再写一篇 blog 进行总结。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.5QAp35mJ.jpg"/><enclosure url="/_astro/heroimage.5QAp35mJ.jpg"/></item><item><title>基于实例分割的黑色素瘤病灶区域检测系统</title><link>https://xiaohei94.github.io/blog/melanoma</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/melanoma</guid><description>Makerizon-黑色素瘤项目作品展示集</description><pubDate>Tue, 27 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;h2&gt;项目简介&lt;/h2&gt;
 &lt;p&gt;项目设计了一款用于采集恶性皮肤肿瘤图片的实验装置，主要是由摄像头、LED 柔光灯和皮肤镜组成。通过 USB 连接到电脑或树莓派等嵌入式设备上，全高清光学放大倍数高达 50 倍。由皮肤镜进行图像采集之后，将视频传输至 Qt 应用程序，在端侧进行图像的预处理，然后通过 HTTP 协议将图像传输至 ECS 服务端，在服务端有部署好的深度学习模型，进行检测，同时将数据存储至 RDS 数据库，图像归档备份至 OBS 对象存储服务。识别结果会反馈至 Qt 界面，将诊断结果可视化。在 APP 端，患者也可以查看自己的诊疗结果。识瘤者 APP 使用 ArkUI 方舟开发框架，轻量级存储等，开发效率提高 30%。&lt;/p&gt;
@@ -2215,31 +2216,7 @@ $$&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;TD3 的双 critic/取 min 要写对&lt;/strong&gt;：这是它解决过估计的核心。如果你写成了 max，或者 target 用错了 critic，会直接退化/发散。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;SAC 重点看 entropy / alpha&lt;/strong&gt;：熵项权重不合适，会出现“动作太随机”或“过早确定”。如果实现支持自动调 alpha，一般会更省心。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;先用短 horizon 验证闭环&lt;/strong&gt;：把 episode length 缩短、reward 简化、甚至先关掉部分随机性，确认 update 不会爆，再逐步加回真实设置。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.BMCKMFQL.jpg"/><enclosure url="/_astro/heroimage.BMCKMFQL.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
-&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
-&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
-&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
-&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.BMCKMFQL.jpg"/><enclosure url="/_astro/heroimage.BMCKMFQL.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
 &lt;li&gt;自动构建：push 即部署&lt;/li&gt;
@@ -2273,7 +2250,31 @@ pnpm build
 &lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
+&lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;src/pages/links/index.astro&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 先准备数据源（Friend-Circle-Lite）&lt;/h2&gt;
+&lt;p&gt;本主题使用 Friend-Circle-Lite 的接口数据（&lt;code&gt;all.json&lt;/code&gt; 等）。搭建与使用方式建议参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://blog.liushen.fun/posts/4dc716ec/&quot;&gt;Friend Circle 参考文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;你需要得到一个可访问的域名，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;fc.example.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;并确保以下地址可访问：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://fc.example.com/all.json
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 在主题中启用&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;，设置：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;theme.personal.domains.friendCircle = &apos;fc.example.com&apos;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
+&lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
 import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
@@ -2311,7 +2312,33 @@ images={[
 &lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
 &lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DtXCi-sH.jpg"/><enclosure url="/_astro/heroimage.DtXCi-sH.jpg"/></item><item><title>Astro Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DtXCi-sH.jpg"/><enclosure url="/_astro/heroimage.DtXCi-sH.jpg"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
+&lt;p&gt;主题默认启用了常用扩展：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GFM：表格、删除线、任务列表等&lt;/li&gt;
+&lt;li&gt;数学公式：KaTeX（&lt;code&gt;$...$&lt;/code&gt; / &lt;code&gt;$$...$$&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;代码高亮：Shiki（支持标题、差异标注等）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 数学公式（KaTeX）&lt;/h2&gt;
+&lt;p&gt;行内：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;欧拉公式：$e^{i\\pi}+1=0$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;块级：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;$$
+\\int_0^1 x^2 dx = \\frac{1}{3}
+$$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 代码块增强（差异/高亮）&lt;/h2&gt;
+&lt;p&gt;你可以在代码中使用注释标记来展示变更（示例来自主题的高亮 transformer）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const a = 1 // [!code --]
+const a = 2 // [!code ++]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;也可以做行高亮：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const token = &apos;secret&apos; // [!code highlight]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
+&lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
+&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DKXwZ6L7.jpg"/><enclosure url="/_astro/heroimage.DKXwZ6L7.jpg"/></item><item><title>Astro Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
 &lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
@@ -2361,30 +2388,4 @@ pnpm preview
 &lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DXx_8_1r.jpg"/><enclosure url="/_astro/heroimage.DXx_8_1r.jpg"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
-&lt;p&gt;主题默认启用了常用扩展：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;GFM：表格、删除线、任务列表等&lt;/li&gt;
-&lt;li&gt;数学公式：KaTeX（&lt;code&gt;$...$&lt;/code&gt; / &lt;code&gt;$$...$$&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;代码高亮：Shiki（支持标题、差异标注等）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2. 数学公式（KaTeX）&lt;/h2&gt;
-&lt;p&gt;行内：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;欧拉公式：$e^{i\\pi}+1=0$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;块级：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;$$
-\\int_0^1 x^2 dx = \\frac{1}{3}
-$$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 代码块增强（差异/高亮）&lt;/h2&gt;
-&lt;p&gt;你可以在代码中使用注释标记来展示变更（示例来自主题的高亮 transformer）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const a = 1 // [!code --]
-const a = 2 // [!code ++]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;也可以做行高亮：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const token = &apos;secret&apos; // [!code highlight]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
-&lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
-&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DKXwZ6L7.jpg"/><enclosure url="/_astro/heroimage.DKXwZ6L7.jpg"/></item></channel></rss>
+&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DXx_8_1r.jpg"/><enclosure url="/_astro/heroimage.DXx_8_1r.jpg"/></item></channel></rss>
