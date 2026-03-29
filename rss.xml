@@ -423,13 +423,25 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;pre&gt;&lt;code&gt;&amp;#x3C;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;</content:encoded><h:img src="/_astro/heroimage.BxnIeE2d.jpg"/><enclosure url="/_astro/heroimage.BxnIeE2d.jpg"/></item><item><title>Paper Reading：Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;h2&gt;learning-based 电机故障控制&lt;/h2&gt;
+&lt;h2&gt;TACO&lt;/h2&gt;
+&lt;h2&gt;End-to-end Learning Approach&lt;/h2&gt;
+&lt;h2&gt;LiDAR-based Quadrotor&lt;/h2&gt;
+&lt;h2&gt;ROG-Map&lt;/h2&gt;
+&lt;h2&gt;STAF-Navi&lt;/h2&gt;
 &lt;p&gt;&amp;#x3C;ArxivRating
 id=&apos;STAF-Navi&apos;
 url=&apos;https://ieeexplore.ieee.org/document/11217207&apos;
 tldr=&apos;基于DRL的无人机导航框架，集成了内部记忆和增强的感知能力&apos;
 rank={2}&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;/blockquote&gt;</content:encoded><h:img src="/_astro/heroimage.BTiOoGhT.jpg"/><enclosure url="/_astro/heroimage.BTiOoGhT.jpg"/></item><item><title>无人机的 RL 端到端方法</title><link>https://xiaohei94.github.io/blog/uav-rl</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/uav-rl</guid><description>更偏向大研究方向的介绍</description><pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#x3C;p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;  ![show5](./image/framework5.png)
+  Single-Station-Transformer-Actor (SSTA) model（单站Transformer执行器模型），该模型将位置编码与基于Transformer的注意力机制相结合，以融合随时间变化的深度图像输入和低维状态信息。基于SSTA的执行器（SSTA-based actor）和基于GRU的评价器（GRU-based critic）都处理历史数据，使得智能体能够整合来自过去观测和动作的上下文信息，最终使无人机能够执行需要多步规划和持续反馈的扩展任务。
+&amp;#x3C;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><h:img src="/_astro/heroimage.BTiOoGhT.jpg"/><enclosure url="/_astro/heroimage.BTiOoGhT.jpg"/></item><item><title>无人机的 RL 端到端方法</title><link>https://xiaohei94.github.io/blog/uav-rl</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/uav-rl</guid><description>更偏向大研究方向的介绍</description><pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;h2&gt;传统方法实现无人机自主导航和智能飞行&lt;/h2&gt;
@@ -755,7 +767,104 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;p&gt;&lt;img src=&quot;./image/work2.png&quot; alt=&quot;work1&quot;&gt;&lt;/p&gt;
 &lt;p&gt;基于RL的自主导航和避障、用视觉做端到端的RL、激光雷达做端到端的RL和避障、用RL 做特技飞行（某些不是很要求非常精确的控制，反而要求更好的实时性的控制，这些还是交给RL来做好一些）（RL对于控制就像是离线的sampling-based MPC是具备一定的可解释性的，可能在数学上不是很好的证明他的完备性的瑕疵）。&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;./image/work3.png&quot; alt=&quot;work2&quot;&gt;
-&lt;img src=&quot;./image/work4.png&quot; alt=&quot;work3&quot;&gt;&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BH0Sd6cZ.jpg"/><enclosure url="/_astro/heroimage.BH0Sd6cZ.jpg"/></item><item><title>UAV Review</title><link>https://xiaohei94.github.io/blog/uav-review</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/uav-review</guid><description>一份面向无人机方向的速查笔记。</description><pubDate>Fri, 27 Jun 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;img src=&quot;./image/work4.png&quot; alt=&quot;work3&quot;&gt;&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BH0Sd6cZ.jpg"/><enclosure url="/_astro/heroimage.BH0Sd6cZ.jpg"/></item><item><title>XTDrone 无人机仿真平台搭建教程</title><link>https://xiaohei94.github.io/blog/xtdrone</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/xtdrone</guid><description>一份详细的 XTDrone 平台搭建教程，完整的技术路线与常见报错解决方案。</description><pubDate>Mon, 30 Jun 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { StepIndent, Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;XTDrone 是一个基于 PX4、ROS 和 Gazebo 联合构建的无人机通用仿真平台。该平台允许我们在 Gazebo 物理仿真环境中运行多机或单机的复杂飞行仿真，并通过 MAVROS 将底层的 PX4 软件在环（SITL）飞控逻辑与上层的 ROS 生态体系完美连接。借助这一完整的技术链路，开发者可以在上层进行路径规划、飞行控制、多传感器感知甚至复杂的视觉 SLAM 算法验证，而无需承担真机试飞的坠机风险与高昂成本。&lt;/p&gt;
+&lt;p&gt;由于包含多个底层框架的耦合，搭建这套仿真环境最大的挑战往往不在于某个特定软件的编译安装本身，而在于如何理清系统间的版本依赖组合。例如 Ubuntu 系统的版本、ROS 的分发版、Gazebo 的迭代版本、PX4 源码的稳定发行版、MAVROS 的兼容性，以及在集成视觉算法时 OpenCV 与 cv_bridge 的底层冲突问题。如果版本搭配不当，极易陷入无穷尽的依赖地狱中。因此，这篇文章根据我实践心路历程写成一个可复现少踩坑的简单教程。&lt;/p&gt;
+&lt;h2&gt;环境准备与系统配置&lt;/h2&gt;
+&lt;p&gt;仿真平台的稳定运行高度依赖于底层的环境支持，对于使用 VMware 等虚拟机软件进行部署的开发者而言，优先解决网络连接、输入法配置以及磁盘容量这三个基础问题能够大幅提升后续配置的效率，&lt;strong&gt;如果你是双系统玩家或者你是纯血Linux使用者，可以跳过这一步奏&lt;/strong&gt;。网络的稳定性直接决定了各类开源依赖包能否顺利通过 APT 与 GitHub 等途径下载。由于后续涉及 Gazebo 大型物理模型库、PX4 完整源码仓库的拉取以及大量的 C++ 编译产物，适当扩充虚拟机的磁盘容量（建议分配 60GB 及以上的动态空间）能有效避免因磁盘空间不足导致的文件构建失败或系统崩溃。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;网络与通信配置&lt;/strong&gt;：
+在虚拟机中安装 Ubuntu 后，首要任务是确保桥接模式或 NAT 模式下的网络通信正常。确保系统的 &lt;code&gt;apt&lt;/code&gt; 包管理器可以无阻碍地连接外网更新软件源列表，必要时可考虑更换为中科大、清华等国内高速镜像源以加速包下载过程。如果在更新源或拉取代码时受到网络限制，可能还需要配置相应的代理规则以保障全局网络联通。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;语言与输入法环境&lt;/strong&gt;：
+为了开发与调试期间更顺畅地搜索报错、记录笔记和复制指令，配置原生的中文环境和合适的中文输入法十分必要。您可以根据习惯安装 Fcitx 或 IBus 框架下的搜狗或谷歌拼音输入法，配置完成后重启相关服务即可在终端与编辑器中无缝切换输入。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;存储空间规划&lt;/strong&gt;：
+考虑到 ROS 的完整安装包体积较大，且源码编译将产生海量中间文件，在 VMware 等层级直接通过虚拟磁盘设置提升容量上限后，还需在 Ubuntu 内部使用 GParted 等硬盘管理工具进行分区拓展，以保证新扩容的空间被正确挂载至根目录下。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;资料索引&lt;/h2&gt;
+&lt;p&gt;下面是一些你可能需要的资料，以及你可能遇到的问题的解决方法和图文教程。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;XTDrone 项目（Gitee 搜索）：&lt;a href=&quot;https://gitee.com/search?type=repository&amp;#x26;q=XTDrone&quot;&gt;gitee 搜索 XTDrone&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;XTDrone 基础配置文档（语雀搜索）：&lt;a href=&quot;https://www.yuque.com/search?q=%E4%BB%BF%E7%9C%9F%E5%B9%B3%E5%8F%B0%20%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%20PX4%201.13%20XTDrone&quot;&gt;yuque 搜索 仿真平台 基础配置 PX4 1.13 XTDrone&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;VMware Ubuntu 联网（知乎搜索）：&lt;a href=&quot;https://www.zhihu.com/search?q=VMware%20Ubuntu%20%E8%81%94%E7%BD%91&quot;&gt;zhihu 搜索 VMware Ubuntu 联网&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ubuntu 中文输入法（知乎搜索）：&lt;a href=&quot;https://www.zhihu.com/search?q=Ubuntu20.04%20%E4%B8%AD%E6%96%87%E8%BE%93%E5%85%A5%E6%B3%95&quot;&gt;zhihu 搜索 Ubuntu20.04 中文输入法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;VMware Ubuntu 扩容（简书搜索）：&lt;a href=&quot;https://www.jianshu.com/search?q=VMware%20Ubuntu%2020.04%20%E6%89%A9%E5%AE%B9&quot;&gt;jianshu 搜索 VMware Ubuntu 20.04 扩容&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;核心软件基础架构安装&lt;/h2&gt;
+&lt;p&gt;搭建 XTDrone 的本质是建立一套自底向上的数据与控制链路。在这条链路中，基础的编译链是根基，ROS 提供了组件间通信的中间件层，而后续的各个独立仿真节点都将依赖这一整套软硬件设施。本部分涵盖了整个技术栈安装过程的核心内容。&lt;/p&gt;
+&lt;h3&gt;编译依赖与 ROS Noetic 部署&lt;/h3&gt;
+&lt;p&gt;一切编译操作的前提是完备的 C++ 与 Python 开发套件。首先，我们需要安装包含 &lt;code&gt;build-essential&lt;/code&gt;、&lt;code&gt;cmake&lt;/code&gt;、&lt;code&gt;ninja-build&lt;/code&gt; 等在内的一揽子基础依赖，并补充 &lt;code&gt;git&lt;/code&gt;、&lt;code&gt;wget&lt;/code&gt; 以及 &lt;code&gt;python3-pip&lt;/code&gt; 等常用的代码获取与包管理工具。完成基础工具链配置后，即可切入 ROS Noetic 的正式安装环节。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt update
+sudo apt install -y \
+	build-essential cmake ninja-build \
+	git curl wget unzip \
+	python3-pip python3-venv \
+	pkg-config \
+	software-properties-common \
+	lsb-release
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;ROS Noetic 官方推荐支持于 Ubuntu 20.04，属于 ROS 1 生态中的最后一个长期支持版本。在配置时，需要将官方的 &lt;code&gt;packages.ros.org&lt;/code&gt; 软件源添加到系统的 &lt;code&gt;sources.list&lt;/code&gt; 文件中，并通过 &lt;code&gt;apt-key&lt;/code&gt; 导入可信密钥，从而顺利执行 &lt;code&gt;ros-noetic-desktop-full&lt;/code&gt; 桌面完整版的安装。完整版不仅包含了常用的通信库，还顺带集成了各类基础层仿真环境所需的可视化工具。同时，记得将相应的 &lt;code&gt;setup.bash&lt;/code&gt; 加载命令追加至用户的 &lt;code&gt;~/.bashrc&lt;/code&gt; 初始化脚本中。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo sh -c &apos;echo &quot;deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main&quot; &gt; /etc/apt/sources.list.d/ros-latest.list&apos;
+sudo apt-key adv --keyserver &apos;hkp://keyserver.ubuntu.com:80&apos; --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt update
+sudo apt install -y ros-noetic-desktop-full
+echo &quot;source /opt/ros/noetic/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;使用下面命令验证一下ros是否安装成功：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;roscore
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;在建立名为 &lt;code&gt;catkin_ws&lt;/code&gt; 的 ROS 工作空间后，执行 &lt;code&gt;catkin_make&lt;/code&gt; 进行初次构建。这一工作空间未来将负责收容所有你编写的控制算法包以及克隆下来的自定义依赖组件。当然，如果你还不会创建工作空间，可以先用下面的命令来创建，这将是你后续其他项目的一个隔离区。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;mkdir -p ~/catkin_ws/src
+cd ~/catkin_ws
+catkin_make
+echo &quot;source ~/catkin_ws/devel/setup.bash&quot; &gt;&gt; ~/.bashrc
+source ~/.bashrc
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;Gazebo 仿真节点及 ROS 桥接与 MAVROS&lt;/h3&gt;
+&lt;p&gt;部分版本的 ROS 默认安装中可能会携带与其捆绑的旧版或特供版 Gazebo。为避免兼容性问题，更推荐的做法是在清理掉不需要的版本后，针对性地安装 Gazebo 9，这在搭配 Noetic 体系时被广泛验证为极具健壮性的版本组合。为了将 Gazebo 中发生的物理运动反馈同步入 ROS 网络，必须安装一系列 &lt;code&gt;gazebo_ros_pkgs&lt;/code&gt; 插件，以及诸如 &lt;code&gt;moveit-msgs&lt;/code&gt;、&lt;code&gt;octomap-msgs&lt;/code&gt; 与各类型控制器接口库的附加依赖。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt-get install -y \
+	ros-noetic-moveit-msgs \
+	ros-noetic-object-recognition-msgs \
+	ros-noetic-octomap-msgs \
+	ros-noetic-camera-info-manager \
+	ros-noetic-control-toolbox \
+	ros-noetic-polled-camera \
+	ros-noetic-controller-manager \
+	ros-noetic-transmission-interface \
+	ros-noetic-joint-limits-interface
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;紧接着需要着手配置 MAVROS。它可以理解为 ROS 话题体系直接对接各种硬件飞控所使用的 MAVLink 协议的一座重要桥梁。由于无人机仿真涉及到大量的地理空间运算，因此在用 APT 完成 MAVROS 软件包基础安装的同时，务必运行内部配套的地理数据集下载脚本。该脚本耗时较长，经常受限网络问题失败，需要反复执行直至完整下完相应的全球坐标补偿字典。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;sudo apt-get install -y ros-noetic-mavros
+cd /opt/ros/noetic/lib/mavros
+sudo ./install_geographiclib_datasets.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;PX4 SITL 与 XTDrone 源码编译&lt;/h3&gt;
+&lt;p&gt;配置完外部支持库后，接下来处理 PX4 核心固件与 XTDrone 分发版源码。这里选用基于 1.13 版本甚至更高适配版的 PX4 作为主要的控制策略提供商。配置 SITL（Software In The Loop，软件在环）环境本质上是让物理机利用内部网络地址在虚拟环境中运行原本固化在飞控内部芯片上的嵌入式代码。&lt;/p&gt;
+&lt;p&gt;当 XTDrone 源码仓库被顺利克隆到已建立好的工作空间后，常常需要清理旧有的中间缓存，使用特定的编译命令重新生成所需的 PX4 平台包并挂载好配套的控制话题及多机协同运行脚本。通过执行相应的 &lt;code&gt;build&lt;/code&gt; 脚本，开发者最终能够实现在终端内以键盘操作指令驱动 Gazebo 中的虚拟无人机离地并执行预定的三维动作。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;./build.sh
+./build_ros.sh
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;如果在此时通过 QGroundControl（QGC）这款主流地面站软件建立连接，常常会面临离线地图加载不出的问题，这一般是由于 QGC 的内置地图源处于特定网络的访问限制范围中，可以通过更换其他地图源或是调整网络代理方式来解决。&lt;/p&gt;
+&lt;h2&gt;视觉 SLAM（ORB-SLAM2）接入&lt;/h2&gt;
+&lt;p&gt;仅仅能让无人机起飞并接收键盘控制并不是仿真的最终目的。很多研究和工业级应用需要在无人机底盘上搭载虚拟相机并运行同步定位与建图算法，如非常经典的 ORB-SLAM2 模型。为接入此类算法，通常需要再引入三套极其重要的外部依赖库：用作特征矩阵求解的 Eigen 库、用作渲染界面与交互框架的 Pangolin 库，以及提供大量机器视觉运算的基础构件 OpenCV。&lt;/p&gt;
+&lt;h3&gt;OpenCV 与 cv_bridge 版本的冲突&lt;/h3&gt;
+&lt;p&gt;在融合视觉处理节点时，最常见且具有毁灭性的工程灾难就是 OpenCV 版本冲突。由于安装 ROS Noetic 时，官方通过源拉取的预编译依赖链中常常自带了一套基于其默认规则构建的 OpenCV（比如 4.2.x 系列），并以此生成了串联 ROS 图像消息机制的 &lt;code&gt;cv_bridge&lt;/code&gt;。然而，ORB-SLAM2 等大量独立工程在其内部 CMake 列表中，往往严格锁死了如 3.2.0 或其它旧版 OpenCV。这种版本上的分歧导致在最终链接（linking）或运行时出现大量的符号缺失报错，因为系统无法确定应当将程序的内存指针导向系统底层的 4.2 库还是开发者手动编译的 3.2 源码库。&lt;/p&gt;
+&lt;p&gt;要彻底解决这一问题存在多套思路：
+一部分开发者倾向于在整个工作空间的最前端统一 OpenCV 头文件的引用规范，自行下载包含 4.2 或所需版本的 OpenCV 源代码并手工替换掉由 ROS APT 安装自带的 &lt;code&gt;cv_bridge&lt;/code&gt; 对应编译包。而如果追求快速的工程复刻与止损出包，临时将高权限系统目录 &lt;code&gt;/usr/local/share/&lt;/code&gt; 下自己刚刚编译完成的 &lt;code&gt;cv_bridge&lt;/code&gt; 库文件直接暴力覆盖替换至 ROS 系统路径 &lt;code&gt;/opt/ros/noetic/share/&lt;/code&gt; 中也是一种被屡试不爽的常见手法。此操作虽略显粗糙且不利于跨平台迁移，但在应急验证无人机是否能将摄像头采集的图片帧传给目标检测与追踪模块这一链路测试中起到了奇效。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-bash&quot;&gt;# 紧急止血方案，慎用于生产环境
+sudo cp -rf /usr/local/share/cv_bridge /opt/ros/noetic/share/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h3&gt;追踪编译报错的核心方法论&lt;/h3&gt;
+&lt;p&gt;在此阶段如果持续遭到编译中断，其底层的逻辑都可以归结为两类情况：一是缺头文件与宏定义，这要求开发者耐心地追溯 C++ 编译器的错误输出日志，通过定向检索寻找到确实遗漏了哪些上游依赖包并执行补充安装；二是所谓的链接库错位，排查此类问题的核心工具是 &lt;code&gt;ldd&lt;/code&gt; 命令，通过它来探测当前生成的动态链接库或是执行文件实际挂载的依赖路径，一旦发现挂载路径与自己预想的不符或是出现了多重引用导致 ABI 崩溃，便需要果断介入重新调整 CMake 文件的查找优先次序。&lt;/p&gt;
+&lt;h2&gt;结语&lt;/h2&gt;
+&lt;p&gt;经过了环境搭建、底层依赖装载、ROS 中间件串通到最终的高级算法集成这一整套庞大而繁杂的开发生命周期，成功在 Gazebo 中点亮那一台 XTDrone 无人机将是一次极其深刻的全栈工业仿真体验。希望本篇基于实际环境部署踩坑记录的技术长文能够作为清晰的参考路径，极大削减各位新手开发者在初次尝试搭建协同飞行仿真体系时的迷茫与无谓的精力损耗。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CWs5ji24.jpg"/><enclosure url="/_astro/heroimage.CWs5ji24.jpg"/></item><item><title>UAV Review</title><link>https://xiaohei94.github.io/blog/uav-review</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/uav-review</guid><description>一份面向无人机方向的速查笔记。</description><pubDate>Fri, 27 Jun 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;写在前面&lt;/h2&gt;
 &lt;p&gt;趁着最近有空，我把最开始接触无人机科研时所收集的各个方向的文献和技术笔记整个翻出来，做了一次系统性梳理，也构建了一个我的Mind Map。&lt;/p&gt;
 &lt;p&gt;平时看论文、跑开源代码，笔记往往记得很碎。这次我试着拔高一点视角，把它们按&lt;strong&gt;方法范式&lt;/strong&gt;、&lt;strong&gt;经典任务&lt;/strong&gt;、&lt;strong&gt;平台设计&lt;/strong&gt;以及&lt;strong&gt;底层技术栈&lt;/strong&gt;重新串联起来，权当是一份面向研究与工程的速查手册。&lt;/p&gt;
