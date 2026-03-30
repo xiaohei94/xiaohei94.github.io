@@ -414,14 +414,55 @@ motor4 = throttle - pitch_out + roll_out + yaw_out;
 &lt;p&gt;&lt;img src=&quot;./image/anotc_pid.png&quot; alt=&quot;上位机1&quot;&gt;&lt;/p&gt;
 &lt;h2&gt;结语&lt;/h2&gt;
 &lt;p&gt;从一行编译烧录命令到飞机第一次颤颤巍巍地离地，这中间可能会经历无数次的炸机、断桨和代码报错。但当你亲手写的算法让飞行器稳稳地悬停在空中的那一刻，那种成就感是无与伦比的。&lt;/p&gt;
-&lt;p&gt;这篇博客主要带大家理清了 ESP32 无人机开发的脉络。后续我会在对应的位置补充更多实战图片和详细的接线图。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.h2t7fPYM.jpg"/><enclosure url="/_astro/heroimage.h2t7fPYM.jpg"/></item><item><title>Paper Reading：Robot learning 2</title><link>https://xiaohei94.github.io/blog/paper-reading-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-2</guid><description>我要和他们站在一起。</description><pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
+&lt;p&gt;这篇博客主要带大家理清了 ESP32 无人机开发的脉络。后续我会在对应的位置补充更多实战图片和详细的接线图。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.h2t7fPYM.jpg"/><enclosure url="/_astro/heroimage.h2t7fPYM.jpg"/></item><item><title>Paper Reading：Robot learning 3</title><link>https://xiaohei94.github.io/blog/paper-reading-3</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-3</guid><description>我要和他们站在一起。</description><pubDate>Fri, 15 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;&amp;#x3C;/p&gt;
+&lt;h2&gt;Large-scale RL Exploration&lt;/h2&gt;
+&lt;h2&gt;Agile Flight from Pixels&lt;/h2&gt;
+&lt;p&gt;&amp;#x3C;ArxivRating
+id=&apos;Agile Flight from Pixels&apos;
+url=&apos;http://www.roboticsproceedings.org/rss20/p082.pdf&apos;
+tldr=&apos;非对称演员-评论家+门边缘视觉抽象+无状态估计像素控制&apos;
+rank={5}&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#x3C;p&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;&amp;#x3C;/p&gt;
+&lt;pre&gt;&lt;code&gt;  ![show1](./image/framework1.png)
+  该文实现首个无显式状态估计的四旋翼视觉敏捷飞行系统，采用非对称演员-评论家框架让评论家获取特权状态信息提升训练效果，以赛道门内边缘作为视觉抽象简化像素级RL训练，搭配SwinTransformer门检测器，仅靠机载摄像头视频流即可实现最高40km/h、2g加速度的竞速飞行，完成零样本仿真到现实迁移。
+&amp;#x3C;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;&amp;#x3C;/p&gt;
-&lt;/code&gt;&lt;/pre&gt;</content:encoded><h:img src="/_astro/heroimage.BxnIeE2d.jpg"/><enclosure url="/_astro/heroimage.BxnIeE2d.jpg"/></item><item><title>Paper Reading：Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
+&lt;h2&gt;HOLA-Drone&lt;/h2&gt;
+&lt;h2&gt;OmniDrones&lt;/h2&gt;
+&lt;h2&gt;Multi-UAV Pursuit-Evasion&lt;/h2&gt;
+&lt;h2&gt;PKCC&lt;/h2&gt;
+&lt;h2&gt;PixelMotionFO&lt;/h2&gt;
+&lt;h2&gt;SimpleFlight&lt;/h2&gt;
+&lt;h2&gt;Whole-Body Control Gap&lt;/h2&gt;
+&lt;h2&gt;YOPO&lt;/h2&gt;
+&lt;p&gt;&amp;#x3C;ArxivRating
+id=&apos;YOPO&apos;
+url=&apos;https://ieeexplore.ieee.org/document/10528860&apos;
+tldr=&apos;单阶段规划+引导学习+运动基元，四旋翼无地图实时轨迹生成&apos;
+rank={5}&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;&amp;#x3C;p&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;  ![show9](./image/framework9.png)
+  四旋翼单阶段学习规划器YOPO，将感知、路径搜索、轨迹优化融合为单一网络，以运动基元覆盖规划解空间，创新引导学习方法利用数值梯度训练网络，推理时延仅1.6ms，仿真与实机实验中实现复杂森林环境高速安全飞行，性能优于传统梯度优化方法。
+&amp;#x3C;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;</content:encoded><h:img src="/_astro/heroimage.CnrNGdDU.jpg"/><enclosure url="/_astro/heroimage.CnrNGdDU.jpg"/></item><item><title>Paper Reading：Robot learning 2</title><link>https://xiaohei94.github.io/blog/paper-reading-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-2</guid><description>我要和他们站在一起。</description><pubDate>Fri, 08 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
+import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;h2&gt;Planar Pose Graph&lt;/h2&gt;
+&lt;h2&gt;Whole-Body Scale Optimization&lt;/h2&gt;
+&lt;h2&gt;UAV Payload Transportation&lt;/h2&gt;
+&lt;h2&gt;Robotic Relative Localization&lt;/h2&gt;
+&lt;h2&gt;Path Planning&lt;/h2&gt;
+&lt;h2&gt;GS-Planner&lt;/h2&gt;
+&lt;h2&gt;Back to Newton’s Laws&lt;/h2&gt;
+&lt;h2&gt;ARiADNE&lt;/h2&gt;
+&lt;h2&gt;CTSAC&lt;/h2&gt;
+&lt;h2&gt;DARE&lt;/h2&gt;</content:encoded><h:img src="/_astro/heroimage.BxnIeE2d.jpg"/><enclosure url="/_astro/heroimage.BxnIeE2d.jpg"/></item><item><title>Paper Reading：Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;h2&gt;learning-based 电机故障控制&lt;/h2&gt;
 &lt;h2&gt;TACO&lt;/h2&gt;
@@ -441,7 +482,11 @@ rank={2}&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;  ![show5](./image/framework5.png)
   Single-Station-Transformer-Actor (SSTA) model（单站Transformer执行器模型），该模型将位置编码与基于Transformer的注意力机制相结合，以融合随时间变化的深度图像输入和低维状态信息。基于SSTA的执行器（SSTA-based actor）和基于GRU的评价器（GRU-based critic）都处理历史数据，使得智能体能够整合来自过去观测和动作的上下文信息，最终使无人机能够执行需要多步规划和持续反馈的扩展任务。
 &amp;#x3C;/p&gt;
-&lt;/code&gt;&lt;/pre&gt;</content:encoded><h:img src="/_astro/heroimage.BTiOoGhT.jpg"/><enclosure url="/_astro/heroimage.BTiOoGhT.jpg"/></item><item><title>无人机的 RL 端到端方法</title><link>https://xiaohei94.github.io/blog/uav-rl</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/uav-rl</guid><description>更偏向大研究方向的介绍</description><pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Flight in Clutter&lt;/h2&gt;
+&lt;h2&gt;Drone Swarm&lt;/h2&gt;
+&lt;h2&gt;STD-Trees&lt;/h2&gt;
+&lt;h2&gt;Radar Cross-Modal Diffusion Model&lt;/h2&gt;</content:encoded><h:img src="/_astro/heroimage.BTiOoGhT.jpg"/><enclosure url="/_astro/heroimage.BTiOoGhT.jpg"/></item><item><title>无人机的 RL 端到端方法</title><link>https://xiaohei94.github.io/blog/uav-rl</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/uav-rl</guid><description>更偏向大研究方向的介绍</description><pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;h2&gt;传统方法实现无人机自主导航和智能飞行&lt;/h2&gt;
