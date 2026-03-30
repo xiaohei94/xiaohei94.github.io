@@ -1,7 +1,56 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="/scripts/pretty-feed-v3.xsl" type="text/xsl"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:h="http://www.w3.org/TR/html4/"><channel><title>Xiaohei&apos;s Blog</title><description>红鼻子小黑</description><link>https://xiaohei94.github.io</link><item><title>周记 · 开始</title><link>https://xiaohei94.github.io/blog/journal-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/journal-1</guid><description>2026-03-23 ~ 2026-03-29.</description><pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="/scripts/pretty-feed-v3.xsl" type="text/xsl"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:h="http://www.w3.org/TR/html4/"><channel><title>Xiaohei&apos;s Blog</title><description>红鼻子小黑</description><link>https://xiaohei94.github.io</link><item><title>周记 · 第一周</title><link>https://xiaohei94.github.io/blog/journal-2</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/journal-2</guid><description>2026-03-30 ~ 2026-04-05.</description><pubDate>Tue, 31 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
+import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;waiting...&lt;/p&gt;
+&lt;h2&gt;thinking...&lt;/h2&gt;
+&lt;p&gt;waiting...&lt;/p&gt;
+&lt;h2&gt;科研&lt;/h2&gt;
+&lt;p&gt;waiting...&lt;/p&gt;
+&lt;h2&gt;生活&lt;/h2&gt;
+&lt;p&gt;waiting...&lt;/p&gt;
+&lt;h2&gt;结语&lt;/h2&gt;
+&lt;p&gt;waiting...&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.Cm_1TLbL.jpg"/><enclosure url="/_astro/heroimage.Cm_1TLbL.jpg"/></item><item><title>周记 · 开始</title><link>https://xiaohei94.github.io/blog/journal-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/journal-1</guid><description>2026-03-23 ~ 2026-03-29.</description><pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
 import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt;/p&gt;
 &lt;h2&gt;周记&lt;/h2&gt;
-&lt;p&gt;致橡树&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CHTCkhja.jpg"/><enclosure url="/_astro/heroimage.CHTCkhja.jpg"/></item><item><title>GitHub Pages + Vercel 双仓部署指南</title><link>https://xiaohei94.github.io/blog/deploy-gitpage</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-gitpage</guid><description>GitHub Pages与Vercel双仓发布教程：源码私有、站点公开、Actions 自动推送</description><pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;p&gt;《致橡树》&lt;/p&gt;
+&lt;p&gt;作者：舒婷&lt;/p&gt;
+&lt;p&gt;我如果爱你 ——
+绝不像攀援的凌霄花，
+借你的高枝炫耀自己；&lt;/p&gt;
+&lt;p&gt;我如果爱你 ——
+绝不学痴情的鸟儿，
+为绿荫重复单调的歌曲；
+也不止像泉源，
+常年送来清凉的慰藉；
+也不止像险峰，
+增加你的高度，衬托你的威仪。&lt;/p&gt;
+&lt;p&gt;甚至日光，
+甚至春雨。&lt;/p&gt;
+&lt;p&gt;不，这些都还不够！
+我必须是你近旁的一株木棉，
+作为树的形象和你站在一起。
+根，紧握在地下；
+叶，相触在云里。&lt;/p&gt;
+&lt;p&gt;每一阵风过，
+我们都互相致意，
+但没有人，
+听懂我们的言语。&lt;/p&gt;
+&lt;p&gt;你有你的铜枝铁干，
+像刀，像剑，也像戟；
+我有我红硕的花朵，
+像沉重的叹息，
+又像英勇的火炬。&lt;/p&gt;
+&lt;p&gt;我们分担寒潮、风雷、霹雳；
+我们共享雾霭、流岚、虹霓。&lt;/p&gt;
+&lt;p&gt;仿佛永远分离，
+却又终身相依。
+这才是伟大的爱情，
+坚贞就在这里：
+爱 ——
+不仅爱你伟岸的身躯，
+也爱你坚持的位置，足下的土地。&lt;/p&gt;
+&lt;h2&gt;后记&lt;/h2&gt;
+&lt;p&gt;可能会很奇怪，明明是写周记，为什么开头是一首诗。但我觉得这首诗很适合我现在的状态：虽然我很想和大佬们一样在科研路上飞速前进，但我也知道自己还处在一个“攀援的凌霄花”的阶段，不能急于求成。就像诗里说的，我希望自己能像一株木棉一样，先踏实的在土地上扎下根来，积累力量，有我自己的铜枝铁干，同样，我也可以有我的红硕的花朵。就慢慢做一个长期主义者吧，仍然可以像小孩一样，对这个世界充满好奇，依然可以很纯粹，依然可以很简单。但是我也希望，我可以成为一个可以保护好自己，然后可以保护身边力所能及的人的大人。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CHTCkhja.jpg"/><enclosure url="/_astro/heroimage.CHTCkhja.jpg"/></item><item><title>GitHub Pages + Vercel 双仓部署指南</title><link>https://xiaohei94.github.io/blog/deploy-gitpage</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-gitpage</guid><description>GitHub Pages与Vercel双仓发布教程：源码私有、站点公开、Actions 自动推送</description><pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;如果说用 Vercel 部署个人博客是一种“随手即得”的快乐，那么使用 GitHub Pages 部署博客，更像是一种“更接近底层逻辑”的练习。它没有那么多平台帮你兜底的自动推断，也正因为如此，你会更清楚地理解：构建产物是什么、发布仓库是什么、为什么要区分源码和站点、为什么有些东西该提交、有些东西不该提交。&lt;/p&gt;
 &lt;p&gt;这篇文章记录的，就是我把博客做成“源码私有仓库 + 公开 Pages 发布仓库”的全过程。与上一篇一样这既是一个给我自己的记录，又是一个写给大家的操作教程。但这一切都有一些前提条件：&lt;/p&gt;
@@ -435,8 +484,8 @@ rank={5}&lt;/p&gt;
 &lt;h2&gt;OmniDrones&lt;/h2&gt;
 &lt;h2&gt;Multi-UAV Pursuit-Evasion&lt;/h2&gt;
 &lt;h2&gt;PKCC&lt;/h2&gt;
-&lt;h2&gt;PixelMotionFO&lt;/h2&gt;
-&lt;h2&gt;SimpleFlight&lt;/h2&gt;
+&lt;h2&gt;Pixel Motion&lt;/h2&gt;
+&lt;h2&gt;Simple Flight&lt;/h2&gt;
 &lt;h2&gt;Whole-Body Control Gap&lt;/h2&gt;
 &lt;h2&gt;YOPO&lt;/h2&gt;
 &lt;p&gt;&amp;#x3C;ArxivRating
@@ -459,7 +508,7 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;h2&gt;Robotic Relative Localization&lt;/h2&gt;
 &lt;h2&gt;Path Planning&lt;/h2&gt;
 &lt;h2&gt;GS-Planner&lt;/h2&gt;
-&lt;h2&gt;Back to Newton’s Laws&lt;/h2&gt;
+&lt;h2&gt;Back to Newton&apos;s Laws&lt;/h2&gt;
 &lt;h2&gt;ARiADNE&lt;/h2&gt;
 &lt;h2&gt;CTSAC&lt;/h2&gt;
 &lt;h2&gt;DARE&lt;/h2&gt;</content:encoded><h:img src="/_astro/heroimage.BxnIeE2d.jpg"/><enclosure url="/_astro/heroimage.BxnIeE2d.jpg"/></item><item><title>Paper Reading：Robot learning 1</title><link>https://xiaohei94.github.io/blog/paper-reading-1</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/paper-reading-1</guid><description>我要和他们站在一起。</description><pubDate>Fri, 01 Aug 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;
