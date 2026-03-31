@@ -14,41 +14,40 @@ import { RatingCriteria, ArxivRating } from &apos;@/components/advanced&apos;&lt
 &lt;h2&gt;周记&lt;/h2&gt;
 &lt;p&gt;《致橡树》&lt;/p&gt;
 &lt;p&gt;作者：舒婷&lt;/p&gt;
-&lt;p&gt;我如果爱你 ——
-绝不像攀援的凌霄花，
-借你的高枝炫耀自己；&lt;/p&gt;
-&lt;p&gt;我如果爱你 ——
-绝不学痴情的鸟儿，
-为绿荫重复单调的歌曲；
-也不止像泉源，
-常年送来清凉的慰藉；
-也不止像险峰，
-增加你的高度，衬托你的威仪。&lt;/p&gt;
-&lt;p&gt;甚至日光，
-甚至春雨。&lt;/p&gt;
-&lt;p&gt;不，这些都还不够！
-我必须是你近旁的一株木棉，
-作为树的形象和你站在一起。
-根，紧握在地下；
-叶，相触在云里。&lt;/p&gt;
-&lt;p&gt;每一阵风过，
-我们都互相致意，
-但没有人，
-听懂我们的言语。&lt;/p&gt;
-&lt;p&gt;你有你的铜枝铁干，
-像刀，像剑，也像戟；
-我有我红硕的花朵，
-像沉重的叹息，
-又像英勇的火炬。&lt;/p&gt;
-&lt;p&gt;我们分担寒潮、风雷、霹雳；
-我们共享雾霭、流岚、虹霓。&lt;/p&gt;
-&lt;p&gt;仿佛永远分离，
-却又终身相依。
-这才是伟大的爱情，
-坚贞就在这里：
-爱 ——
-不仅爱你伟岸的身躯，
-也爱你坚持的位置，足下的土地。&lt;/p&gt;
+&lt;p&gt;绝不像攀援的凌霄花，&lt;/p&gt;
+&lt;p&gt;借你的高枝炫耀自己；&lt;/p&gt;
+&lt;p&gt;我如果爱你 ——&lt;/p&gt;
+&lt;p&gt;绝不学痴情的鸟儿，&lt;/p&gt;
+&lt;p&gt;为绿荫重复单调的歌曲；&lt;/p&gt;
+&lt;p&gt;也不止像泉源，&lt;/p&gt;
+&lt;p&gt;常年送来清凉的慰藉；&lt;/p&gt;
+&lt;p&gt;也不止像险峰，&lt;/p&gt;
+&lt;p&gt;增加你的高度，衬托你的威仪。&lt;/p&gt;
+&lt;p&gt;甚至日光，&lt;/p&gt;
+&lt;p&gt;甚至春雨。&lt;/p&gt;
+&lt;p&gt;不，这些都还不够！&lt;/p&gt;
+&lt;p&gt;我必须是你近旁的一株木棉，&lt;/p&gt;
+&lt;p&gt;作为树的形象和你站在一起。&lt;/p&gt;
+&lt;p&gt;根，紧握在地下；&lt;/p&gt;
+&lt;p&gt;叶，相触在云里。&lt;/p&gt;
+&lt;p&gt;每一阵风过，&lt;/p&gt;
+&lt;p&gt;我们都互相致意，&lt;/p&gt;
+&lt;p&gt;但没有人，&lt;/p&gt;
+&lt;p&gt;听懂我们的言语。&lt;/p&gt;
+&lt;p&gt;你有你的铜枝铁干，&lt;/p&gt;
+&lt;p&gt;像刀，像剑，也像戟；&lt;/p&gt;
+&lt;p&gt;我有我红硕的花朵，&lt;/p&gt;
+&lt;p&gt;像沉重的叹息，&lt;/p&gt;
+&lt;p&gt;又像英勇的火炬。&lt;/p&gt;
+&lt;p&gt;我们分担寒潮、风雷、霹雳；&lt;/p&gt;
+&lt;p&gt;我们共享雾霭、流岚、虹霓。&lt;/p&gt;
+&lt;p&gt;仿佛永远分离，&lt;/p&gt;
+&lt;p&gt;却又终身相依。&lt;/p&gt;
+&lt;p&gt;这才是伟大的爱情，&lt;/p&gt;
+&lt;p&gt;坚贞就在这里：&lt;/p&gt;
+&lt;p&gt;爱 ——&lt;/p&gt;
+&lt;p&gt;不仅爱你伟岸的身躯，&lt;/p&gt;
+&lt;p&gt;也爱你坚持的位置，足下的土地。&lt;/p&gt;
 &lt;h2&gt;后记&lt;/h2&gt;
 &lt;p&gt;可能会很奇怪，明明是写周记，为什么开头是一首诗。但我觉得这首诗很适合我现在的状态：虽然我很想和大佬们一样在科研路上飞速前进，但我也知道自己还处在一个“攀援的凌霄花”的阶段，不能急于求成。就像诗里说的，我希望自己能像一株木棉一样，先踏实的在土地上扎下根来，积累力量，有我自己的铜枝铁干，同样，我也可以有我的红硕的花朵。就慢慢做一个长期主义者吧，仍然可以像小孩一样，对这个世界充满好奇，依然可以很纯粹，依然可以很简单。但是我也希望，我可以成为一个可以保护好自己，然后可以保护身边力所能及的人的大人。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CHTCkhja.jpg"/><enclosure url="/_astro/heroimage.CHTCkhja.jpg"/></item><item><title>GitHub Pages + Vercel 双仓部署指南</title><link>https://xiaohei94.github.io/blog/deploy-gitpage</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-gitpage</guid><description>GitHub Pages与Vercel双仓发布教程：源码私有、站点公开、Actions 自动推送</description><pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, StepIndent } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
@@ -2262,81 +2261,7 @@ $$&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;epsilon 衰减别太快&lt;/strong&gt;：你看到 reward 前期抖动、很快停滞，优先怀疑探索不足；宁愿衰减慢一点，也不要“自信地随机”。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;batch_size、gamma、update 频率要成套&lt;/strong&gt;：batch 太小梯度噪声大；gamma 太大又没配足够长的 episode/steps，容易学不到。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;先跑基础版再加花活&lt;/strong&gt;：Double/Dueling/Noisy/PER 都是锦上添花。基础 DQN 如果你连 “target 正确 + done 处理正确 + replay 正常” 都没确认，上改进往往只会更乱。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DbVa9Sil.jpg"/><enclosure url="/_astro/heroimage.DbVa9Sil.jpg"/></item><item><title>强化学习算法程序实践（4）：连续控制（DDPG / TD3 / SAC）</title><link>https://xiaohei94.github.io/blog/rl-algorithm-4</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-4</guid><description>Actor/Critic 输入输出、Replay Buffer、探索噪声、以及各自 update 的关键差异</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
-&lt;h2&gt;前言&lt;/h2&gt;
-&lt;p&gt;到了连续控制（continuous action space），你会发现 DQN 这套“输出离散动作 Q 值”的方式没那么顺手了。&lt;/p&gt;
-&lt;p&gt;我第一次做连续控制任务时最大的感受是：&lt;strong&gt;动作不再是“选 A 还是选 B”，而是“输出一段连续向量”&lt;/strong&gt;。这时再用 DQN 去离散化动作，往往既不优雅也不高效。更顺的路线是 Actor-Critic：Actor 直接产出连续动作，Critic 负责评价这个动作在当前状态下到底值不值。&lt;/p&gt;
-&lt;p&gt;我自己当时的“翻车现场”也很典型：把动作离散成 11 档、21 档，看起来很细了，但策略依然像在抖腿——要么动作不够细导致控制很粗糙，要么离散太细导致动作维度膨胀，学习变得又慢又不稳定。更要命的是，reward 曲线的抖动和环境随机性混在一起，你根本不知道是探索问题、还是值估计的问题。于是我就彻底转到 Actor-Critic：动作直接从网络里出来，探索要么靠噪声（DDPG/TD3），要么靠熵正则（SAC），思路一下子清爽很多。&lt;/p&gt;
-&lt;p&gt;这一篇我就沿着我自己的实践顺序，把三套最常用的 off-policy 连续控制算法串起来：DDPG 是最基础的 deterministic Actor-Critic；TD3 主要是修 DDPG 容易高估、容易抖的问题；SAC 则在目标函数里把“熵”引入进来，让探索更自然、训练更稳。&lt;/p&gt;
-&lt;p&gt;这篇我按“你写代码时要实现哪些模块”来整理。&lt;/p&gt;
-&lt;h2&gt;DDPG：deterministic Actor-Critic 的最小工程结构&lt;/h2&gt;
-&lt;p&gt;DDPG 的结构非常“工科”：Actor 输出动作 $a$，Critic 评估 $(s,a)$ 的 Q 值。这里有一个我认为必须牢牢记住的关键点：&lt;strong&gt;Critic 的输入是 state + action 的拼接&lt;/strong&gt;，不是只喂 state。&lt;/p&gt;
-&lt;h3&gt;网络结构&lt;/h3&gt;
-&lt;ul&gt;
-&lt;li&gt;Actor（策略网络）：输入 state，输出连续动作；输出层常用 &lt;code&gt;tanh&lt;/code&gt; 把动作限制到 $[-1,1]$（再映射到环境动作范围）&lt;/li&gt;
-&lt;li&gt;Critic（价值网络）：输入 &lt;code&gt;[state, action]&lt;/code&gt; 拼接向量，输出 $Q(s,a)$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;实现时我会额外注意一个特别容易被忽略的小细节：Actor/Critic 的输出层初始化不要太“放飞”。如果初始动作幅度很大，或者 Critic 初始 Q 值异常夸张，训练经常会在前几千步就开始发散。很多实现会对最后一层的权重做更小范围的初始化，就是为了解决这个。&lt;/p&gt;
-&lt;h3&gt;Replay Buffer&lt;/h3&gt;
-&lt;p&gt;和 DQN 类似（push+sample），但 transition 里的 action 是连续向量。&lt;/p&gt;
-&lt;h3&gt;探索噪声&lt;/h3&gt;
-&lt;p&gt;DDPG 是确定性策略（deterministic policy），所以探索通常靠&lt;strong&gt;给动作加噪声&lt;/strong&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;action = actor(state) + noise&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;我的习惯是：训练阶段加噪声促进探索；测试阶段完全关掉噪声，只看学到的确定性策略到底能拿多少回报。否则你会出现一个很“玄学”的现象：测试时看起来也很随机，根本不知道模型到底学没学会。&lt;/p&gt;
-&lt;h3&gt;update：先 critic 再 actor，再软更新 target&lt;/h3&gt;
-&lt;p&gt;DDPG 的 &lt;code&gt;update()&lt;/code&gt; 我通常按固定顺序写死：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;从 replay 采样一批 transition&lt;/li&gt;
-&lt;li&gt;用贝尔曼方程算 critic target&lt;/li&gt;
-&lt;li&gt;更新 critic（最小化 TD error）&lt;/li&gt;
-&lt;li&gt;更新 actor（最大化 critic 对当前 actor 动作的 Q 值）&lt;/li&gt;
-&lt;li&gt;更新各自目标网络参数（soft update）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;h2&gt;TD3：Twin Delayed DDPG（解决高估与不稳定）&lt;/h2&gt;
-&lt;p&gt;当我用 DDPG 在更复杂的连续控制任务上跑起来以后，很常见的痛点是：回报曲线一会儿很好看，一会儿又突然崩掉；或者 Critic 的 Q 值虚高，导致 Actor 被带偏。TD3 的出现基本就是为了解决这些问题，它把 Double Q-learning 的“取较小估计更保守”的思想带进了 DDPG。&lt;/p&gt;
-&lt;p&gt;工程上 TD3 的“显眼差别”主要体现在三件事：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;双 Critic&lt;/strong&gt;：两个 $Q_1, Q_2$，算 target 时取较小者缓解过估计&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;延迟更新 Actor&lt;/strong&gt;：critic 更新更频繁，actor 慢一点（delayed policy update）
-3.（常见实现里还有 target policy smoothing：对 target 动作加一点小噪声）&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;实际写代码时，你只要把“双 critic”写对、把“actor 延迟更新”写对，就能看到稳定性明显提升；其它技巧（比如 target policy smoothing）可以作为锦上添花后面再加。&lt;/p&gt;
-&lt;h2&gt;SAC：Soft Actor-Critic（熵正则化让探索更“软”）&lt;/h2&gt;
-&lt;p&gt;SAC 是我在连续控制里最喜欢的一套，因为它对“探索”这件事的处理更自然：不是靠外部噪声硬塞随机性，而是在优化目标里直接鼓励策略保持一定随机性（最大化熵）。很多时候这会让训练更稳，也更不容易陷入坏的局部最优。&lt;/p&gt;
-&lt;p&gt;从工程上看，SAC 依然离不开三块：网络、replay、update。常见的网络拆分是 ValueNet / QNet / PolicyNet（也有实现会省略 ValueNet，用 twin Q + target V 替代，但主旨不变）。&lt;/p&gt;
-&lt;p&gt;你选哪种网络拆法都可以，关键是 update 的目标里要正确引入熵正则项，以及 Policy 更新时要能拿到 action 的 &lt;code&gt;log_prob&lt;/code&gt;。&lt;/p&gt;
-&lt;h3&gt;SAC 的直觉&lt;/h3&gt;
-&lt;p&gt;如果你把 PPO 理解成“动作概率分布 + on-policy 约束”，那 SAC 更像：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;在 off-policy 的 Q 学习里，鼓励策略保持一定随机性（最大化熵），让探索更稳定。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3&gt;工程差异点：PolicyNet 的动作采样&lt;/h3&gt;
-&lt;p&gt;我在实现 SAC 时，会把策略网络的动作相关函数明确拆成两种：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;evaluate()&lt;/code&gt; 用于训练：返回采样动作以及它的 &lt;code&gt;log_prob&lt;/code&gt;（因为熵项要用到它）；&lt;code&gt;get_action()&lt;/code&gt; 用于交互/测试：给定 state 输出动作（测试时通常用更确定的方式，比如取均值，或者关掉随机性）。&lt;/p&gt;
-&lt;p&gt;你可以把它们理解为我们前面文章中的 &lt;code&gt;sample/predict&lt;/code&gt; 的连续动作版本：训练期需要概率信息，测试期只需要行为本身。&lt;/p&gt;
-&lt;h2&gt;小结&lt;/h2&gt;
-&lt;p&gt;把连续控制这三套算法压缩成一句工程结论：&lt;/p&gt;
-&lt;p&gt;DDPG/TD3/SAC 都是“Actor 产动作、Critic 评估 $(s,a)$、Replay 做 off-policy”，差异主要体现在 &lt;code&gt;update()&lt;/code&gt; 的 target 计算方式、是否用双 critic、是否延迟更新 actor、以及是否引入熵正则。&lt;/p&gt;
-&lt;p&gt;如果你后面要把这些算法写成统一框架，我建议保留同样的接口：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练交互（DDPG/TD3 加噪声，SAC 采样分布）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试（不加噪声/取均值动作）&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 replay 采样并更新网络&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;后续我会看情况把这个系列继续补成“通用工程模板仓库”：统一日志、统一评估、统一保存/加载与配置管理。&lt;/p&gt;
-&lt;h3&gt;连续控制里我最常踩的坑 &amp;#x26; 排障顺序&lt;/h3&gt;
-&lt;p&gt;连续控制的训练“崩”起来比离散动作更快，尤其是 DDPG/TD3 这种 deterministic 方法，稍微一个尺度不对就会直接发散。我一般按下面顺序排查：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;动作缩放是否正确&lt;/strong&gt;：Actor 输出常是 &lt;code&gt;tanh&lt;/code&gt; 的 $[-1,1]$，环境动作空间可能是别的范围。这个映射一旦错了，训练会表现得非常诡异（像是永远学不会某个动作方向）。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;噪声别太大/别太小&lt;/strong&gt;：噪声太大动作乱飞，buffer 里全是坏数据；噪声太小又不探索。建议先把噪声单独打印出来，看它的量级相对动作范围是否合理。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;先盯 Q 值是否爆炸&lt;/strong&gt;：每隔一段时间打印 &lt;code&gt;Q1/Q2&lt;/code&gt; 的均值、最大值；如果 Q 值飙升，优先怀疑学习率、reward 尺度、done 处理、target 计算。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;target 的软更新系数（tau）要保守&lt;/strong&gt;：tau 太大，target 跟着在线网络跑，稳定性下降；tau 太小，又会学得很慢。建议先用保守设置跑通，再微调。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;TD3 的双 critic/取 min 要写对&lt;/strong&gt;：这是它解决过估计的核心。如果你写成了 max，或者 target 用错了 critic，会直接退化/发散。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;SAC 重点看 entropy / alpha&lt;/strong&gt;：熵项权重不合适，会出现“动作太随机”或“过早确定”。如果实现支持自动调 alpha，一般会更省心。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;先用短 horizon 验证闭环&lt;/strong&gt;：把 episode length 缩短、reward 简化、甚至先关掉部分随机性，确认 update 不会爆，再逐步加回真实设置。&lt;/li&gt;
-&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.BMCKMFQL.jpg"/><enclosure url="/_astro/heroimage.BMCKMFQL.jpg"/></item><item><title>强化学习算法程序实践（3）：策略梯度与 Actor-Critic</title><link>https://xiaohei94.github.io/blog/rl-algorithm-3</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-3</guid><description>策略分布（Softmax / Gaussian）设计，回报累积与并行采样。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.DbVa9Sil.jpg"/><enclosure url="/_astro/heroimage.DbVa9Sil.jpg"/></item><item><title>强化学习算法程序实践（3）：策略梯度与 Actor-Critic</title><link>https://xiaohei94.github.io/blog/rl-algorithm-3</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-3</guid><description>策略分布（Softmax / Gaussian）设计，回报累积与并行采样。</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
 &lt;h2&gt;前言&lt;/h2&gt;
 &lt;p&gt;前两篇我们一直站在“值函数”的视角：学 $Q(s,a)$，再用 $\arg\max$ 导出策略。&lt;/p&gt;
 &lt;p&gt;策略梯度（Policy Gradient）反过来：&lt;strong&gt;直接优化策略 $\pi_\theta(a|s)$&lt;/strong&gt;。这件事在实战里很“香”，一方面它天然适配连续动作（不用把动作硬离散、再用 DQN 去拟合），另一方面策略本身就是概率分布，探索不再是外部贴一层 epsilon 的补丁，而是模型输出的一部分。&lt;/p&gt;
@@ -2431,7 +2356,81 @@ $$&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;action 与 log_prob 是否匹配同一次采样&lt;/strong&gt;：不要在采样后又对 action 做 clip/变换但忘了同步 log_prob（SAC 里尤其常见）。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;先从最简单环境验证闭环&lt;/strong&gt;：CartPole 这类任务能快速验证“分布采样 + log_prob + 更新”是否正确，别一上来就怼高维连续控制。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;下一篇进入连续控制的三件套：DDPG / TD3 / SAC。它们和 PPO/A2C 的共同点是都有 Actor-Critic，但一个更偏 off-policy，一个更偏熵正则化。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DTT8jEEi.jpg"/><enclosure url="/_astro/heroimage.DTT8jEEi.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
+&lt;p&gt;下一篇进入连续控制的三件套：DDPG / TD3 / SAC。它们和 PPO/A2C 的共同点是都有 Actor-Critic，但一个更偏 off-policy，一个更偏熵正则化。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DTT8jEEi.jpg"/><enclosure url="/_astro/heroimage.DTT8jEEi.jpg"/></item><item><title>强化学习算法程序实践（4）：连续控制（DDPG / TD3 / SAC）</title><link>https://xiaohei94.github.io/blog/rl-algorithm-4</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/rl-algorithm-4</guid><description>Actor/Critic 输入输出、Replay Buffer、探索噪声、以及各自 update 的关键差异</description><pubDate>Thu, 01 May 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside } from &apos;@/components/user&apos;&lt;/p&gt;
+&lt;h2&gt;前言&lt;/h2&gt;
+&lt;p&gt;到了连续控制（continuous action space），你会发现 DQN 这套“输出离散动作 Q 值”的方式没那么顺手了。&lt;/p&gt;
+&lt;p&gt;我第一次做连续控制任务时最大的感受是：&lt;strong&gt;动作不再是“选 A 还是选 B”，而是“输出一段连续向量”&lt;/strong&gt;。这时再用 DQN 去离散化动作，往往既不优雅也不高效。更顺的路线是 Actor-Critic：Actor 直接产出连续动作，Critic 负责评价这个动作在当前状态下到底值不值。&lt;/p&gt;
+&lt;p&gt;我自己当时的“翻车现场”也很典型：把动作离散成 11 档、21 档，看起来很细了，但策略依然像在抖腿——要么动作不够细导致控制很粗糙，要么离散太细导致动作维度膨胀，学习变得又慢又不稳定。更要命的是，reward 曲线的抖动和环境随机性混在一起，你根本不知道是探索问题、还是值估计的问题。于是我就彻底转到 Actor-Critic：动作直接从网络里出来，探索要么靠噪声（DDPG/TD3），要么靠熵正则（SAC），思路一下子清爽很多。&lt;/p&gt;
+&lt;p&gt;这一篇我就沿着我自己的实践顺序，把三套最常用的 off-policy 连续控制算法串起来：DDPG 是最基础的 deterministic Actor-Critic；TD3 主要是修 DDPG 容易高估、容易抖的问题；SAC 则在目标函数里把“熵”引入进来，让探索更自然、训练更稳。&lt;/p&gt;
+&lt;p&gt;这篇我按“你写代码时要实现哪些模块”来整理。&lt;/p&gt;
+&lt;h2&gt;DDPG：deterministic Actor-Critic 的最小工程结构&lt;/h2&gt;
+&lt;p&gt;DDPG 的结构非常“工科”：Actor 输出动作 $a$，Critic 评估 $(s,a)$ 的 Q 值。这里有一个我认为必须牢牢记住的关键点：&lt;strong&gt;Critic 的输入是 state + action 的拼接&lt;/strong&gt;，不是只喂 state。&lt;/p&gt;
+&lt;h3&gt;网络结构&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Actor（策略网络）：输入 state，输出连续动作；输出层常用 &lt;code&gt;tanh&lt;/code&gt; 把动作限制到 $[-1,1]$（再映射到环境动作范围）&lt;/li&gt;
+&lt;li&gt;Critic（价值网络）：输入 &lt;code&gt;[state, action]&lt;/code&gt; 拼接向量，输出 $Q(s,a)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实现时我会额外注意一个特别容易被忽略的小细节：Actor/Critic 的输出层初始化不要太“放飞”。如果初始动作幅度很大，或者 Critic 初始 Q 值异常夸张，训练经常会在前几千步就开始发散。很多实现会对最后一层的权重做更小范围的初始化，就是为了解决这个。&lt;/p&gt;
+&lt;h3&gt;Replay Buffer&lt;/h3&gt;
+&lt;p&gt;和 DQN 类似（push+sample），但 transition 里的 action 是连续向量。&lt;/p&gt;
+&lt;h3&gt;探索噪声&lt;/h3&gt;
+&lt;p&gt;DDPG 是确定性策略（deterministic policy），所以探索通常靠&lt;strong&gt;给动作加噪声&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;action = actor(state) + noise&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我的习惯是：训练阶段加噪声促进探索；测试阶段完全关掉噪声，只看学到的确定性策略到底能拿多少回报。否则你会出现一个很“玄学”的现象：测试时看起来也很随机，根本不知道模型到底学没学会。&lt;/p&gt;
+&lt;h3&gt;update：先 critic 再 actor，再软更新 target&lt;/h3&gt;
+&lt;p&gt;DDPG 的 &lt;code&gt;update()&lt;/code&gt; 我通常按固定顺序写死：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;从 replay 采样一批 transition&lt;/li&gt;
+&lt;li&gt;用贝尔曼方程算 critic target&lt;/li&gt;
+&lt;li&gt;更新 critic（最小化 TD error）&lt;/li&gt;
+&lt;li&gt;更新 actor（最大化 critic 对当前 actor 动作的 Q 值）&lt;/li&gt;
+&lt;li&gt;更新各自目标网络参数（soft update）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2&gt;TD3：Twin Delayed DDPG（解决高估与不稳定）&lt;/h2&gt;
+&lt;p&gt;当我用 DDPG 在更复杂的连续控制任务上跑起来以后，很常见的痛点是：回报曲线一会儿很好看，一会儿又突然崩掉；或者 Critic 的 Q 值虚高，导致 Actor 被带偏。TD3 的出现基本就是为了解决这些问题，它把 Double Q-learning 的“取较小估计更保守”的思想带进了 DDPG。&lt;/p&gt;
+&lt;p&gt;工程上 TD3 的“显眼差别”主要体现在三件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;双 Critic&lt;/strong&gt;：两个 $Q_1, Q_2$，算 target 时取较小者缓解过估计&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;延迟更新 Actor&lt;/strong&gt;：critic 更新更频繁，actor 慢一点（delayed policy update）
+3.（常见实现里还有 target policy smoothing：对 target 动作加一点小噪声）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;实际写代码时，你只要把“双 critic”写对、把“actor 延迟更新”写对，就能看到稳定性明显提升；其它技巧（比如 target policy smoothing）可以作为锦上添花后面再加。&lt;/p&gt;
+&lt;h2&gt;SAC：Soft Actor-Critic（熵正则化让探索更“软”）&lt;/h2&gt;
+&lt;p&gt;SAC 是我在连续控制里最喜欢的一套，因为它对“探索”这件事的处理更自然：不是靠外部噪声硬塞随机性，而是在优化目标里直接鼓励策略保持一定随机性（最大化熵）。很多时候这会让训练更稳，也更不容易陷入坏的局部最优。&lt;/p&gt;
+&lt;p&gt;从工程上看，SAC 依然离不开三块：网络、replay、update。常见的网络拆分是 ValueNet / QNet / PolicyNet（也有实现会省略 ValueNet，用 twin Q + target V 替代，但主旨不变）。&lt;/p&gt;
+&lt;p&gt;你选哪种网络拆法都可以，关键是 update 的目标里要正确引入熵正则项，以及 Policy 更新时要能拿到 action 的 &lt;code&gt;log_prob&lt;/code&gt;。&lt;/p&gt;
+&lt;h3&gt;SAC 的直觉&lt;/h3&gt;
+&lt;p&gt;如果你把 PPO 理解成“动作概率分布 + on-policy 约束”，那 SAC 更像：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在 off-policy 的 Q 学习里，鼓励策略保持一定随机性（最大化熵），让探索更稳定。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3&gt;工程差异点：PolicyNet 的动作采样&lt;/h3&gt;
+&lt;p&gt;我在实现 SAC 时，会把策略网络的动作相关函数明确拆成两种：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;evaluate()&lt;/code&gt; 用于训练：返回采样动作以及它的 &lt;code&gt;log_prob&lt;/code&gt;（因为熵项要用到它）；&lt;code&gt;get_action()&lt;/code&gt; 用于交互/测试：给定 state 输出动作（测试时通常用更确定的方式，比如取均值，或者关掉随机性）。&lt;/p&gt;
+&lt;p&gt;你可以把它们理解为我们前面文章中的 &lt;code&gt;sample/predict&lt;/code&gt; 的连续动作版本：训练期需要概率信息，测试期只需要行为本身。&lt;/p&gt;
+&lt;h2&gt;小结&lt;/h2&gt;
+&lt;p&gt;把连续控制这三套算法压缩成一句工程结论：&lt;/p&gt;
+&lt;p&gt;DDPG/TD3/SAC 都是“Actor 产动作、Critic 评估 $(s,a)$、Replay 做 off-policy”，差异主要体现在 &lt;code&gt;update()&lt;/code&gt; 的 target 计算方式、是否用双 critic、是否延迟更新 actor、以及是否引入熵正则。&lt;/p&gt;
+&lt;p&gt;如果你后面要把这些算法写成统一框架，我建议保留同样的接口：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sample(state)&lt;/code&gt;：训练交互（DDPG/TD3 加噪声，SAC 采样分布）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;predict(state)&lt;/code&gt;：测试（不加噪声/取均值动作）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update()&lt;/code&gt;：从 replay 采样并更新网络&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;后续我会看情况把这个系列继续补成“通用工程模板仓库”：统一日志、统一评估、统一保存/加载与配置管理。&lt;/p&gt;
+&lt;h3&gt;连续控制里我最常踩的坑 &amp;#x26; 排障顺序&lt;/h3&gt;
+&lt;p&gt;连续控制的训练“崩”起来比离散动作更快，尤其是 DDPG/TD3 这种 deterministic 方法，稍微一个尺度不对就会直接发散。我一般按下面顺序排查：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;动作缩放是否正确&lt;/strong&gt;：Actor 输出常是 &lt;code&gt;tanh&lt;/code&gt; 的 $[-1,1]$，环境动作空间可能是别的范围。这个映射一旦错了，训练会表现得非常诡异（像是永远学不会某个动作方向）。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;噪声别太大/别太小&lt;/strong&gt;：噪声太大动作乱飞，buffer 里全是坏数据；噪声太小又不探索。建议先把噪声单独打印出来，看它的量级相对动作范围是否合理。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先盯 Q 值是否爆炸&lt;/strong&gt;：每隔一段时间打印 &lt;code&gt;Q1/Q2&lt;/code&gt; 的均值、最大值；如果 Q 值飙升，优先怀疑学习率、reward 尺度、done 处理、target 计算。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;target 的软更新系数（tau）要保守&lt;/strong&gt;：tau 太大，target 跟着在线网络跑，稳定性下降；tau 太小，又会学得很慢。建议先用保守设置跑通，再微调。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TD3 的双 critic/取 min 要写对&lt;/strong&gt;：这是它解决过估计的核心。如果你写成了 max，或者 target 用错了 critic，会直接退化/发散。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SAC 重点看 entropy / alpha&lt;/strong&gt;：熵项权重不合适，会出现“动作太随机”或“过早确定”。如果实现支持自动调 alpha，一般会更省心。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;先用短 horizon 验证闭环&lt;/strong&gt;：把 episode length 缩短、reward 简化、甚至先关掉部分随机性，确认 update 不会爆，再逐步加回真实设置。&lt;/li&gt;
+&lt;/ol&gt;</content:encoded><h:img src="/_astro/heroimage.BMCKMFQL.jpg"/><enclosure url="/_astro/heroimage.BMCKMFQL.jpg"/></item><item><title>GitHub + Vercel 部署（推荐）</title><link>https://xiaohei94.github.io/blog/deploy-vercel</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/deploy-vercel</guid><description>使用 GitHub 管理代码，并用 Vercel 自动构建与部署（含环境变量与常见坑）。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 为什么推荐 GitHub + Vercel&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;PR 预览：每个分支/PR 都能拿到可访问的预览链接&lt;/li&gt;
 &lt;li&gt;自动构建：push 即部署&lt;/li&gt;
@@ -2465,7 +2464,23 @@ pnpm build
 &lt;p&gt;如果你希望生成纯静态站点（例如 GitHub Pages），使用：&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;DEPLOYMENT_PLATFORM=github
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
+&lt;p&gt;并确保你的部署平台支持静态产物 &lt;code&gt;dist/&lt;/code&gt;。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.CpJZWsBS.jpg"/><enclosure url="/_astro/heroimage.CpJZWsBS.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
+import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
+&lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
+&lt;h2&gt;2. User 组件示例&lt;/h2&gt;
+&lt;h2&gt;3. Advanced 组件示例&lt;/h2&gt;
+&lt;h3&gt;GitHub 卡片&lt;/h3&gt;
+&lt;h3&gt;链接预览&lt;/h3&gt;
+&lt;h3&gt;二维码&lt;/h3&gt;
+&lt;h3&gt;图片组（等高拼图）&lt;/h3&gt;
+&lt;p&gt;&amp;#x3C;ImageGroup
+images={[
+{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image A&apos;, aspectRatio: 16 / 9 },
+{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
+]}
+/&gt;&lt;/p&gt;
+&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="/_astro/heroimage.MTMZ7R1c.jpg"/><enclosure url="/_astro/heroimage.MTMZ7R1c.jpg"/></item><item><title>Friend Circle（朋友圈）：接入与配置</title><link>https://xiaohei94.github.io/blog/friend-circle</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/friend-circle</guid><description>使用 Friend-Circle-Lite 生成数据源，并在 Links 页面展示朋友圈动态。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Friend Circle 是什么&lt;/h2&gt;
 &lt;p&gt;“朋友圈”页面会展示友链站点的最新文章聚合，适合在 Links 页让访问者快速看到朋友们的新内容。&lt;/p&gt;
 &lt;p&gt;本主题的 Links 页集成入口在：&lt;/p&gt;
 &lt;ul&gt;
@@ -2489,23 +2504,55 @@ pnpm build
 &lt;/ul&gt;
 &lt;p&gt;配置完成后，&lt;code&gt;/links&lt;/code&gt; 页面会自动显示 “Small Circle / 朋友圈” 区块。&lt;/p&gt;
 &lt;h2&gt;4. 友链 RSS 建议&lt;/h2&gt;
-&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>MDX 组件使用：User &amp; Advanced</title><link>https://xiaohei94.github.io/blog/mdx-components</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/mdx-components</guid><description>文章内组件（Aside/Tabs 等）与高级组件（LinkPreview/GithubCard 等）的使用方式。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;import { Aside, Tabs, TabItem, Spoiler } from &apos;@/components/user&apos;
-import { GithubCard, LinkPreview, QRCode, ImageGroup, WebVideo } from &apos;@/components/advanced&apos;&lt;/p&gt;
-&lt;h2&gt;1. 必须使用 MDX&lt;/h2&gt;
-&lt;p&gt;&lt;code&gt;.md&lt;/code&gt; 文章无法 &lt;code&gt;import&lt;/code&gt; 组件；请使用 &lt;code&gt;.mdx&lt;/code&gt;（如 &lt;code&gt;src/content/blogs/&amp;#x3C;slug&gt;/index.mdx&lt;/code&gt;）。&lt;/p&gt;
-&lt;h2&gt;2. User 组件示例&lt;/h2&gt;
-&lt;h2&gt;3. Advanced 组件示例&lt;/h2&gt;
-&lt;h3&gt;GitHub 卡片&lt;/h3&gt;
-&lt;h3&gt;链接预览&lt;/h3&gt;
-&lt;h3&gt;二维码&lt;/h3&gt;
-&lt;h3&gt;图片组（等高拼图）&lt;/h3&gt;
-&lt;p&gt;&amp;#x3C;ImageGroup
-images={[
-{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image A&apos;, aspectRatio: 16 / 9 },
-{ src: &apos;https://picr2.axi404.top/1767811093734_image.webp&apos;, alt: &apos;Image B&apos;, aspectRatio: 1 },
-]}
-/&gt;&lt;/p&gt;
-&lt;h3&gt;内嵌视频&lt;/h3&gt;</content:encoded><h:img src="/_astro/heroimage.MTMZ7R1c.jpg"/><enclosure url="/_astro/heroimage.MTMZ7R1c.jpg"/></item><item><title>Astro Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
+&lt;p&gt;如果某个站点在友链里但朋友圈里没有内容，通常是该站点未提供 RSS 或 RSS 不可访问。建议为友链站点补全 RSS。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.BR9vw3ZO.jpg"/><enclosure url="/_astro/heroimage.BR9vw3ZO.jpg"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Theme 中启用评论与访问量统计。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
+&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;a href=&quot;https://zoooooone.github.io/posts/waline/#2-%E8%AF%84%E8%AE%BA%E9%80%9A%E7%9F%A5%E5%BC%80%E5%90%AF&quot;&gt;Waline 评论系统&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
+&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
+  enable: true,
+  server: &apos;https://waline.example.com/&apos;,
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 常见说明&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
+&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DtXCi-sH.jpg"/><enclosure url="/_astro/heroimage.DtXCi-sH.jpg"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
+&lt;p&gt;主题默认启用了常用扩展：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;GFM：表格、删除线、任务列表等&lt;/li&gt;
+&lt;li&gt;数学公式：KaTeX（&lt;code&gt;$...$&lt;/code&gt; / &lt;code&gt;$$...$$&lt;/code&gt;）&lt;/li&gt;
+&lt;li&gt;代码高亮：Shiki（支持标题、差异标注等）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;2. 数学公式（KaTeX）&lt;/h2&gt;
+&lt;p&gt;行内：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;欧拉公式：$e^{i\\pi}+1=0$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;块级：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;$$
+\\int_0^1 x^2 dx = \\frac{1}{3}
+$$
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;3. 代码块增强（差异/高亮）&lt;/h2&gt;
+&lt;p&gt;你可以在代码中使用注释标记来展示变更（示例来自主题的高亮 transformer）：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const a = 1 // [!code --]
+const a = 2 // [!code ++]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;也可以做行高亮：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const token = &apos;secret&apos; // [!code highlight]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
+&lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
+&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DKXwZ6L7.jpg"/><enclosure url="/_astro/heroimage.DKXwZ6L7.jpg"/></item><item><title>Astro Theme 基础使用与配置</title><link>https://xiaohei94.github.io/blog/theme-basics</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/theme-basics</guid><description>从本地启动到站点配置：了解内容结构、配置入口与常见改动点。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 前置条件&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;Node.js 18+（建议 20+）&lt;/li&gt;
 &lt;li&gt;包管理器：&lt;code&gt;pnpm&lt;/code&gt;&lt;/li&gt;
@@ -2555,52 +2602,4 @@ pnpm preview
 &lt;p&gt;建议使用 GitHub 托管代码 + Vercel 自动部署（PR 预览、回滚、CDN、HTTPS 都更省心）。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;部署思路与注意事项：&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DXx_8_1r.jpg"/><enclosure url="/_astro/heroimage.DXx_8_1r.jpg"/></item><item><title>Waline 评论系统：部署与接入</title><link>https://xiaohei94.github.io/blog/waline</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/waline</guid><description>部署 Waline 服务端，并在 Theme 中启用评论与访问量统计。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. 部署 Waline 服务端&lt;/h2&gt;
-&lt;p&gt;请参考这篇完整教程（包含服务端部署与配置项说明）：&lt;a href=&quot;https://zoooooone.github.io/posts/waline/#2-%E8%AF%84%E8%AE%BA%E9%80%9A%E7%9F%A5%E5%BC%80%E5%90%AF&quot;&gt;Waline 评论系统&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;部署完成后你会得到一个服务端地址，例如：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;https://waline.example.com/
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;2. 在主题中启用 Waline&lt;/h2&gt;
-&lt;p&gt;编辑 &lt;code&gt;src/site.config.ts&lt;/code&gt;：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.enable&lt;/code&gt;: 设为 &lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;integ.waline.server&lt;/code&gt;: 填你的 Waline Server URL&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;示例：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;waline: {
-  enable: true,
-  server: &apos;https://waline.example.com/&apos;,
-}
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 常见说明&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;评论区组件：&lt;code&gt;src/components/advanced/Comment.astro&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;页面访问量/评论数：部分页面会加载 Waline 的 &lt;code&gt;pageview&lt;/code&gt; 统计（见 &lt;code&gt;src/pages/*&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;单篇文章是否显示评论：由文章 Frontmatter 的 &lt;code&gt;comment&lt;/code&gt; 控制（默认 &lt;code&gt;true&lt;/code&gt;）&lt;/li&gt;
-&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DtXCi-sH.jpg"/><enclosure url="/_astro/heroimage.DtXCi-sH.jpg"/></item><item><title>写作指南：Markdown / MDX</title><link>https://xiaohei94.github.io/blog/writing-markdown-mdx</link><guid isPermaLink="true">https://xiaohei94.github.io/blog/writing-markdown-mdx</guid><description>主题内支持的 Markdown 扩展、数学公式、代码高亮与一些写作约定。</description><pubDate>Sat, 11 Jan 2025 00:00:00 GMT</pubDate><content:encoded>&lt;h2&gt;1. Markdown 支持范围&lt;/h2&gt;
-&lt;p&gt;主题默认启用了常用扩展：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;GFM：表格、删除线、任务列表等&lt;/li&gt;
-&lt;li&gt;数学公式：KaTeX（&lt;code&gt;$...$&lt;/code&gt; / &lt;code&gt;$$...$$&lt;/code&gt;）&lt;/li&gt;
-&lt;li&gt;代码高亮：Shiki（支持标题、差异标注等）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2&gt;2. 数学公式（KaTeX）&lt;/h2&gt;
-&lt;p&gt;行内：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;欧拉公式：$e^{i\\pi}+1=0$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;块级：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-md&quot;&gt;$$
-\\int_0^1 x^2 dx = \\frac{1}{3}
-$$
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;3. 代码块增强（差异/高亮）&lt;/h2&gt;
-&lt;p&gt;你可以在代码中使用注释标记来展示变更（示例来自主题的高亮 transformer）：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const a = 1 // [!code --]
-const a = 2 // [!code ++]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;也可以做行高亮：&lt;/p&gt;
-&lt;pre&gt;&lt;code class=&quot;language-ts&quot;&gt;const token = &apos;secret&apos; // [!code highlight]
-&lt;/code&gt;&lt;/pre&gt;
-&lt;h2&gt;4. 什么时候用 MDX&lt;/h2&gt;
-&lt;p&gt;当你需要在文章里使用组件（例如 &lt;code&gt;Aside&lt;/code&gt;、&lt;code&gt;Tabs&lt;/code&gt;、&lt;code&gt;GithubCard&lt;/code&gt; 等）时，请使用 &lt;code&gt;.mdx&lt;/code&gt;，并在文件顶部 &lt;code&gt;import&lt;/code&gt; 组件。&lt;/p&gt;
-&lt;p&gt;组件用法示例文档：见 “MDX 组件使用”。&lt;/p&gt;</content:encoded><h:img src="/_astro/heroimage.DKXwZ6L7.jpg"/><enclosure url="/_astro/heroimage.DKXwZ6L7.jpg"/></item></channel></rss>
+&lt;/ul&gt;</content:encoded><h:img src="/_astro/heroimage.DXx_8_1r.jpg"/><enclosure url="/_astro/heroimage.DXx_8_1r.jpg"/></item></channel></rss>
