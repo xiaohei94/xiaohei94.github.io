@@ -96,7 +96,7 @@ Update
 </a> </div> </div> </div>  <div class="mt-4 w-1/2 border-t max-lg:mx-auto sm:mt-6 sm:w-1/3"></div> <script type="module">const o=window.innerHeight,s=o/9,i=o*2/9,l=o*3/9,e=document.getElementById("blurImage");e&&window.addEventListener("scroll",()=>{const t=window.scrollY;t>=l?e.style.opacity="0.15":t>=i?e.style.opacity="0.3":t>=s&&(e.style.opacity="0.45")});</script> </div>  <div id="content" class="max-w-none animate mt-8 md:min-w-[45ch] break-words prose prose-axi dark:prose-invert dark:prose-axi prose-headings:font-medium">   <h2 id="前言">前言<a class="anchor" href="#前言">#</a></h2>
 <p>感知模块的配置，往往是无人机开发中最考验人心性的环节。它不像飞控算法那样有确定的数学推导，也不像机械结构那样所见即所得，它更像是一场与软硬件兼容性、通信协议以及物理连接的漫长博弈。通俗的讲这个过程其实并不涉及什么很深奥的原理和推导，更多的其实就是有人手把手的带你走过一遍就可以，然后你就什么都懂了。</p>
 <p>在对自主无人机感知模块的搭建过程中，你可能会在“线没插好”和“驱动没装对”之间反复横跳。三小时前，你可能还对着散落在桌面的航空插头、稳压模块和杂乱的线束感到迷茫；三小时后，当 RViz 里终于跳动起第一帧清晰的点云时，那种心跳与帧率共振的喜悦又会让你觉得一切都值得。</p>
-<p>这篇文章并不是一份枯燥的参数说明书，而是一份**“心法”与“招式”并重**的实战复盘。我将从最基础的物理连接讲起，贯穿 NUC 环境配置、ROS 驱动安装，直到 Mid-360 跑通 FAST-LIO 建图与 Octomap 栅格化。希望这份记录能成为你我未来的备忘录：在面对纷繁复杂的报错时，不要慌张，按图索骥。</p>
+<p>这篇文章并不是一份枯燥的参数说明书，而是一份<strong>“心法”与“招式”并重</strong>的实战复盘。我将从最基础的物理连接讲起，贯穿 NUC 环境配置、ROS 驱动安装，直到 Mid-360 跑通 FAST-LIO 建图与 Octomap 栅格化。希望这份记录能成为你我未来的备忘录：在面对纷繁复杂的报错时，不要慌张，按图索骥。</p>
 <h2 id="part-1硬件组装">Part 1：硬件组装<a class="anchor" href="#part-1硬件组装">#</a></h2>
 <p>我们先来学习一下各个传感器与主要的算力设备之间是怎样实现通信连接的，让我们先明白每个部分的位置和数据流过程。</p>
 <h3 id="nuc-与飞控模块连接">NUC 与飞控模块连接<a class="anchor" href="#nuc-与飞控模块连接">#</a></h3>
